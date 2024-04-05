@@ -1,0 +1,18 @@
+xxx Parse input:
+
+
+x Look for quote marks;
+
+x If there's nothing between them and something's near them - throw them;
+
+!!! ec""ho	or	""echo	or	echo""	or	e"ch"o	-	are valid cases !!!
+
+!!! "" echo	-	is not a valid case, appropriate message: "minishell: permission denied: ",
+	because it tries to execute NULL !!!
+
+x Save cmd, argument and/or flag to the struct.
+
+x Check if command has a defined path (./	or	../some_folder),
+	if not - it's a global one and you need to find a path in environment;
+
+x Check for pipes (and redirections???) == Define number of commands
