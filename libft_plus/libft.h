@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:01:31 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/14 14:19:41 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:22:00 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
-long long	ft_atoi(const char *str);
+int			ft_atoi(const char *str);
 int			ft_isalnum(int c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);

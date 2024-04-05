@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:08:57 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/03 14:27:32 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/05 10:44:11 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ static char	*word_dup(const char *str, int start, int finish)
 
 	i = 0;
 	word = malloc((finish - start + 1) * sizeof(char));
-	while (start < finish)
-		word[i++] = str[start++];
-	word[i] = '\0';
+	if (word != NULL)
+	{
+		while (start < finish)
+			word[i++] = str[start++];
+		word[i] = '\0';
+	}
 	return (word);
 }
 

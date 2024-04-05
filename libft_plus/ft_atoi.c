@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42prague.com    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:31:36 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/03/13 13:01:03 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:22:10 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_number(char c)
 		return (0);
 }
 
-long long	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int			i;
 	int			minus;
