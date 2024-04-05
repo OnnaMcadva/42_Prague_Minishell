@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/04 14:14:12 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/05 10:54:52 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 				if (mns_parse(&data) == ALL_FINE)
 					mns_execute(&data, envp);
 			mns_free_data(&data);
+			// todo: if output doesn't end with \n - put it before the next prompt
 		}
 	}
 	else

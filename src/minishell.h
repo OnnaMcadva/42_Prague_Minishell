@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/04 14:14:24 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/05 10:59:20 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 enum e_token
 {
+	WORD = -1,
 	WHITE_SPACE = ' ',
 	NEW_LINE = '\n',
 	QOUTE = '\'',
@@ -42,6 +43,9 @@ enum e_token
 	PIPE_LINE = '|',
 	REDIR_IN = '<',
 	REDIR_OUT = '>',
+	HERE_DOC,
+	DREDIR_OUT,
+	_NULL = '0',
 };
 
 enum e_state
