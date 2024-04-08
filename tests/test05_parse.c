@@ -1,165 +1,64 @@
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <signal.h>
-# include <fcntl.h>
-# include <string.h>
-# include <termios.h>
-# include <term.h>
-# include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <sys/ioctl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
-#define MAX_TOKENS 100
-#define TOKEN_SIZE 1024
+#define TOKENS_MAX 10
+#define	TKNLEN_MAX 64
 
-enum e_parsed_type
-{
-	UNKNOWN,
-	GLOBAL_EXEC,
-	LOCAL_EXEC,
-	PIPE,
-	REDIR_LEFT,
-	REDIR_RIGHT,
-	VARIABLE,
+enum delimeters {
+	QUOTE = '"',
+	WHITESPACE = ' ',
 };
 
-enum e_token
-{
-	WORD = -1,
-	WHITE_SPACE = ' ',
-	NEW_LINE = '\n',
-	QOUTE = '\'',
-	DOUBLE_QUOTE = '\"',
-	ESCAPE = '\\',
-	ENV = '$',
-	PIPE_LINE = '|',
-	REDIR_IN = '<',
-	REDIR_OUT = '>',
-	HERE_DOC,
-	DREDIR_OUT,
-	_NULL = '0',
+enum status {
+	ERROR = -1,
+	ALL_FINE = 1,
 };
 
-typedef struct s_parse_indexes
+int	parse(char parsed[TOKENS_MAX][TKNLEN_MAX], char *line)
 {
-	int		tkn;
-	int		chr;
-	int		in_quotes;
-	int		last_quote;
-}				t_parse_indexes;
-
-typedef struct s_parsed
-{
-	enum e_parsed_type		type;
-	char					*command;
-	char					*argument;
-	char					*flag;
-}				t_parsed;
-
-typedef struct s_data
-{
-	char			*line;
-	t_parsed		parsed[10];
-	size_t			pipes_count;
-}				t_data;
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-void	*ft_memset(void *str, int c, size_t n)
-{
-	unsigned char	*i;
-
-	i = str;
-	while (n--)
-		*i++ = (unsigned char)c;
-	return (str);
-}
-
-void	mns_split_line(char *line, char tokens[MAX_TOKENS][TOKEN_SIZE])
-{
-	t_parse_indexes	index;
-	int				i;
-
-	index.tkn = 0;
-	index.chr = 0;
-	index.in_quotes = 0;
-	index.last_quote = -2;
-	i = 0;
-
-	while (line[i] != '\0')
-	{
-		if (line[i] == '"')
-		{
-			index.in_quotes = !index.in_quotes;
-			if (i - index.last_quote == 1)
-			{
-				tokens[index.tkn][0] = '\0';
-				index.tkn++;
-			}
-			index.last_quote = i;
-			i++;
-			continue ;
-		}
-		if (line[i] == ' ' && !index.in_quotes)
-		{
-			if (index.chr != 0)
-			{
-				tokens[index.tkn][index.chr] = '\0';
-				index.tkn++;
-				index.chr = 0;
-			}
-		}
-		else
-			tokens[index.tkn][index.chr++] = line[i];
-		i++;
-	}
-	if (index.chr != 0)
-		tokens[index.tkn][index.chr] = '\0';
-}
-
-int	mns_parse(t_data *data)
-{
-	char	tokens[MAX_TOKENS][TOKEN_SIZE];
-
-	ft_memset(tokens, 0, sizeof(tokens));
-	mns_split_line(data->line, tokens);
-	for (int i = 0; i < 3; i++) {
-        printf("Token %d: %s\n", i + 1, tokens[i]);
-    }
-	return(1);
-}
-
-int	mns_init(t_data *data)
-{
+	int	in_quote;
 	int	i;
+	int	j;
+	int k;
 
+	in_quote = 0;
 	i = 0;
-	while (i < 10)
+	j = 0;
+	k = 0;
+	if (!line)
+		return (0);
+	while (line[i] == WHITESPACE)
+		i++;
+	while (line[i] && j < TOKENS_MAX)
 	{
-		data->parsed[i].type = UNKNOWN;
-		data->parsed[i].argument = NULL;
-		data->parsed[i].command = NULL;
-		data->parsed[i].flag = NULL;
+		if (line[i] == QUOTE)
+			in_quote = !in_quote;
+		else if (!in_quote && line[i] == WHITESPACE)
+		{
+			i++;
+			if(!line[i] || line[i] == WHITESPACE)
+				continue;
+			j++;
+			k = 0;
+			continue;
+		}
+		else if (k < TKNLEN_MAX)
+			parsed[j][k++] = line[i];
 		i++;
 	}
-	data->line = NULL;
-	data->pipes_count = 0;
-	return (1);
+	return (j + 1);
 }
 
 int main(int argc, char **argv)
 {
-	t_data data;
+	char line[] = "\"12\"abc    def hij \"\" ";
+	char parsed[TOKENS_MAX][TKNLEN_MAX];
+	int count;
 
-	while (mns_init(&data))
-	{
-		data.line = readline("MY_VERY_GOOD_PROMPT ");
-		if (strlen(data.line))
-			mns_parse(&data);
-		free(data.line);
-	}
+	memset(parsed, 0, sizeof(parsed));
+	count = parse (parsed, line);
+	for (int i = 0; i < count; i++)
+		printf("\n%d: %s\n", i + 1, parsed[i]);
 }
