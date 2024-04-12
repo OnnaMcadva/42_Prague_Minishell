@@ -51,7 +51,7 @@ int	parse(char parsed[TOKENS_MAX][TKNLEN_MAX], char *line)
 	return (j + 1);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
 	char line[] = "\"12\"abc    def hij \"\" ";
 	char parsed[TOKENS_MAX][TKNLEN_MAX];

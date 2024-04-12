@@ -1,20 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "minishell.h"
 
-enum delimiters {
-    DOUBLE_QUOTE = '"',
-    WHITESPACE = ' '
-};
+int mns_tknlen(char *line, int *tkn_len)
+{
+    int in_quote;
+    int i;
+    t_split_var
 
-enum status {
-    MNS_ERROR = -1,
-    ALL_FINE = 1
-};
-
-int mns_tknlen(char *line, int *tkn_len) {
-    int in_quote = 0;
-    int i = 0;
+    in_quote = 0;
+    i = 0;
     while (line[i]) {
         if (line[i] == DOUBLE_QUOTE)
             in_quote = !in_quote;
@@ -22,7 +15,7 @@ int mns_tknlen(char *line, int *tkn_len) {
             i++;
             if(!line[i] || line[i] == WHITESPACE)
                 continue;
-            return i;
+            return (i);
         }
         else
             (*tkn_len)++;
@@ -79,7 +72,8 @@ int mns_split_process(char **splitted, char *line, int tokens)
         line += position;
         i++;
     }
-    return ALL_FINE;
+    splitted[i] = NULL;
+    return (ALL_FINE);
 }
 
 int mns_count_tokens(const char *line)
@@ -96,7 +90,8 @@ int mns_count_tokens(const char *line)
             in_quote = !in_quote;
         else if (!in_quote && line[i] == WHITESPACE)
 		{
-            if (!line[++i] || line[i] == WHITESPACE)
+            i++;
+            if (!line[i] || line[i] == WHITESPACE)
                 continue;
             count++;
         }
@@ -119,18 +114,4 @@ int mns_split(char ***splitted, char *line)
     if (mns_split_process(*splitted, line, tokens) == MNS_ERROR)
         return (MNS_ERROR);
     return (tokens);
-}
-
-int main() {
-    char line[] = "\"\"123";
-    char **splitted;
-    int count = mns_split(&splitted, line);
-
-    for (int i = 0; i < count; i++) {
-        printf("%d: %s\n", i + 1, splitted[i]);
-        free(splitted[i]);  // Don't forget to free individual strings
-    }
-    free(splitted);  // And the main array
-
-    return 0;
 }

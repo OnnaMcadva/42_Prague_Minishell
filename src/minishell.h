@@ -31,10 +31,13 @@
 # define PROMPT "\x1B[36m[minishell] \x1B[35m[ =) ] \x1B[36m~> \x1B[0m"
 // the lenght is 42 =)
 
+# define TOKENS_MAX 10
+# define TKNLEN_MAX 64
+
 enum e_token
 {
 	WORD = -1,
-	WHITE_SPACE = ' ',
+	WHITESPACE = ' ',
 	NEW_LINE = '\n',
 	QOUTE = '\'',
 	DOUBLE_QUOTE = '\"',
@@ -50,7 +53,7 @@ enum e_token
 
 enum e_state
 {
-	ERROR = -1,
+	MNS_ERROR = -1,
 	CHILD = 0,
 	PARENT,
 	ALL_FINE,
@@ -63,8 +66,15 @@ typedef struct s_data
 	char			**paths;
 }				t_data;
 
+typedef struct s_split_var {
+	int	i;
+	int	j;
+	int	in_quote;
+}				t_split_var;
+
 int				mns_init(t_data *data);
 int				mns_parse(t_data *data);
+int				mns_split(char ***splitted, char *line);
 void			mns_execute(t_data *data, char **envp);
 void			mns_free_data(t_data *data);
 

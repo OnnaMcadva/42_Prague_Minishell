@@ -24,6 +24,7 @@ FILES = minishell \
 		mns_free \
 		mns_init \
 		mns_parse \
+		mns_split \
 		mns_utils \
 
 

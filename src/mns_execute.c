@@ -22,7 +22,7 @@ char	*mns_exec_path(t_data *data)
 	while (data->paths[i])
 	{
 		possible_path = ft_strjoin(data->paths[i], "/");
-		possible_exec = ft_strjoin(possible_path, data->parsed[0]);
+		possible_exec = ft_strjoin(possible_path, data->parsed[0]); // need to work here and use proper command for each child
 		free(possible_path);
 		if (access(possible_exec, F_OK | X_OK) == 0)
 			return (possible_exec);

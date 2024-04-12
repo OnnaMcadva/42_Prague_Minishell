@@ -14,8 +14,10 @@
 
 int	mns_parse(t_data *data)
 {
-	data->parsed = ft_split(data->line, WHITE_SPACE);
-	if (!data->parsed[0])
-		return (ERROR);
+	// data->parsed = ft_split(data->line, WHITESPACE);
+	// printf("\n%s\n", data->parsed[0]);
+	mns_split(&data->parsed, data->line);
+	if (!data->parsed || !data->parsed[0])
+		return (MNS_ERROR);
 	return (ALL_FINE);
 }
