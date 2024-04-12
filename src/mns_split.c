@@ -4,7 +4,6 @@ int mns_tknlen(char *line, int *tkn_len)
 {
     int in_quote;
     int i;
-    t_split_var
 
     in_quote = 0;
     i = 0;
@@ -24,16 +23,12 @@ int mns_tknlen(char *line, int *tkn_len)
     return i;
 }
 
-char *mns_tkndup(char *line, int tkn_len, int position)
+char *mns_tkndup(char *line, char *token, int tkn_len, int position)
 {
-    char *token;
 	int in_quote;
 	int i;
 	int	j;
 
-	token = malloc(tkn_len + 1);
-    if (!token)
-		return (NULL);
     in_quote = 0;
    	i = 0;
 	j = 0;
@@ -66,9 +61,10 @@ int mns_split_process(char **splitted, char *line, int tokens)
 	{
         tkn_len = 0;
         position = mns_tknlen(line, &tkn_len);
-        splitted[i] = mns_tkndup(line, tkn_len, position);
+        splitted[i] = (char *)malloc((tkn_len + 1) * sizeof(char));
         if (!splitted[i])
 			return (MNS_ERROR);
+        splitted[i] = mns_tkndup(line, splitted[i], tkn_len, position);
         line += position;
         i++;
     }
@@ -85,7 +81,8 @@ int mns_count_tokens(const char *line)
 	i = 0;
 	count = 1;
 	in_quote = 0;
-    while (line[i]) {
+    while (line[i])
+    {
         if (line[i] == DOUBLE_QUOTE)
             in_quote = !in_quote;
         else if (!in_quote && line[i] == WHITESPACE)
@@ -107,7 +104,7 @@ int mns_split(char ***splitted, char *line)
 		line++;
     tokens = mns_count_tokens(line);
     if (tokens == 0)
-		return 0;
+		return (0);
     *splitted = malloc((tokens + 1) * sizeof(char *));
     if (!*splitted)
 		return (MNS_ERROR);

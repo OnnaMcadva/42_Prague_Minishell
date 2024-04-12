@@ -43,7 +43,7 @@ void	mns_execute(t_data *data, char **envp)
 	else
 	{
 		pid = fork();
-		if (pid == ERROR)
+		if (pid == MNS_ERROR)
 			printf ("fork error");
 		else if (pid == CHILD)
 			execve(exec, data->parsed, envp);

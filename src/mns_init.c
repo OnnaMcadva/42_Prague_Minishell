@@ -16,7 +16,7 @@ int	mns_init_paths(t_data *data)
 {
 	data->paths = ft_split(getenv("PATH"), ':');
 	if (!data->paths)
-		return (ERROR);
+		return (MNS_ERROR);
 	return (ALL_FINE);
 }
 
@@ -24,7 +24,7 @@ int	mns_init(t_data *data)
 {
 	data->line = NULL;
 	data->parsed = NULL;
-	if (mns_init_paths(data) == ERROR)
-		return (mns_free_data(data), ERROR);
+	if (mns_init_paths(data) == MNS_ERROR)
+		return (mns_free_data(data), MNS_ERROR);
 	return (ALL_FINE);
 }
