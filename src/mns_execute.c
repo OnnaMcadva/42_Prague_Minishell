@@ -33,7 +33,6 @@ char	*mns_exec_path(t_data *data)
 	return (NULL);
 }
 
-/* TODO: add a FD argument ??*/
 void	mns_execute(t_data *data, char **envp)
 {
 	char	*exec;

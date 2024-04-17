@@ -17,6 +17,6 @@ void	mns_sigint_handler(int sig)
 	mns_util_do_nothing(&sig);
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	// rl_replace_line("", 0);
 	rl_redisplay();
 }

@@ -11,13 +11,18 @@
 # **************************************************************************** #
 
 NAME = minishell
+UNAME = $(shell uname -s)
 CC = @clang
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-LIBFLAGS = -lreadline -L./libft_plus -lft_plus
 LIBFT_DIR = ./libft_plus
 LIBFT_LIB = $(LIBFT_DIR)/libft_plus.a
 RM = @rm -rf
 
+ifeq ($(UNAME),Darwin)
+LIBFLAGS = -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline -L./libft_plus -lft_plus
+else
+LIBFLAGS = -lreadline -L./libft_plus -lft_plus
+endif
 
 FILES = minishell \
 		mns_execute \

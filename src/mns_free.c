@@ -17,14 +17,14 @@ void	mns_free_data(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->parsed)
-		while (data->parsed[i])
-			free(data->parsed[i++]);
+	if (data->splitted)
+		while (data->splitted[i])
+			free(data->splitted[i++]);
 	i = 0;
 	if (data->paths)
 		while (data->paths[i])
 			free(data->paths[i++]);
 	free (data->paths);
-	free (data->parsed);
+	free (data->splitted);
 	free (data->line);
 }
