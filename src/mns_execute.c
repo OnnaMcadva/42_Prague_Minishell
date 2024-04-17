@@ -6,12 +6,13 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:39:48 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/17 15:54:34 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:00:52 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* TODO: use the correct parsed element depending on child */
 char	*mns_exec_path(t_data *data)
 {
 	int		i;
@@ -32,6 +33,7 @@ char	*mns_exec_path(t_data *data)
 	return (NULL);
 }
 
+/* TODO: add a FD argument ??*/
 void	mns_execute(t_data *data, char **envp)
 {
 	char	*exec;
