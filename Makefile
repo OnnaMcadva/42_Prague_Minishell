@@ -6,7 +6,7 @@
 #    By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 10:26:38 by mmakagon          #+#    #+#              #
-#    Updated: 2024/04/04 13:53:43 by mmakagon         ###   ########.fr        #
+#    Updated: 2024/04/17 14:55:43 by mmakagon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ FILES = minishell \
 		mns_free \
 		mns_init \
 		mns_parse \
+		mns_signal \
 		mns_split \
 		mns_utils \
 
