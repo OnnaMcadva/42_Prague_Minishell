@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/17 15:29:07 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:55:06 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ int	mns_count_tokens(const char *line)
 			if (!line[i])
 				break ;
 			count++;
-			continue;
+			continue ;
 		}
 		i++;
 	}
@@ -235,9 +235,9 @@ int	mns_split(char ***splitted, char *line)
 
 	while (*line == WHITESPACE)
 		line++;
-	tokens = mns_count_tokens(line);
-	if (tokens == 0)
+	if (!*line)
 		return (0);
+	tokens = mns_count_tokens(line);
 	*splitted = malloc((tokens + 1) * sizeof(char *));
 	if (!*splitted)
 		return (MNS_ERROR);

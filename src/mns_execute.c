@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:39:48 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/15 10:53:59 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:54:34 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*mns_exec_path(t_data *data)
 	while (data->paths[i])
 	{
 		possible_path = ft_strjoin(data->paths[i], "/");
-		possible_exec = ft_strjoin(possible_path, data->parsed[0]);
+		possible_exec = ft_strjoin(possible_path, data->splitted[0]);
 		free(possible_path);
 		if (access(possible_exec, F_OK | X_OK) == 0)
 			return (possible_exec);
@@ -39,14 +39,20 @@ void	mns_execute(t_data *data, char **envp)
 
 	exec = mns_exec_path(data);
 	if (!exec)
-		printf ("minishell: command not found: %s\n", data->parsed[0]);
+		printf ("minishell: command not found: %s\n", data->splitted[0]);
 	else
 	{
 		pid = fork();
 		if (pid == MNS_ERROR)
 			printf ("fork error");
 		else if (pid == CHILD)
-			execve(exec, data->parsed, envp);
+		{
+			if (execve(exec, data->splitted, envp) == MNS_ERROR)
+			{
+				ft_putendl_fd("minishell: permission denied: ", STDOUT_FILENO);
+				exit (MNS_ERROR);
+			}
+		}
 		else
 			wait(NULL);
 	}
