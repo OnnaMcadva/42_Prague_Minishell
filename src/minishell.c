@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/05 10:54:52 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:52:49 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	signal (SIGINT, mns_sigint_handler);
 	if (argc == 1)
 	{
-		signal(SIGINT, exit);
 		while (mns_init(&data) == ALL_FINE)
 		{
 			data.line = readline(PROMPT);
-			if (ft_strlen(data.line))
+			if (!data.line)
+				return (mns_free_data(&data), 0);
+			if (*data.line)
+			{
 				if (mns_parse(&data) == ALL_FINE)
 					mns_execute(&data, envp);
+				if (data.tkn_count)
+					add_history(data.line);
+			}
 			mns_free_data(&data);
-			// todo: if output doesn't end with \n - put it before the next prompt
 		}
 	}
 	else

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mns_parse.c                                        :+:      :+:    :+:   */
+/*   mns_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 13:56:17 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/17 15:02:07 by mmakagon         ###   ########.fr       */
+/*   Created: 2024/04/17 12:46:44 by mmakagon          #+#    #+#             */
+/*   Updated: 2024/04/17 12:56:20 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	mns_parse(t_data *data)
+void	mns_sigint_handler(int sig)
 {
-	data->tkn_count = mns_split(&data->splitted, data->line);
-	if (!data->splitted || !data->splitted[0])
-		return (MNS_ERROR);
-	return (ALL_FINE);
+	mns_util_do_nothing(&sig);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }

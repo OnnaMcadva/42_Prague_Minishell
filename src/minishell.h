@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/05 10:59:20 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:59:45 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,17 @@ enum e_state
 typedef struct s_data
 {
 	char			*line;
-	char			**parsed;
+	char			**splitted;
 	char			**paths;
+	int				tkn_count;
 }				t_data;
 
-typedef struct s_split_var {
-	int	i;
-	int	j;
-	int	in_quote;
-}				t_split_var;
-
+void			mns_sigint_handler(int sig);
 int				mns_init(t_data *data);
 int				mns_parse(t_data *data);
 int				mns_split(char ***splitted, char *line);
 void			mns_execute(t_data *data, char **envp);
 void			mns_free_data(t_data *data);
+void			*mns_util_do_nothing(void *arg);
 
 #endif

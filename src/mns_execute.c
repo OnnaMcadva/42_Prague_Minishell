@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:39:48 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/04 13:52:53 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/15 10:53:59 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*mns_exec_path(t_data *data)
 	while (data->paths[i])
 	{
 		possible_path = ft_strjoin(data->paths[i], "/");
-		possible_exec = ft_strjoin(possible_path, data->parsed[0]); // need to work here and use proper command for each child
+		possible_exec = ft_strjoin(possible_path, data->parsed[0]);
 		free(possible_path);
 		if (access(possible_exec, F_OK | X_OK) == 0)
 			return (possible_exec);
