@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
+/* Handles ctrl-c signal. */
 void	mns_sigint_handler(int sig)
 {
 	mns_util_do_nothing(&sig);

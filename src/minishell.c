@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 			if (*data.line)
 			{
 				if (mns_parse(&data) == ALL_FINE)
-					mns_execute(&data, envp);
+					mns_execute_simple(&data, envp);
 				if (data.tkn_count)
 					add_history(data.line);
 			}

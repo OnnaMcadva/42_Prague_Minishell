@@ -25,7 +25,7 @@ LIBFLAGS = -lreadline -L./libft_plus -lft_plus
 endif
 
 FILES = minishell \
-		mns_execute \
+		mns_execute_simple \
 		mns_free \
 		mns_init \
 		mns_parse \
@@ -46,7 +46,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 
 all: $(NAME)
 
-$(NAME): $(SRCS_DIR)minishell.h $(LIBFT_LIB) $(OBJS)
+$(NAME): ./includes/minishell.h $(LIBFT_LIB) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFLAGS)
 	@echo "minishell compiled"
 

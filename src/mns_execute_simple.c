@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-/* TODO: use the correct parsed element depending on child */
+/* ?? TODO: use the correct parsed element depending on child ?? */
 char	*mns_exec_path(t_data *data)
 {
 	int		i;
@@ -33,7 +33,8 @@ char	*mns_exec_path(t_data *data)
 	return (NULL);
 }
 
-void	mns_execute(t_data *data, char **envp)
+/* Simple execute for cases without pipes and redirections. */
+void	mns_execute_simple(t_data *data, char **envp)
 {
 	char	*exec;
 	pid_t	pid;

@@ -36,7 +36,7 @@ enum e_token
 	WORD,
 	WHITESPACE = ' ',
 	NEW_LINE = '\n',
-	QOUTE = '\'',
+	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 	ESCAPE = '\\',
 	ENV = '$',
@@ -66,8 +66,9 @@ void			mns_sigint_handler(int sig);
 int				mns_init(t_data *data);
 int				mns_parse(t_data *data);
 int				mns_split(char ***splitted, char *line);
-void			mns_execute(t_data *data, char **envp);
+void			mns_execute_simple(t_data *data, char **envp);
 void			mns_free_data(t_data *data);
 void			*mns_util_do_nothing(void *arg);
+int				mns_util_in_quote(char c, int *in_quote);
 
 #endif

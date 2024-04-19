@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	mns_init_paths(t_data *data)
 {
@@ -20,6 +20,9 @@ int	mns_init_paths(t_data *data)
 	return (ALL_FINE);
 }
 
+/* Sets data elements to zero
+	and gets paths for executables.
+	Returns -1 (MNS_ERROR) in case of malloc error */
 int	mns_init(t_data *data)
 {
 	data->line = NULL;

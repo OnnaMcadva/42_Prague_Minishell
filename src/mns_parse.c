@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
+/* Calls mns_split and parses tokens.
+	Returns -1 (MNS_ERROR) if no tokens were found. */
 int	mns_parse(t_data *data)
 {
 	data->tkn_count = mns_split(&data->splitted, data->line);
