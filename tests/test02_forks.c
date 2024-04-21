@@ -4,6 +4,7 @@
 
 #define CHILD 0
 #define FORK_ERROR -1
+#define MNS_ERROR -1
 
 
 void myfunc(char **argv, char **envp, int pid)
@@ -15,16 +16,22 @@ void myfunc(char **argv, char **envp, int pid)
 	else if (pid == CHILD)
 	{
 		printf ("05 This is the second child and you'll see it, next will be the test text, id = %d\n", pid);
-		execve("./test_executable", argv, envp);
-		printf ("This you'll never see, id = %d\n", pid);
+		if (execve("./test_executable", argv, envp) == MNS_ERROR)
+		{
+			printf ("minishell: permission denied: \nid = %d\n", pid);
+			exit(MNS_ERROR);
+		}
 	}
 	else
 	{
 		printf ("04 This is the first child that became the second parent and you'll see it before child, id = %d\n", pid);
 		wait (NULL);
 		printf ("06 This is the second parent and you'll see it after child, next will be the test text, id = %d\n", pid);
-		execve("./test_executable", argv, envp);
-		printf ("This you'll never see, id = %d\n", pid);
+		if (execve("./test_executable", argv, envp) == MNS_ERROR)
+		{
+			printf ("minishell: permission denied: \nid = %d\n", pid);
+			exit(MNS_ERROR);
+		}
 	}
 }
 

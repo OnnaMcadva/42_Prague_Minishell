@@ -12,28 +12,22 @@
 
 #include "../includes/minishell.h"
 
-/* To mute 'unused parameter' error */
-void	*mns_util_do_nothing(void *arg)
+/* Toggles in_quote switch and returns either it wos toggled or not */
+int mns_util_in_quote(char *in_quote, char c)
 {
-	return (arg);
-}
-
-/* Toggles in_quote switch and returns either it was toggled or not */
-int mns_util_in_quote(char c, int *in_quote)
-{
-    int toggled;
+    int toggle;
 
     if (!*in_quote && (c == DOUBLE_QUOTE || c == SINGLE_QUOTE))
     {
         *in_quote = c;
-        toggled = 1;
+        toggle = 1;
     }
     else if (c == *in_quote)
     {
         *in_quote = 0;
-        toggled = 1;
+        toggle = 1;
     }
     else
-        toggled = 0;
-    return (toggled);
+        toggle = 0;
+    return (toggle);
 }

@@ -13,10 +13,10 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// #include <stdio.h>
 // # include <stdlib.h>
 // # include <string.h>
 // # include <sys/types.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -65,10 +65,11 @@ typedef struct s_data
 void			mns_sigint_handler(int sig);
 int				mns_init(t_data *data);
 int				mns_parse(t_data *data);
+int				mns_check_line(char *line);
 int				mns_split(char ***splitted, char *line);
 void			mns_execute_simple(t_data *data, char **envp);
 void			mns_free_data(t_data *data);
-void			*mns_util_do_nothing(void *arg);
-int				mns_util_in_quote(char c, int *in_quote);
+int				mns_util_in_quote(char *in_quote, char c);
+void			mns_com_exit(t_data *data, int code);
 
 #endif

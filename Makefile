@@ -19,12 +19,21 @@ LIBFT_LIB = $(LIBFT_DIR)/libft_plus.a
 RM = @rm -rf
 
 ifeq ($(UNAME),Darwin)
-LIBFLAGS = -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline -L./libft_plus -lft_plus
+LIBFLAGS = -L/usr/local/opt/readline/lib -lreadline -L./libft_plus -lft_plus
+INCFLAGS = -I/usr/local/opt/readline/include
 else
 LIBFLAGS = -lreadline -L./libft_plus -lft_plus
 endif
 
 FILES = minishell \
+		mns_checks \
+		mns_com_cd \
+		mns_com_echo \
+		mns_com_env \
+		mns_com_exit \
+		mns_com_export \
+		mns_com_pwd \
+		mns_com_unset \
 		mns_execute_simple \
 		mns_free \
 		mns_init \
@@ -42,7 +51,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@mkdir -p obj
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $< $(INCFLAGS)
 
 all: $(NAME)
 

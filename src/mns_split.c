@@ -11,17 +11,16 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 int mns_tknlen(char *line, int *tkn_len)
 {
-    int in_quote;
-    int pos;
+    char	in_quote;
+    int		pos;
 
     in_quote = 0;
     pos = 0;
     while (line[pos])
     {
-        if (mns_util_in_quote(line[pos], &in_quote))
+        if (mns_util_in_quote(&in_quote, line[pos]))
             pos++;
         else
         {
@@ -36,18 +35,18 @@ int mns_tknlen(char *line, int *tkn_len)
     return (pos);
 }
 
-char	*mns_tkndup(char *line, char *token, int tkn_len, int position)
+char	*mns_tkncpy(char *line, char *token, int tkn_len, int position)
 {
-	int	in_quote;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	in_quote;
 
 	in_quote = 0;
 	i = 0;
 	j = 0;
 	while (line[i] && i < position)
 	{
-        if (mns_util_in_quote(line[i], &in_quote))
+        if (mns_util_in_quote(&in_quote, line[i]))
             i++;
         else
         {
@@ -76,7 +75,7 @@ int	mns_split_process(char **splitted, char *line, int tokens)
 		splitted[i] = (char *)malloc((tkn_len + 1) * sizeof(char));
 		if (!splitted[i])
 			return (MNS_ERROR);
-		splitted[i] = mns_tkndup(line, splitted[i], tkn_len, position);
+		splitted[i] = mns_tkncpy(line, splitted[i], tkn_len, position);
 		line += position;
 		i++;
 	}
@@ -87,16 +86,16 @@ int	mns_split_process(char **splitted, char *line, int tokens)
 /* Counts a number of tokens to allocate */
 int	mns_count_tokens(const char *line)
 {
-	int	i;
-	int	count;
-	int	in_quote;
+	int 	i;
+	int	    count;
+	char	in_quote;
 
 	i = 0;
 	count = 1;
 	in_quote = 0;
 	while (line[i])
 	{
-        mns_util_in_quote(line[i], &in_quote);
+        mns_util_in_quote(&in_quote, line[i]);
 		if (!in_quote && line[i] == WHITESPACE)
 		{
 			while (line[i] == WHITESPACE)

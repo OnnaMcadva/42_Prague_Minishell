@@ -12,28 +12,31 @@
 
 #include "../includes/minishell.h"
 
+void	mns_main_loop(t_data *data, char **envp)
+{
+	while (mns_init(data) == ALL_FINE)
+		{
+			data->line = readline(PROMPT);
+			if (!data->line)
+				mns_com_exit(data, 0);
+			if (*data->line)
+			{
+				if (mns_parse(data) == ALL_FINE)
+					mns_execute_simple(data, envp);
+				if (data->tkn_count)
+					add_history(data->line);
+			}
+			mns_free_data(data);
+		}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
 	signal (SIGINT, mns_sigint_handler);
 	if (argc == 1)
-	{
-		while (mns_init(&data) == ALL_FINE)
-		{
-			data.line = readline(PROMPT);
-			if (!data.line)
-				return (mns_free_data(&data), 0);
-			if (*data.line)
-			{
-				if (mns_parse(&data) == ALL_FINE)
-					mns_execute_simple(&data, envp);
-				if (data.tkn_count)
-					add_history(data.line);
-			}
-			mns_free_data(&data);
-		}
-	}
+		mns_main_loop(&data, envp);
 	else
 		printf
 		("%s %s ... - boooo, try without arguments!\n", argv[0], argv[1]);

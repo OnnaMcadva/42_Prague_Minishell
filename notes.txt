@@ -16,3 +16,12 @@ x Check if command has a defined path (./	or	../some_folder),
 	if not - it's a global one and you need to find a path in environment;
 
 x Check for pipes (and redirections???) == Define number of commands
+
+
+
+
+parsed[0].command = splitted[0]
+while splitted[i] != PIPE_LINE || splitted[i] != NULL || i < tkn_count
+	parsed[0].argument[0] = splitted[1]
+	parsed[0].argument[1] = splitted[2]
+	...
