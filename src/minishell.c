@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/17 15:41:55 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:00:20 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mns_main_loop(t_data *data, char **envp)
 			if (*data->line)
 			{
 				if (mns_parse(data) == ALL_FINE)
-					mns_execute_simple(data, envp);
+					mns_execute(data, envp);
 				if (data->tkn_count)
 					add_history(data->line);
 			}

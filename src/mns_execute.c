@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mns_free.c                                         :+:      :+:    :+:   */
+/*   mns_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 09:42:14 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/22 14:43:53 by mmakagon         ###   ########.fr       */
+/*   Created: 2024/04/22 15:04:23 by mmakagon          #+#    #+#             */
+/*   Updated: 2024/04/22 15:06:03 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/* Frees line, paths and splitted. */
-void	mns_free_data(t_data *data)
+/* Right now just calls mns_execute_simple
+	TODO: call functions needed depending on context (pipes, internal commands etc) */
+void	mns_execute(t_data *data, char **envp)
 {
-	int	i;
-
-	i = 0;
-	if (data->splitted)
-		while (data->splitted[i])
-			free(data->splitted[i++]);
-	i = 0;
-	if (data->paths)
-		while (data->paths[i])
-			free(data->paths[i++]);
-	free (data->parsed);
-	free (data->paths);
-	free (data->splitted);
-	free (data->line);
+	mns_execute_simple(data->parsed[0], data->paths, envp);
 }

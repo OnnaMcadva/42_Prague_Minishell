@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/17 14:57:47 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:47:15 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	mns_init(t_data *data)
 {
 	data->line = NULL;
 	data->splitted = NULL;
+	data->parsed = NULL;
 	data->tkn_count = 0;
 	if (mns_init_paths(data) == MNS_ERROR)
 		return (mns_free_data(data), MNS_ERROR);
