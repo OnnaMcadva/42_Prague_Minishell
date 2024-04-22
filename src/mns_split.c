@@ -110,7 +110,8 @@ int	mns_count_tokens(const char *line)
 	return (count);
 }
 
-/* Splits line to an array of strings (splitted) 
+/*	TODO: manage $ symbol with different quotes (read subject)!!
+	Splits line to an array of strings (splitted) 
 	and returns a number of parsed tokens.
 	Returns 0 in case of empty line.
 	Returns -1 (MNS_ERROR) in case of malloc error. */

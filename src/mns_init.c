@@ -12,6 +12,7 @@
 
 #include "../includes/minishell.h"
 
+/* TODO: manage NULL returned from getenv */
 int	mns_init_paths(t_data *data)
 {
 	data->paths = ft_split(getenv("PATH"), ':');
