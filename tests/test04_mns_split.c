@@ -9,7 +9,7 @@ enum e_symbol
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 	ESCAPE = '\\',
-	ENV = '$',
+	DOLLAR_SIGN = '$',
 	PIPE_LINE = '|',
 	REDIR_IN = '<',
 	REDIR_OUT = '>',
@@ -19,6 +19,7 @@ enum e_tkn_type
 {
 	NULL_TOKEN,
 	WORD,
+	ENV,
 	GLOBAL_EXEC,
 	LOCAL_EXEC,
 	PIPE,
@@ -62,12 +63,17 @@ int mns_util_in_quote(char *in_quote, char c)
 
 int	mns_split_util_type(char *line, int next_position)
 {
-	int	i;
+	int		i;
+	char	in_quote;
 
-	while (i < next_position)
-	{
-
-	}
+	i = 0;
+	in_quote = 0;
+	if (mns_util_in_quote(&in_quote, line[i]))
+		line++;
+	if (in_quote != SINGLE_QUOTE && line[0] == DOLLAR_SIGN)
+			return (ENV);
+	else
+		return (WORD);
 }
 
 int mns_tknlen(char *line, int *tkn_len)
