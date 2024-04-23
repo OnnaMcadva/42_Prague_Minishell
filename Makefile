@@ -6,7 +6,7 @@
 #    By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 10:26:38 by mmakagon          #+#    #+#              #
-#    Updated: 2024/04/23 14:53:41 by mmakagon         ###   ########.fr        #
+#    Updated: 2024/04/23 15:11:17 by mmakagon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 
 all: $(NAME)
 
-$(NAME): ./includes/minishell.h $(LIBFT_LIB) $(OBJS)
+$(NAME): $(LIBFT_LIB) $(OBJS) ./includes/minishell.h
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFLAGS)
 	@echo "minishell compiled"
 
