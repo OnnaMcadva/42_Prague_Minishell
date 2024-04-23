@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/17 14:59:45 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:53:14 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@
 # define PROMPT "\x1B[36m[minishell] \x1B[35m[ =) ] \x1B[36m~> \x1B[0m"
 // the lenght is 42 =)
 
-enum e_token
+enum e_symbol
 {
-	WORD,
 	WHITESPACE = ' ',
 	NEW_LINE = '\n',
 	SINGLE_QUOTE = '\'',
@@ -43,8 +42,23 @@ enum e_token
 	PIPE_LINE = '|',
 	REDIR_IN = '<',
 	REDIR_OUT = '>',
+};
+
+enum e_tkn_type
+{
+	NULL_TOKEN,
+	WORD,
+	GLOBAL_EXEC,
+	LOCAL_EXEC,
+	PIPE,
 	HERE_DOC,
-	DREDIR_OUT,
+	COM_CD,
+	COM_ECHO,
+	COM_ENV,
+	COM_EXIT,
+	COM_EXPORT,
+	COM_PWD,
+	COM_UNSET,
 };
 
 enum e_state
@@ -54,11 +68,21 @@ enum e_state
 	ALL_FINE,
 };
 
+typedef struct s_parsed
+{
+	char	*command;
+	char	**args;
+	int		type;
+
+}				t_parsed;
+
 typedef struct s_data
 {
 	char			*line;
 	char			**splitted;
+	int				*splitted_type;
 	char			**paths;
+	t_parsed		*parsed;
 	int				tkn_count;
 }				t_data;
 
@@ -67,7 +91,8 @@ int				mns_init(t_data *data);
 int				mns_parse(t_data *data);
 int				mns_check_line(char *line);
 int				mns_split(char ***splitted, char *line);
-void			mns_execute_simple(t_data *data, char **envp);
+void			mns_execute(t_data *data, char **envp);
+void			mns_execute_simple(t_parsed parsed, char **paths, char **envp);
 void			mns_free_data(t_data *data);
 int				mns_util_in_quote(char *in_quote, char c);
 void			mns_com_exit(t_data *data, int code);
