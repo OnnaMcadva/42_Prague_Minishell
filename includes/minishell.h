@@ -26,19 +26,23 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
+# include <sys/param.h>
 # include "../libft_plus/libft.h"
 
 # define PROMPT "\x1B[36m[minishell] \x1B[35m[ =) ] \x1B[36m~> \x1B[0m"
 // the lenght is 42 =)
 
-enum e_symbol
+# define DELIMETERS " 	\n\'\"\\$|<>"
+
+enum e_delimiter
 {
 	WHITESPACE = ' ',
+	TAB_SYMBOL = '\t',
 	NEW_LINE = '\n',
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 	ESCAPE = '\\',
-	ENV = '$',
+	DOLLAR_SIGN = '$',
 	PIPE_LINE = '|',
 	REDIR_IN = '<',
 	REDIR_OUT = '>',
@@ -46,12 +50,16 @@ enum e_symbol
 
 enum e_tkn_type
 {
-	NULL_TOKEN,
+	NULL_TOKEN = 0,
 	WORD,
+	ENV,
+	PIPE,
+	IN_OPERATOR,
+	HERE_DOC,
+	OUT_OPERATOR,
+	OUT_APPEND_OPRTR,
 	GLOBAL_EXEC,
 	LOCAL_EXEC,
-	PIPE,
-	HERE_DOC,
 	COM_CD,
 	COM_ECHO,
 	COM_ENV,
@@ -90,7 +98,8 @@ void			mns_sigint_handler(int sig);
 int				mns_init(t_data *data);
 int				mns_parse(t_data *data);
 int				mns_check_line(char *line);
-int				mns_split(char ***splitted, char *line);
+int				mns_split(char ***splitted, int **splitted_type, char *line);
+int				mns_split_util_type(char *line);
 void			mns_execute(t_data *data, char **envp);
 void			mns_execute_simple(t_parsed parsed, char **paths, char **envp);
 void			mns_free_data(t_data *data);

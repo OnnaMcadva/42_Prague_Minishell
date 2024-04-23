@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	mns_tknlen(char *line, int *tkn_len)
+int mns_tknlen(const char *line, int *tkn_len)
 {
 	char	in_quote;
 	int		pos;
@@ -26,7 +26,7 @@ int	mns_tknlen(char *line, int *tkn_len)
 		else
 		{
 			if (!in_quote && line[pos] == WHITESPACE)
-				break ;
+				break;
 			(*tkn_len)++;
 			pos++;
 		}
@@ -36,7 +36,7 @@ int	mns_tknlen(char *line, int *tkn_len)
 	return (pos);
 }
 
-char	*mns_tkncpy(char *line, char *token, int tkn_len, int position)
+char	*mns_tkncpy(const char *line, char *token, int tkn_len, int next_pos)
 {
 	int		i;
 	int		j;
@@ -45,7 +45,7 @@ char	*mns_tkncpy(char *line, char *token, int tkn_len, int position)
 	in_quote = 0;
 	i = 0;
 	j = 0;
-	while (line[i] && i < position)
+	while (line[i] && i < next_pos)
 	{
 		if (mns_util_in_quote(&in_quote, line[i]))
 			i++;
@@ -62,31 +62,31 @@ char	*mns_tkncpy(char *line, char *token, int tkn_len, int position)
 	return (token);
 }
 
-int	mns_split_process(char **splitted, char *line, int tokens)
+int	mns_split_process(char **splitted, int *spltd_type, char *line, int tokens)
 {
 	int	i;
 	int	tkn_len;
-	int	position;
+	int	next_pos;
 
 	i = 0;
+	tkn_len = 0;
 	while (i < tokens)
 	{
-		tkn_len = 0;
-		position = mns_tknlen(line, &tkn_len);
+		next_pos = mns_tknlen(line, &tkn_len);
 		splitted[i] = (char *)malloc((tkn_len + 1) * sizeof(char));
 		if (!splitted[i])
 			return (MNS_ERROR);
-		splitted[i] = mns_tkncpy(line, splitted[i], tkn_len, position);
-		line += position;
+		spltd_type[i] = mns_split_util_type(line);
+		splitted[i] = mns_tkncpy(line, splitted[i], tkn_len, next_pos);
+		line += next_pos;
 		i++;
 	}
 	splitted[i] = NULL;
+	spltd_type[i] = NULL_TOKEN;
 	return (ALL_FINE);
 }
 
-/* Counts a number of tokens to allocate
-	TODO: count++ when line[i] is any separator
-	(PIPE_LINE, REDIR etc)*/
+/* Counts a number of tokens to allocate */
 int	mns_count_tokens(const char *line)
 {
 	int		i;
@@ -113,12 +113,13 @@ int	mns_count_tokens(const char *line)
 	return (count);
 }
 
-/*	TODO: manage $ symbol with different quotes (read subject)!!
-	Splits line to an array of strings (splitted)
+/* Splits line to an array of strings (splitted)
 	and returns a number of parsed tokens.
+	Also makes an array of token types,
+	to make parsing easier.
 	Returns 0 in case of empty line.
 	Returns -1 (MNS_ERROR) in case of malloc error. */
-int	mns_split(char ***splitted, char *line)
+int	mns_split(char ***splitted, int **spltd_type, char *line)
 {
 	int	tokens;
 
@@ -128,9 +129,10 @@ int	mns_split(char ***splitted, char *line)
 		return (0);
 	tokens = mns_count_tokens(line);
 	*splitted = malloc((tokens + 1) * sizeof(char *));
-	if (!*splitted)
+	*spltd_type = malloc((tokens + 1) * sizeof(int));
+	if (!*splitted || !*spltd_type)
 		return (MNS_ERROR);
-	if (mns_split_process(*splitted, line, tokens) == MNS_ERROR)
+	if (mns_split_process(*splitted, *spltd_type, line, tokens) == MNS_ERROR)
 		return (MNS_ERROR);
 	return (tokens);
 }

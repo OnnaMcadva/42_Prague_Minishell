@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum e_symbol
+# define DELIMETERS " 	\n\'\"\\$|<>"
+
+enum e_delimiter
 {
 	WHITESPACE = ' ',
+	TAB = '	',
 	NEW_LINE = '\n',
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
@@ -17,13 +20,16 @@ enum e_symbol
 
 enum e_tkn_type
 {
-	NULL_TOKEN,
+	NULL_TOKEN = 0,
 	WORD,
 	ENV,
+	PIPE,
+	IN_OPERATOR,
+	HERE_DOC,
+	OUT_OPERATOR,
+	OUT_APPEND_OPRTR,
 	GLOBAL_EXEC,
 	LOCAL_EXEC,
-	PIPE,
-	HERE_DOC,
 	COM_CD,
 	COM_ECHO,
 	COM_ENV,
@@ -63,15 +69,29 @@ int mns_util_in_quote(char *in_quote, char c)
 
 int	mns_split_util_type(char *line, int next_position)
 {
-	int		i;
 	char	in_quote;
 
-	i = 0;
 	in_quote = 0;
-	if (mns_util_in_quote(&in_quote, line[i]))
+	while (*line && mns_util_in_quote(&in_quote, *line))
 		line++;
-	if (in_quote != SINGLE_QUOTE && line[0] == DOLLAR_SIGN)
-			return (ENV);
+	if (!line)
+		return (NULL_TOKEN);
+	else if (in_quote != SINGLE_QUOTE && line[0] == DOLLAR_SIGN)
+		return (ENV);
+	else if (!in_quote && line[0] == PIPE_LINE)
+		return (PIPE);
+	else if (!in_quote && line[0] == REDIR_IN)
+	{
+		if (line[1] == REDIR_IN)
+			return (HERE_DOC);
+		return (IN_OPERATOR);
+	}
+	else if (!in_quote && line[0] == REDIR_OUT)
+	{
+		if (line[1] == REDIR_OUT)
+			return (OUT_APPEND_OPRTR);
+		return (OUT_OPERATOR);
+	}
 	else
 		return (WORD);
 }
@@ -133,9 +153,9 @@ int	mns_split_process(char **splitted, int *splitted_type, char *line, int token
 	int	next_position;
 
 	i = 0;
+	tkn_len = 0;
 	while (i < tokens)
 	{
-		tkn_len = 0;
 		next_position = mns_tknlen(line, &tkn_len);
 		splitted[i] = (char *)malloc((tkn_len + 1) * sizeof(char));
 		if (!splitted[i])
@@ -192,7 +212,7 @@ int	mns_split(char ***splitted, int **splitted_type, char *line)
 	tokens = mns_count_tokens(line);
 	*splitted = malloc((tokens + 1) * sizeof(char *));
 	*splitted_type = malloc((tokens + 1) * sizeof(int));
-	if (!*splitted || !splitted_type)
+	if (!*splitted || !*splitted_type)
 		return (MNS_ERROR);
 	if (mns_split_process(*splitted, *splitted_type, line, tokens) == MNS_ERROR)
 		return (MNS_ERROR);
@@ -200,9 +220,9 @@ int	mns_split(char ***splitted, int **splitted_type, char *line)
 }
 
 int main(int argc, char **argv) {
-	char	line1[] = "r2345  ";
-	char	line2[] = "echo \'a\'";
-	char	line3[] = "r234 d2345\"\" \"t234\" c23\"4\"56";
+	char	line1[] = "r2345 \"|\" \"$VARIABLE\" \'$NOT_A_VARIABLE\'";
+	char	line2[] = "echo \'a\' \"\"\"\"| wc -w <";
+	char	line3[] = "r234 << d2345\"\" \"t234\" c23\"4\"56";
 	int		*splitted_type;
 	char	**splitted;
 	int		count;
@@ -211,7 +231,7 @@ int main(int argc, char **argv) {
 	if (count != MNS_ERROR) {
 		printf("Line 1:\n");
 		for (int i = 0; i < count; i++) {
-			printf("%d: %s\n", i + 1, splitted[i]);
+			printf("%d: %d %s\n", i + 1, splitted_type[i], splitted[i]);
 			free(splitted[i]);
 		}
 		free(splitted);
@@ -221,7 +241,7 @@ int main(int argc, char **argv) {
 	if (count != MNS_ERROR) {
 		printf("Line 2:\n");
 		for (int i = 0; i < count; i++) {
-			printf("%d: %s\n", i + 1, splitted[i]);
+			printf("%d: %d %s\n", i + 1, splitted_type[i], splitted[i]);
 			free(splitted[i]);
 		}
 		free(splitted);
@@ -231,7 +251,7 @@ int main(int argc, char **argv) {
 	if (count != MNS_ERROR) {
 		printf("Line 3:\n");
 		for (int i = 0; i < count; i++) {
-			printf("%d: %s\n", i + 1, splitted[i]);
+			printf("%d: %d %s\n", i + 1, splitted_type[i], splitted[i]);
 			free(splitted[i]);
 		}
 		free(splitted);

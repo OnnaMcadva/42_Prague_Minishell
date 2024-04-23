@@ -28,5 +28,6 @@ void	mns_free_data(t_data *data)
 	free (data->parsed);
 	free (data->paths);
 	free (data->splitted);
+	free (data->splitted_type);
 	free (data->line);
 }

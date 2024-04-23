@@ -41,6 +41,7 @@ FILES = minishell \
 		parse/mns_parse \
 		signal/mns_signal \
 		split/mns_split \
+		split/mns_split_utils \
 		utils/mns_utils \
 
 
@@ -67,7 +68,8 @@ clean:
 	$(RM) $(NAME)
 
 fclean:
-	$(RM) $(OBJS) $(NAME) $(OBJS_DIR)
+	$(RM) $(NAME) $(OBJS_DIR)
+	@echo "ALL minishell binaries cleaned!"
 	@make fclean -C $(LIBFT_DIR)
 
 re: clean all

@@ -46,7 +46,7 @@ int	mns_parse(t_data *data)
 {
 	int	token_count;
 
-	token_count = mns_split(&data->splitted, data->line);
+	token_count = mns_split(&data->splitted, &data->splitted_type, data->line);
 	if (mns_check_line(data->line) == MNS_ERROR || !token_count)
 		return (MNS_ERROR);
 	data->tkn_count = token_count;

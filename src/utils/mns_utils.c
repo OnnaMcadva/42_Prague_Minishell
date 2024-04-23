@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-/* Toggles in_quote switch and returns either it wos toggled or not */
+/* Toggles in_quote switch and returns either it was toggled or not */
 int	mns_util_in_quote(char *in_quote, char c)
 {
 	int	toggle;
