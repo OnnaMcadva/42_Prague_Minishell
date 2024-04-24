@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:39:48 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/24 14:08:48 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:26:11 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	mns_execute_simple(t_parsed parsed, char **paths, char **envp)
 	{
 		pid = fork();
 		if (pid == MNS_ERROR)
-			printf ("fork error");
+			printf ("Fork error");
 		else if (pid == CHILD)
 		{
 			if (execve(exec, parsed.args, envp) == MNS_ERROR)
