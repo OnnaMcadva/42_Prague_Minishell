@@ -1,12 +1,14 @@
 # include <stdio.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <sys/wait.h>
 
 #define CHILD 0
 #define FORK_ERROR -1
 #define MNS_ERROR -1
 
-
+/* THERE SHOULD BE A BINARY CALLED "test_executable" IN YOUR FOLDER
+	OTHERWISE execve() GOES TO THE "PERMISSION DENIED" PART!!! */
 void myfunc(char **argv, char **envp, int pid)
 {
 	printf ("03 This is the first child before the second fork, id = %d\n", pid);
@@ -35,6 +37,8 @@ void myfunc(char **argv, char **envp, int pid)
 	}
 }
 
+/* THERE SHOULD BE A BINARY CALLED "test_executable" IN YOUR FOLDER
+	OTHERWISE execve() GOES TO THE "PERMISSION DENIED" PART!!! */
 int main(int argc, char **argv, char **envp)
 {
 	pid_t pid;
