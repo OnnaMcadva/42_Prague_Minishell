@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:56:17 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/24 13:09:14 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:18:16 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	mns_parse_process(t_data *data)
 		else
 			i++;
 	}
+	data->parsed[j].type = NULL;
 	return (ALL_FINE);
 }
 

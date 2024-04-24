@@ -6,13 +6,12 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:39:48 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/23 14:48:34 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:08:48 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* ?? TODO: use the correct parsed element depending on child ?? */
 char	*mns_exec_path(char **paths, char *cmd)
 {
 	int		i;
