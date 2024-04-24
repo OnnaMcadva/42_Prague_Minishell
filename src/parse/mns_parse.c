@@ -81,7 +81,6 @@ int	mns_parse_process(t_data *data)
 		else
 			i++;
 	}
-	data->parsed[j].type = NULL;
 	return (ALL_FINE);
 }
 
