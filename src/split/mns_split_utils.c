@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mns_split_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/24 10:14:05 by mmakagon          #+#    #+#             */
+/*   Updated: 2024/04/24 11:26:34 by mmakagon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-int	mns_split_util_type(char *line)
+int	mns_split_util_type(const char *line)
 {
 	char	in_quote;
 

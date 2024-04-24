@@ -6,14 +6,14 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:35 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/23 14:47:41 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:29:49 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /* Checks line for opened quotes and ... ?? */
-int	mns_check_line(char *line)
+int	mns_check_line(const char *line)
 {
 	int		i;
 	char	in_quote;

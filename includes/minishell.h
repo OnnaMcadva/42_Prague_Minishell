@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/23 13:53:14 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:32:22 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define PROMPT "\x1B[36m[minishell] \x1B[35m[ =) ] \x1B[36m~> \x1B[0m"
 // the lenght is 42 =)
 
-# define DELIMETERS " 	\n\'\"\\$|<>"
+# define META_CHARACTERS "|&;()<>"
 
 enum e_delimiter
 {
@@ -95,15 +95,25 @@ typedef struct s_data
 }				t_data;
 
 void			mns_sigint_handler(int sig);
+
 int				mns_init(t_data *data);
+
 int				mns_parse(t_data *data);
-int				mns_check_line(char *line);
-int				mns_split(char ***splitted, int **splitted_type, char *line);
-int				mns_split_util_type(char *line);
+
+int				mns_check_line(const char *line);
+
+int				mns_split(char ***splitted,
+					int **splitted_type, const char *line);
+int				mns_split_util_type(const char *line);
+
 void			mns_execute(t_data *data, char **envp);
 void			mns_execute_simple(t_parsed parsed, char **paths, char **envp);
+
 void			mns_free_data(t_data *data);
+
 int				mns_util_in_quote(char *in_quote, char c);
+int				mns_util_is_metachar(char c);
+
 void			mns_com_exit(t_data *data, int code);
 
 #endif

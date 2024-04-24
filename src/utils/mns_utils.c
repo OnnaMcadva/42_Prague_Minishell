@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:37:49 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/23 14:47:13 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/24 10:49:34 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,18 @@ int	mns_util_in_quote(char *in_quote, char c)
 	else
 		toggle = 0;
 	return (toggle);
+}
+
+int	mns_util_is_metachar(char c)
+{
+	int	i;
+
+	i = 0;
+	while (META_CHARACTERS[i])
+	{
+		if (c == META_CHARACTERS[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }
