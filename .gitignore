@@ -1,6 +1,6 @@
 *obj/*
 *.o
 *.out
-miishell
+minishell
 *.vscode*
 *.a
