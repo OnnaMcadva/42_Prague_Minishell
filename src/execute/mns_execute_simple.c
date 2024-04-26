@@ -33,7 +33,7 @@ char	*mns_exec_path(char **paths, char *cmd)
 }
 
 /* Simple execute for cases without pipes and redirections. */
-void	mns_execute_simple(t_parsed parsed, char **paths, char **envp)
+int	mns_execute_simple(t_parsed parsed, char **paths, char **envp)
 {
 	char	*exec;
 	pid_t	pid;
@@ -58,4 +58,5 @@ void	mns_execute_simple(t_parsed parsed, char **paths, char **envp)
 			wait(NULL);
 	}
 	free (exec);
+	return (ALL_FINE);
 }

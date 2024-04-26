@@ -72,7 +72,7 @@ int	mns_parse_process(t_data *data)
 			args_count = mns_parse_count_args(data->splitted + i, data->splitted_type + i);
 			data->parsed[j].args = malloc((args_count + 1) * sizeof(char *));
 			if (!data->parsed[j].args)
-				return (MNS_ERROR);
+				return (perror("Malloc error"), MNS_ERROR);
 			data->parsed[j].command = data->splitted[i];
 			mns_parse_assign_args(data, i, j, args_count);
 			j++;

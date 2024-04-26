@@ -13,6 +13,13 @@
 #ifndef MNS_ENUMS_H
 # define MNS_ENUMS_H
 
+enum e_state
+{
+	MNS_ERROR = -1,
+	CHILD = 0,
+	ALL_FINE,
+};
+
 enum e_delimiter
 {
 	WHITESPACE = ' ',
@@ -46,13 +53,6 @@ enum e_tkn_type
 	COM_EXPORT,
 	COM_PWD,
 	COM_UNSET,
-};
-
-enum e_state
-{
-	MNS_ERROR = -1,
-	CHILD = 0,
-	ALL_FINE,
 };
 
 #endif

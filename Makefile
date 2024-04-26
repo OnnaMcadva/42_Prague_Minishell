@@ -41,8 +41,8 @@ FILES = minishell \
 		split/mns_split \
 		split/mns_split_utils \
 		utils/mns_utils \
-		execute/mns_execute_new \
-		# execute/mns_execute_simple \
+		execute/mns_execute_complex \
+		execute/mns_execute_simple \
 		execute/mns_execute \
 
 
@@ -55,13 +55,12 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@mkdir -p obj obj/checks obj/commands obj/execute obj/free obj/init obj/parse obj/signal obj/split obj/utils
 	$(CC) $(CFLAGS) -c -o $@ $< $(INCFLAGS)
-	@printf "*"
 
 all: $(NAME)
 
 $(NAME): $(LIBFT_LIB) $(OBJS) ./includes/minishell.h
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFLAGS)
-	@echo "\nminishell compiled"
+	@echo "minishell compiled"
 
 $(LIBFT_LIB):
 	@make -s -C $(LIBFT_DIR)

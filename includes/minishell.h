@@ -30,8 +30,9 @@ int		mns_split(char ***splitted,
 			int **splitted_type, const char *line);
 int		mns_split_util_type(const char *line);
 
-void	mns_execute(t_data *data, char **envp);
-void	mns_execute_simple(t_parsed parsed, char **paths, char **envp);
+int		mns_execute(t_data *data, char **envp);
+int		mns_execute_simple(t_parsed parsed, char **paths, char **envp);
+int		mns_execute_complex(t_data *data, char **envp);
 
 void	mns_free_data(t_data *data);
 

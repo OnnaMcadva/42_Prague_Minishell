@@ -1,0 +1,10 @@
+Makefile
+a.out
+examples.c
+includes
+libft_plus
+minishell
+obj
+src
+temp
+tests

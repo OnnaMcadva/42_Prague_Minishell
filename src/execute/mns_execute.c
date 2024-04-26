@@ -15,7 +15,16 @@
 /* Right now just calls mns_execute_simple
 	TODO: call functions needed depending on context
 	(pipes, internal commands etc) */
-void	mns_execute(t_data *data, char **envp)
+int	mns_execute(t_data *data, char **envp)
 {
-	mns_execute_simple(data->parsed[0], data->paths, envp);
+	int	i;
+
+	i = 0;
+	while (data->parsed[i].type != NULL_TOKEN)
+	{
+		if (data->parsed[i].type == PIPE)
+			return (mns_execute_complex(data, envp));
+		i++;
+	}
+	return (mns_execute_simple(data->parsed[0], data->paths, envp));
 }
