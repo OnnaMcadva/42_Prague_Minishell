@@ -44,6 +44,7 @@ FILES = minishell \
 		execute/mns_execute_complex \
 		execute/mns_execute_simple \
 		execute/mns_execute \
+		execute/mns_exec_utils \
 
 
 SRCS_DIR = ./src/

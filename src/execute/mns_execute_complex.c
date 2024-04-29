@@ -15,7 +15,7 @@
 /* Saves STDOUT_FILENO to save_stdout veariable,
 	opens a file, duplicates its FD to STDOUT_FILENO
 	and returns save_stdout or -1 (MNS_ERROR) in case of any error. */
-int	mns_exec_dup_out_to_file(char *filename, int open_flag)
+int	mns_exec_dup_stdout_to_file(char *filename, int open_flag)
 {
 	int	fd;
 	int save_stdout;
@@ -53,32 +53,6 @@ int	mns_exec_restore_stdout(int save_stdout)
 	return (ALL_FINE);
 }
 
-/* Outputs the result of previous commands (saved in temp file) to STDOUT */
-int mns_exec_file_to_output(char *filename, int unlink_or_not)
-{
-	int		fd;
-	char	*output;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == MNS_ERROR)
-	{
-		perror("Failed to open file");
-        return (MNS_ERROR);
-	}
-	while (1)
-	{
-		output = get_next_line(fd, 1);
-		if (!output)
-			break ;
-		ft_putstr_fd(output, STDOUT_FILENO);
-		free(output);
-	}
-	close (fd);
-	if (unlink_or_not == 1)
-		unlink (filename);
-	return (ALL_FINE);
-}
-
 /* Creates a temp file, writes the command output there,
 	then outputs the contents to STDOUT 
 	TODO: cleanup, split into smaller functions 
@@ -88,7 +62,7 @@ int	mns_execute_complex(t_data *data, char **envp)
 	int	i;
 	int	save_stdout;
 
-	save_stdout = mns_exec_dup_out_to_file("./temp", O_CREAT | O_RDWR | O_TRUNC);
+	save_stdout = mns_exec_dup_stdout_to_file("./temp", O_CREAT | O_RDWR | O_TRUNC);
 	if (save_stdout == MNS_ERROR)
 		return (MNS_ERROR);
 	mns_execute_simple(data->parsed[0], data->paths, envp);
@@ -99,6 +73,6 @@ int	mns_execute_complex(t_data *data, char **envp)
 	{
 		i++;
 	}
-	mns_exec_file_to_output("./temp", 1);
+	mns_exec_util_file_to_output("./temp", 1);
 	return (ALL_FINE);
 }

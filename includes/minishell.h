@@ -33,6 +33,8 @@ int		mns_split_util_type(const char *line);
 int		mns_execute(t_data *data, char **envp);
 int		mns_execute_simple(t_parsed parsed, char **paths, char **envp);
 int		mns_execute_complex(t_data *data, char **envp);
+void	mns_exec_util_file_to_output(const char *filename, int unlink_or_not);
+char	*mns_exec_util_file_to_str(const char *filename);
 
 void	mns_free_data(t_data *data);
 
