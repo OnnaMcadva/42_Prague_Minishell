@@ -12,6 +12,8 @@
 
 #include "../../includes/minishell.h"
 
+/* TODO: put it to parse section,
+	so if the command is a global exec - change it to tthe path */
 char	*mns_exec_path(char **paths, char *cmd)
 {
 	int		i;

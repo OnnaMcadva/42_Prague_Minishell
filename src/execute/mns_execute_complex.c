@@ -12,16 +12,20 @@
 
 #include "../../includes/minishell.h"
 
-int	mns_exec_complex_first(t_parsed parsed, char **envp, char **paths)
+/* Saves STDOUT_FILENO to save_stdout veariable,
+	opens a file, duplicates its FD to STDOUT_FILENO
+	and returns save_stdout or -1 (MNS_ERROR) in case of any error. */
+int	mns_exec_dup_out_to_file(char *filename, int open_flag)
 {
-    int	fd;
-    int	save_stdout;
-	int	code;
+	int	fd;
+	int save_stdout;
 
-	code = ALL_FINE;
-    fd = open("./temp", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	fd = open(filename, open_flag, 0777);
     if (fd == MNS_ERROR)
-        return (perror("Failed to open temporary file"), MNS_ERROR);
+	{
+		perror("Failed to open temporary file");
+        return (MNS_ERROR);
+	}
     save_stdout = dup(STDOUT_FILENO);
     if (save_stdout == MNS_ERROR)
 	{
@@ -32,29 +36,33 @@ int	mns_exec_complex_first(t_parsed parsed, char **envp, char **paths)
     if (dup2(fd, STDOUT_FILENO) == MNS_ERROR)
 	{
         perror("Failed to redirect STDOUT to temporary file");
-		code = MNS_ERROR;
+		return (MNS_ERROR);
     }
     close(fd);
-    mns_execute_simple(parsed, paths, envp);
-    if (dup2(save_stdout, STDOUT_FILENO) == MNS_ERROR)
+	return (save_stdout);
+}
+
+int	mns_exec_restore_stdout(int save_stdout)
+{
+	if (dup2(save_stdout, STDOUT_FILENO) == MNS_ERROR)
 	{
         perror("Failed to restore STDOUT file descriptor");
-		code = MNS_ERROR;
+		return (MNS_ERROR);
     }
     close(save_stdout);
-    return (code);
+	return (ALL_FINE);
 }
 
 /* Outputs the result of previous commands (saved in temp file) to STDOUT */
-int mns_exec_complex_last(void)
+int mns_exec_file_to_output(char *filename, int unlink_or_not)
 {
 	int		fd;
 	char	*output;
 
-	fd = open("./temp", O_RDONLY);
+	fd = open(filename, O_RDONLY);
 	if (fd == MNS_ERROR)
 	{
-		perror("Failed to open temporary file");
+		perror("Failed to open file");
         return (MNS_ERROR);
 	}
 	while (1)
@@ -66,7 +74,8 @@ int mns_exec_complex_last(void)
 		free(output);
 	}
 	close (fd);
-	unlink ("./temp");
+	if (unlink_or_not == 1)
+		unlink (filename);
 	return (ALL_FINE);
 }
 
@@ -77,13 +86,19 @@ int mns_exec_complex_last(void)
 int	mns_execute_complex(t_data *data, char **envp)
 {
 	int	i;
+	int	save_stdout;
 
-	mns_exec_complex_first(data->parsed[0], envp, data->paths);
+	save_stdout = mns_exec_dup_out_to_file("./temp", O_CREAT | O_RDWR | O_TRUNC);
+	if (save_stdout == MNS_ERROR)
+		return (MNS_ERROR);
+	mns_execute_simple(data->parsed[0], data->paths, envp);
+	if (mns_exec_restore_stdout(save_stdout) == MNS_ERROR)
+		return (MNS_ERROR);
 	i = 1;
 	while (data->parsed[i].type != NULL_TOKEN)
 	{
 		i++;
 	}
-	mns_exec_complex_last();
+	mns_exec_file_to_output("./temp", 1);
 	return (ALL_FINE);
 }

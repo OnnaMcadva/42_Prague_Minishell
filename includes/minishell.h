@@ -20,7 +20,7 @@
 
 void	mns_sigint_handler(int sig);
 
-int		mns_init(t_data *data);
+int		mns_init_data(t_data *data);
 
 int		mns_parse(t_data *data);
 

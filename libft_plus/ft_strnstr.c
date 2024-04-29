@@ -17,12 +17,11 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 	size_t	i;
 	size_t	j;
 
-	i = 0;
-	j = 0;
 	if (to_find[0] == '\0')
 		return ((char *)str);
 	if (!str || ft_strlen(to_find) > len)
 		return (NULL);
+	i = 0;
 	while (str[i] != '\0' && i < len)
 	{
 		j = 0;

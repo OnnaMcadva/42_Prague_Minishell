@@ -64,7 +64,6 @@ int	mns_parse_process(t_data *data)
 		return (MNS_ERROR);
 	i = 0;
 	j = 0;
-	args_count = 0;
 	while (data->splitted[i])
 	{
 		if (data->splitted_type[i] == WORD)
@@ -75,8 +74,15 @@ int	mns_parse_process(t_data *data)
 				return (perror("Malloc error"), MNS_ERROR);
 			data->parsed[j].command = data->splitted[i];
 			mns_parse_assign_args(data, i, j, args_count);
+			data->parsed[j].type = GLOBAL_EXEC;
 			j++;
 			i += args_count;
+		}
+		else if (data->splitted_type[i] == PIPE)
+		{
+			data->parsed[j].type = PIPE;
+			i++;
+			j++;
 		}
 		else
 			i++;

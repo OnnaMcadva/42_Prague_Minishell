@@ -12,7 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-/* Right now just calls mns_execute_simple
+/* Right now looks for pipe and calls execute_complex,
+	otherwise calls mns_execute_simple.
 	TODO: call functions needed depending on context
 	(pipes, internal commands etc) */
 int	mns_execute(t_data *data, char **envp)

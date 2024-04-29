@@ -17,7 +17,7 @@ char	*ft_strcpy(char *dest, const char *src)
 {
 	char	*new_dest;
 
-	if (!dest && !src)
+	if (!dest || !src)
 		return (NULL);
 	new_dest = dest;
 	while (*src != '\0')

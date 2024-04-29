@@ -14,7 +14,7 @@
 
 void	mns_main_loop(t_data *data, char **envp)
 {
-	while (mns_init(data) != MNS_ERROR)
+	while (mns_init_data(data) != MNS_ERROR)
 	{
 		data->line = readline(PROMPT);
 		if (!data->line)

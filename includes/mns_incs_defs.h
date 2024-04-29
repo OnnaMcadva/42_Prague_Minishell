@@ -24,6 +24,7 @@
 # include <term.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include </usr/local/Homebrew/Cellar/readline/8.2.10/include/readline/readline.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
 # include <sys/param.h>
