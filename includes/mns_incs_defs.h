@@ -6,13 +6,14 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:53:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/24 13:55:50 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:14:09 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MNS_INCS_DEFS_H
 # define MNS_INCS_DEFS_H
 
+// # include </usr/local/Homebrew/Cellar/readline/8.2.10/include/readline/readline.h>
 // # include <stdlib.h>
 // # include <string.h>
 // # include <sys/types.h>
@@ -24,7 +25,6 @@
 # include <term.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include </usr/local/Homebrew/Cellar/readline/8.2.10/include/readline/readline.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
 # include <sys/param.h>
