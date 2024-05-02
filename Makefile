@@ -21,6 +21,7 @@ RM = @rm -rf
 ifeq ($(UNAME),Darwin)
 LIBFLAGS = -L/usr/local/opt/readline/lib -lreadline -L./libft_plus -lft_plus
 INCFLAGS = -I/usr/local/opt/readline/include
+CFLAGS += -DMACOS
 else
 LIBFLAGS = -lreadline -L./libft_plus -lft_plus
 endif
@@ -36,6 +37,7 @@ FILES = minishell \
 		commands/mns_com_unset \
 		free/mns_free \
 		init/mns_init \
+		parse/mns_parse_utils \
 		parse/mns_parse \
 		signal/mns_signal \
 		split/mns_split \
@@ -51,10 +53,11 @@ SRCS_DIR = ./src/
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
 
 OBJS_DIR = ./obj/
+OBJS_SUBDIRS = obj/checks obj/commands obj/execute obj/free obj/init obj/parse obj/signal obj/split obj/utils
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@mkdir -p obj obj/checks obj/commands obj/execute obj/free obj/init obj/parse obj/signal obj/split obj/utils
+	@mkdir -p $(OBJS_DIR) $(OBJS_SUBDIRS)
 	$(CC) $(CFLAGS) -c -o $@ $< $(INCFLAGS)
 
 all: $(NAME)

@@ -17,6 +17,8 @@ typedef struct s_parsed
 {
 	char	*command;
 	char	**args;
+	char	*redir_in;
+	char	*redir_out;
 	int		type;
 
 }				t_parsed;
@@ -29,6 +31,7 @@ typedef struct s_data
 	int			*splitted_type;
 	t_parsed	*parsed;
 	int			tkn_count;
+	int			pipes_count;
 }				t_data;
 
 #endif

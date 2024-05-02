@@ -28,6 +28,7 @@ enum e_delimiter
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 	ESCAPE = '\\',
+	SLASH = '/',
 	DOLLAR_SIGN = '$',
 	PIPE_LINE = '|',
 	REDIR_IN = '<',
@@ -40,19 +41,6 @@ enum e_tkn_type
 	WORD,
 	ENV,
 	PIPE,
-	IN_OPERATOR,
-	HERE_DOC,
-	OUT_OPERATOR,
-	OUT_APPEND_OPRTR,
-	GLOBAL_EXEC,
-	LOCAL_EXEC,
-	COM_CD,
-	COM_ECHO,
-	COM_ENV,
-	COM_EXIT,
-	COM_EXPORT,
-	COM_PWD,
-	COM_UNSET,
 };
 
 #endif
