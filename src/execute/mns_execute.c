@@ -19,13 +19,14 @@
 int	mns_execute(t_data *data, char **envp)
 {
 	int	i;
+	int	pipes_count;
 
-	i = 0;
-	while (data->parsed[i].type != NULL_TOKEN)
-	{
+	i = -1;
+	pipes_count = 0;
+	while (data->parsed[++i].type != NULL_TOKEN)
 		if (data->parsed[i].type == PIPE)
-			return (mns_execute_complex(data, envp));
-		i++;
-	}
-	return (mns_execute_simple(data->parsed[0], data->paths, envp));
+			pipes_count++;
+	if (pipes_count > 0)
+		return (mns_execute_complex(data, envp));
+	return (mns_execute_simple(data->parsed[0], data, envp));
 }

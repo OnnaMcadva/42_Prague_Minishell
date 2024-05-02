@@ -11,3 +11,16 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void    mns_com_pwd(void)
+{
+    char    dir[PATH_MAX];
+    char    *s;
+
+    s = getcwd(dir, PATH_MAX);
+    if (!s)
+        perror("Error getting pwd");
+    else
+        ft_putendl_fd(dir, STDOUT_FILENO);
+}
+

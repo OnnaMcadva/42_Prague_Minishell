@@ -31,19 +31,47 @@ char	*mns_exec_path(char **paths, char *cmd)
 		free(possible_exec);
 		i++;
 	}
+	ft_putstr_fd("minishell: command not found: ", STDOUT_FILENO);
+	ft_putendl_fd(cmd, STDOUT_FILENO);
 	return (NULL);
 }
 
-/* Simple execute for cases without pipes and redirections. */
-int	mns_execute_simple(t_parsed parsed, char **paths, char **envp)
+void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed)
+{
+	if (parsed.type & COM_PWD)
+		mns_com_pwd();
+	else if (parsed.type & COM_EXIT)
+		mns_com_exit(data, 0);
+	else if (parsed.type & COM_CD)
+		mns_com_cd(parsed.args[1]);
+	else if (parsed.type & COM_ENV)
+		mns_com_env(envp);
+	else if (parsed.type & COM_ECHO)
+		mns_com_echo(parsed.args);
+}
+
+char *mns_exec_simple_setup(t_data *data, char **envp, t_parsed parsed)
+{
+	char *exec;
+
+	exec = NULL;
+	if (parsed.type & BUILTIN_EXEC)
+		mns_exec_builtin_call(data, envp, parsed);
+	else if (parsed.type & GLOBAL_EXEC)
+		return (exec = mns_exec_path(data->paths, parsed.command));
+	else
+		exec = ft_strdup(parsed.command);
+	return (exec);
+}
+
+// int	mns_execute_simple(t_parsed parsed, char **paths, char **envp)
+int	mns_execute_simple(t_parsed parsed, t_data *data, char **envp)
 {
 	char	*exec;
 	pid_t	pid;
 
-	exec = mns_exec_path(paths, parsed.command);
-	if (!exec)
-		printf ("minishell: command not found: %s\n", parsed.command);
-	else
+	exec = mns_exec_simple_setup(data, envp, parsed);
+	if (exec)
 	{
 		pid = fork();
 		if (pid == MNS_ERROR)

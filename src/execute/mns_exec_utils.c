@@ -1,7 +1,8 @@
 #include "../../includes/minishell.h"
 
 /* Reads from with get_next_line and make a string with strjoin,
-	returns NULL in case*/
+	returns NULL in case of error.
+    Return needs to be freed. */
 char *mns_exec_util_file_to_str(const char *filename)
 {
 	char	*buffer;
@@ -38,4 +39,46 @@ void mns_exec_util_file_to_output(const char *filename, int unlink_or_not)
 	free(output);
 	if (unlink_or_not == 1)
 		unlink (filename);
+}
+
+int	mns_exec_util_restore_stdout(int save_stdout)
+{
+	if (dup2(save_stdout, STDOUT_FILENO) == MNS_ERROR)
+	{
+        perror("Failed to restore STDOUT file descriptor");
+		return (MNS_ERROR);
+    }
+    close(save_stdout);
+	return (ALL_FINE);
+}
+
+/* Saves STDOUT_FILENO to save_stdout veariable,
+	opens a file, duplicates its FD to STDOUT_FILENO
+	and returns save_stdout or -1 (MNS_ERROR) in case of any error. */
+int	mns_exec_util_dup(char *filename, int open_flag, int std_fileno)
+{
+	int	fd;
+	int save_stdout;
+
+	fd = open(filename, open_flag, 0777);
+    if (fd == MNS_ERROR)
+	{
+		perror("Failed to open temporary file");
+        return (MNS_ERROR);
+	}
+    save_stdout = dup(std_fileno);
+    if (save_stdout == MNS_ERROR)
+	{
+        perror("Failed to save STDOUT file descriptor");
+        close(fd);
+        return (MNS_ERROR);
+    }
+    if (dup2(fd, std_fileno) == MNS_ERROR)
+	{
+        perror("Failed to redirect STDOUT to temporary file");
+        close (fd);
+		return (MNS_ERROR);
+    }
+    close(fd);
+	return (save_stdout);
 }

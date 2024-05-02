@@ -31,6 +31,7 @@ int	mns_init_data(t_data *data)
 	data->parsed = NULL;
 	data->splitted_type = NULL;
 	data->tkn_count = 0;
+	data->pipes_count = 0;
 	if (mns_init_paths(data) == MNS_ERROR)
 		return (mns_free_data(data), MNS_ERROR);
 	return (ALL_FINE);
