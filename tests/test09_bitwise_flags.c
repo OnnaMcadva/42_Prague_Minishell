@@ -18,6 +18,7 @@ void print_flags(const int flags)
     if (flags & F_DVA) printf("Dva ");
     if (flags & F_TRI) printf("Tri ");
     if (flags & F_CHET) printf("Chetyre ");
+    if (flags & F_PET) printf("Pyat' ");
     printf("\n");
 }
 
