@@ -14,8 +14,7 @@
 
 /* Creates a temp file, writes the command output there,
 	then outputs the contents to STDOUT 
-	TODO: cleanup, split into smaller functions 
-	and make exec_middle or something... */
+	TODO: make it with pipes as it should be */
 int	mns_execute_complex(t_data *data, char **envp)
 {
 	int	i;

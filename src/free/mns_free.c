@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/* Frees line, paths and splitted. */
 void	mns_free_data(t_data *data)
 {
 	int	i;

@@ -16,12 +16,13 @@
 // # include <stdlib.h>
 // # include <string.h>
 // # include <sys/types.h>
+// # include <unistd.h>
+// # include <termios.h>
+// # include <term.h>
 # include <stdio.h>
-# include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
-# include <termios.h>
-# include <term.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>

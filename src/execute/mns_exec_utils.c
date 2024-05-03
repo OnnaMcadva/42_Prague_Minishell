@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-/* Reads from with get_next_line and make a string with strjoin,
+/* Reads from with get_next_line and makes a string with strjoin,
 	returns NULL in case of error.
     Return needs to be freed. */
 char *mns_exec_util_file_to_str(const char *filename)
@@ -28,7 +28,8 @@ char *mns_exec_util_file_to_str(const char *filename)
 	return (result);
 }
 
-/* Outputs the result of previous commands (saved in temp file) to STDOUT */
+/* Outputs the contents of a file to STDOUT,
+	bassically like bash's cat command */
 void mns_exec_util_file_to_output(const char *filename, int unlink_or_not)
 {
 	char *output;
@@ -54,7 +55,8 @@ int	mns_exec_util_restore_stdout(int save_stdout)
 
 /* Saves STDOUT_FILENO to save_stdout veariable,
 	opens a file, duplicates its FD to STDOUT_FILENO
-	and returns save_stdout or -1 (MNS_ERROR) in case of any error. */
+	and returns save_stdout if all went smoothly
+	or -1 (MNS_ERROR) in case of any error. */
 int	mns_exec_util_dup(char *filename, int open_flag, int std_fileno)
 {
 	int	fd;

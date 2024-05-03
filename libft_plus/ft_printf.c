@@ -21,7 +21,7 @@ int	pf_print_char(va_list args)
 	return (1);
 }
 
-size_t	format_specifier(const char fmt, va_list args, size_t printlen)
+size_t	pf_format_specifier(const char fmt, va_list args, size_t printlen)
 {
 	if (fmt == 'c')
 		printlen += pf_print_char(args);
@@ -52,7 +52,7 @@ int	ft_printf(const char *fmt, ...)
 		if (*fmt == '%')
 		{
 			fmt++;
-			printlen = format_specifier((char)*fmt, args, printlen);
+			printlen = pf_format_specifier((char)*fmt, args, printlen);
 		}
 		else
 			printlen += write (STDOUT_FILENO, fmt, 1);

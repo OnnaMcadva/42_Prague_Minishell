@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/* TODO: manage NULL returned from getenv */
 int	mns_init_paths(t_data *data)
 {
 	data->paths = ft_split(getenv("PATH"), ':');
@@ -21,18 +20,15 @@ int	mns_init_paths(t_data *data)
 	return (ALL_FINE);
 }
 
-/* Sets data elements to zero
-	and gets paths for executables.
-	Returns -1 (MNS_ERROR) in case of malloc error */
+/* Sets data elements to zero */
 int	mns_init_data(t_data *data)
 {
 	data->line = NULL;
 	data->splitted = NULL;
 	data->parsed = NULL;
 	data->splitted_type = NULL;
+	data->paths = NULL;
 	data->tkn_count = 0;
 	data->pipes_count = 0;
-	if (mns_init_paths(data) == MNS_ERROR)
-		return (mns_free_data(data), MNS_ERROR);
 	return (ALL_FINE);
 }

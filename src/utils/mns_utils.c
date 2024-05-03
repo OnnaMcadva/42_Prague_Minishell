@@ -32,6 +32,7 @@ int	mns_util_in_quote(char *in_quote, char c)
 	return (toggle);
 }
 
+/* !!! A candidate for deletion !!! */
 int	mns_util_is_metachar(char c)
 {
 	int	i;

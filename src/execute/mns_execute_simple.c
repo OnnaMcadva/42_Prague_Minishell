@@ -12,6 +12,10 @@
 
 #include "../../includes/minishell.h"
 
+/* Checks if the called global exec is in the folders,
+	saved in PATH env variable.
+	If so - returns the exec with its full path (needs to be freed),
+	if not - writes an error and returns NULL. */
 char	*mns_exec_path(char **paths, char *cmd)
 {
 	int		i;
@@ -34,6 +38,7 @@ char	*mns_exec_path(char **paths, char *cmd)
 	return (NULL);
 }
 
+/* Calls built-in functions */
 void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed)
 {
 	if (parsed.type & COM_PWD)
@@ -50,19 +55,26 @@ void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed)
 
 char *mns_exec_simple_setup(t_data *data, char **envp, t_parsed parsed)
 {
-	char *exec;
+	char	*exec;
+	int		save_stdout;
 
 	exec = NULL;
+	if (parsed.type & OUT_OPERATOR)
+		save_stdout = mns_exec_util_dup(parsed.redir_out, O_CREAT | O_WRONLY | O_TRUNC, STDOUT_FILENO);
 	if (parsed.type & BUILTIN_EXEC)
 		mns_exec_builtin_call(data, envp, parsed);
 	else if (parsed.type & GLOBAL_EXEC)
-		return (exec = mns_exec_path(data->paths, parsed.command));
+	{
+		if (mns_init_paths(data) != MNS_ERROR)
+			exec = mns_exec_path(data->paths, parsed.command);
+	}
 	else
 		exec = ft_strdup(parsed.command);
+	if (parsed.type & OUT_OPERATOR)
+		save_stdout = mns_exec_util_restore_stdout(save_stdout);
 	return (exec);
 }
 
-// int	mns_execute_simple(t_parsed parsed, char **paths, char **envp)
 int	mns_execute_simple(t_parsed parsed, t_data *data, char **envp)
 {
 	char	*exec;

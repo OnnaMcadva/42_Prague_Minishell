@@ -35,13 +35,15 @@ int	mns_parse_init(t_data *data)
 int	mns_parse_command(const char **splitted, const int *splitted_type, t_parsed *parsed)
 {
 	int	args_count;
+	int	ret;
 
-	args_count = mns_parse_util_count_args(splitted, splitted_type);
+	args_count = 0;
+	ret = mns_parse_util_count_args(splitted, splitted_type, &args_count);
 	parsed->args = malloc((args_count + 1) * sizeof(char *));
 	if (!parsed->args)
 		return (perror("Malloc error"), MNS_ERROR);
 	mns_parse_util_assign_args(parsed, splitted, splitted_type);
-	return (args_count);
+	return (ret);
 }
 
 /* TODO: split into smaller functions */

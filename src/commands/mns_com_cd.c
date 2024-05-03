@@ -14,6 +14,10 @@
 
 void	mns_com_cd(char *arg)
 {
+
 	if (chdir (arg) == -1)
-      perror (arg);
+      {
+            ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+            perror (arg);
+      }
 }

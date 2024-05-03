@@ -21,9 +21,11 @@
 void	mns_sigint_handler(int sig);
 
 int		mns_init_data(t_data *data);
+int		mns_init_paths(t_data *data);
 
 int		mns_parse(t_data *data);
-int		mns_parse_util_count_args(const char **splitted, const int *splitted_type);
+// int		mns_parse_util_count_args(const char **splitted, const int *splitted_type);
+int		mns_parse_util_count_args(const char **splitted, const int *splitted_type, int *count);
 void	mns_parse_util_assign_args(t_parsed *parsed, const char **splitted, const int *splitted_type);
 
 int		mns_check_line(const char *line);

@@ -17,6 +17,7 @@ void    mns_com_env(char **envp)
     int i;
 
     i = 0;
-    while (envp[i])
-        printf("%s\n", envp[i++]);
+    if (envp)
+        while (envp[i])
+            ft_putendl_fd(envp[i++], STDOUT_FILENO);
 }
