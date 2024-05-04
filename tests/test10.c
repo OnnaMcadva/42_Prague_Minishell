@@ -1,82 +1,175 @@
 #include "../../includes/minishell.h"
 
-/* Counts arguments for a parsed command,
-	skips redirection operators (those will be set to a special string in parsed struct)*/
-int	mns_parse_util_count_args(const char **splitted, const int *splitted_type)
+/* Reads from with get_next_line and makes a string with strjoin,
+	returns NULL in case of error.
+    Return needs to be freed. */
+char *mns_exec_util_file_to_str(const char *filename)
 {
-	int	i;
-	int	count;
+	char	*buffer;
+	char	*result;
+	int		fd;
 
-	i = 0;
-	count = 0;
-	while (splitted[i] && splitted_type[i] != PIPE)
+	fd = open(filename, O_RDONLY);
+	if (fd == MNS_ERROR)
 	{
-		if (splitted_type[i] == IN_OPERATOR
-			|| splitted_type[i] == OUT_OPERATOR
-			|| splitted_type[i] == OUT_APPEND_OPRTR)
-		{
-			i += 2;
-		}
-		else
-		{
-			i++;
-			count++;
-		}
+		perror("Failed to open file");
+        return (NULL);
 	}
-	return (count);
+	result = get_next_line(fd, 1);
+	while (result)
+	{
+		buffer = get_next_line(fd, 1);
+		if (!buffer)
+			break ;
+		result = ft_strjoin(result, buffer);
+		free(buffer);
+	}
+	close(fd);
+	return (result);
 }
 
-int	mns_parse_utils_cmd_type(char *command)
+/* Outputs the contents of a file to STDOUT,
+	bassically like bash's cat command */
+void mns_exec_util_file_to_output(const char *filename, int unlink_or_not)
 {
-	int	len;
+	char *output;
 
-	len = ft_strlen(command);
-	if (len == 2 && ft_strcmp(command, "cd") == 0)
-		return (COM_CD | BUILTIN_EXEC);
-	else if (len == 3 && ft_strcmp(command, "env") == 0)
-		return (COM_ENV | BUILTIN_EXEC);
-	else if (len == 3 && ft_strcmp(command, "pwd") == 0)
-		return (COM_PWD | BUILTIN_EXEC);
-	else if (len == 4 && ft_strcmp(command, "echo") == 0)
-		return (COM_ECHO | BUILTIN_EXEC);
-	else if (len == 4 && ft_strcmp(command, "exit") == 0)
-		return (COM_EXIT | BUILTIN_EXEC);
-	else if (len == 5 && ft_strcmp(command, "unset") == 0)
-		return (COM_UNSET | BUILTIN_EXEC);
-	else if (len == 6 && ft_strcmp(command, "export") == 0)
-		return (COM_EXPORT | BUILTIN_EXEC);
-	else if (strchr(command, SLASH))
-		return (LOCAL_EXEC);
-	else
-		return (GLOBAL_EXEC);
+	output = mns_exec_util_file_to_str(filename);
+	if (output)
+		ft_putstr_fd(output, STDOUT_FILENO);
+	free(output);
+	if (unlink_or_not == 1)
+		unlink (filename);
 }
 
-void	mns_parse_util_assign_args(t_parsed *parsed, const char **splitted, const int *splitted_type)
+int	mns_exec_util_restore_stdout(int save_stdout)
 {
-	int	i;
+	if (dup2(save_stdout, STDOUT_FILENO) == MNS_ERROR)
+	{
+        perror("Failed to restore STDOUT file descriptor");
+		return (MNS_ERROR);
+    }
+    close(save_stdout);
+	return (ALL_FINE);
+}
+
+/* Saves STDOUT_FILENO to save_stdout veariable,
+	opens a file, duplicates its FD to STDOUT_FILENO
+	and returns save_stdout if all went smoothly
+	or -1 (MNS_ERROR) in case of any error. */
+int	mns_exec_util_dup(char *filename, int open_flag, int std_fileno)
+{
+	int	fd;
+	int save_stdout;
+
+	fd = open(filename, open_flag, 0777);
+    if (fd == MNS_ERROR)
+	{
+		perror("Failed to open temporary file");
+        return (MNS_ERROR);
+	}
+    save_stdout = dup(std_fileno);
+    if (save_stdout == MNS_ERROR)
+	{
+        perror("Failed to save STDOUT file descriptor");
+        close(fd);
+        return (MNS_ERROR);
+    }
+    if (dup2(fd, std_fileno) == MNS_ERROR)
+	{
+        perror("Failed to redirect STDOUT to temporary file");
+        close (fd);
+		return (MNS_ERROR);
+    }
+    close(fd);
+	return (save_stdout);
+}
+
+/* Checks if the called global exec is in the folders,
+	saved in PATH env variable.
+	If so - returns the exec with its full path (needs to be freed),
+	if not - writes an error and returns NULL. */
+char	*mns_exec_path(char **paths, char *cmd)
+{
+	int		i;
+	char	*possible_path;
+	char	*possible_exec;
 
 	i = 0;
-	while(splitted[i] && splitted_type[i] != PIPE)
+	while (paths[i])
 	{
-		if (splitted_type[i] == IN_OPERATOR
-			|| splitted_type[i] == OUT_OPERATOR
-			|| splitted_type[i] == OUT_APPEND_OPRTR)
-		{
-			if (splitted_type[i] == IN_OPERATOR)
-				parsed->redir_in = (char *)splitted[i + 1];
-			else
-				parsed->redir_out = (char *)splitted[i + 1];
-			parsed->type |= splitted_type[i];
-			splitted += 2;
-		}
-		if (!parsed->command)
-		{
-			parsed->command = (char *)splitted[0];
-			parsed->type |= mns_parse_utils_cmd_type(parsed->command);
-		}
-		parsed->args[i] = (char *)splitted[i];
+		possible_path = ft_strjoin(paths[i], "/");
+		possible_exec = ft_strjoin(possible_path, cmd);
+		free(possible_path);
+		if (access(possible_exec, F_OK | X_OK) == 0)
+			return (possible_exec);
+		free(possible_exec);
 		i++;
 	}
-	parsed->args[i] = NULL;
+	ft_putstr_fd("minishell: command not found: ", STDOUT_FILENO);
+	ft_putendl_fd(cmd, STDOUT_FILENO);
+	return (NULL);
 }
 
+/* Calls built-in functions */
+void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed)
+{
+	if (parsed.type & COM_PWD)
+		mns_com_pwd();
+	else if (parsed.type & COM_EXIT)
+		mns_com_exit(data, 0);
+	else if (parsed.type & COM_CD)
+		mns_com_cd(parsed.args[1]);
+	else if (parsed.type & COM_ENV)
+		mns_com_env(envp);
+	else if (parsed.type & COM_ECHO)
+		mns_com_echo(parsed.args);
+}
+
+char *mns_exec_simple_setup(t_data *data, char **envp, t_parsed parsed)
+{
+	char	*exec;
+	int		save_stdout;
+
+	exec = NULL;
+	if (parsed.type & OUT_OPERATOR)
+		save_stdout = mns_exec_util_dup(parsed.redir_out, O_CREAT | O_WRONLY | O_TRUNC, STDOUT_FILENO);
+	if (parsed.type & BUILTIN_EXEC)
+		mns_exec_builtin_call(data, envp, parsed);
+	else if (parsed.type & GLOBAL_EXEC)
+	{
+		if (mns_init_paths(data) != MNS_ERROR)
+			exec = mns_exec_path(data->paths, parsed.command);
+	}
+	else
+		exec = ft_strdup(parsed.command);
+	if (parsed.type & OUT_OPERATOR)
+		save_stdout = mns_exec_util_restore_stdout(save_stdout);
+	return (exec);
+}
+
+int	mns_execute_simple(t_parsed parsed, t_data *data, char **envp)
+{
+	char	*exec;
+	pid_t	pid;
+
+	exec = mns_exec_simple_setup(data, envp, parsed);
+	if (exec)
+	{
+		pid = fork();
+		if (pid == MNS_ERROR)
+			printf ("Fork error");
+		else if (pid == CHILD)
+		{
+			if (execve(exec, parsed.args, envp) == MNS_ERROR)
+			{
+				ft_putendl_fd("minishell: permission denied: ", STDOUT_FILENO);
+				exit (MNS_ERROR);
+			}
+		}
+		else
+			wait(NULL);
+	}
+	free (exec);
+	return (ALL_FINE);
+}

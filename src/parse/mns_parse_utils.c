@@ -5,10 +5,8 @@
 int	mns_parse_util_count_args(const char **splitted, const int *splitted_type, int *count)
 {
 	int	i;
-	// int	count;
 
 	i = 0;
-	// count = 0;
 	while (splitted[i] && splitted_type[i] != PIPE)
 	{
 		if (splitted_type[i] == IN_OPERATOR
@@ -58,7 +56,6 @@ void	mns_parse_util_assign_args(t_parsed *parsed, const char **splitted, const i
 	i = 0;
 	while(splitted[i] && splitted_type[i] != PIPE)
 	{
-		printf("splitted[i]: %s. i == %d\n", splitted[i], i);
 		if (splitted_type[i] == IN_OPERATOR || splitted_type[i] == OUT_OPERATOR || splitted_type[i] == OUT_APPEND_OPRTR)
 		{
 			if (splitted_type[i] == IN_OPERATOR)
@@ -67,17 +64,15 @@ void	mns_parse_util_assign_args(t_parsed *parsed, const char **splitted, const i
 				parsed->redir_out = (char *)splitted[i + 1];
 			parsed->type |= splitted_type[i];
 			splitted += 2;
-			continue ;
+			if (i != 0)
+				continue ;
 		}
-		// if (!parsed->command)
-		if (i == 0)
+		if (!parsed->command)
 		{
-			printf("Im here\n");
 			parsed->command = (char *)splitted[0];
 			parsed->type |= mns_parse_utils_cmd_type(parsed->command);
 		}
 		parsed->args[i] = (char *)splitted[i];
-		printf("parsed.args[i]: %s. i == %d\n", parsed->args[i], i);
 		i++;
 	}
 	parsed->args[i] = NULL;

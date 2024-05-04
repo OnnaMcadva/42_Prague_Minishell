@@ -41,6 +41,10 @@ char	*mns_exec_path(char **paths, char *cmd)
 /* Calls built-in functions */
 void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed)
 {
+	int	save_stdout;
+
+	if (parsed.type & OUT_OPERATOR)
+		save_stdout = mns_exec_util_dup(parsed.redir_out, O_CREAT | O_WRONLY | O_TRUNC, STDOUT_FILENO);
 	if (parsed.type & COM_PWD)
 		mns_com_pwd();
 	else if (parsed.type & COM_EXIT)
@@ -51,16 +55,15 @@ void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed)
 		mns_com_env(envp);
 	else if (parsed.type & COM_ECHO)
 		mns_com_echo(parsed.args);
+	if (parsed.type & OUT_OPERATOR)
+		save_stdout = mns_exec_util_restore_stdout(save_stdout);
 }
 
 char *mns_exec_simple_setup(t_data *data, char **envp, t_parsed parsed)
 {
 	char	*exec;
-	int		save_stdout;
 
 	exec = NULL;
-	if (parsed.type & OUT_OPERATOR)
-		save_stdout = mns_exec_util_dup(parsed.redir_out, O_CREAT | O_WRONLY | O_TRUNC, STDOUT_FILENO);
 	if (parsed.type & BUILTIN_EXEC)
 		mns_exec_builtin_call(data, envp, parsed);
 	else if (parsed.type & GLOBAL_EXEC)
@@ -70,8 +73,6 @@ char *mns_exec_simple_setup(t_data *data, char **envp, t_parsed parsed)
 	}
 	else
 		exec = ft_strdup(parsed.command);
-	if (parsed.type & OUT_OPERATOR)
-		save_stdout = mns_exec_util_restore_stdout(save_stdout);
 	return (exec);
 }
 
@@ -88,6 +89,8 @@ int	mns_execute_simple(t_parsed parsed, t_data *data, char **envp)
 			printf ("Fork error");
 		else if (pid == CHILD)
 		{
+			if (parsed.type & OUT_OPERATOR)
+				mns_exec_util_dup(parsed.redir_out, O_CREAT | O_WRONLY | O_TRUNC, STDOUT_FILENO);
 			if (execve(exec, parsed.args, envp) == MNS_ERROR)
 			{
 				ft_putendl_fd("minishell: permission denied: ", STDOUT_FILENO);
