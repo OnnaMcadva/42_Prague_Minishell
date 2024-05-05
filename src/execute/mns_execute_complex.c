@@ -24,7 +24,7 @@ int	mns_execute_complex(t_data *data, char **envp)
 	if (save_stdout == MNS_ERROR)
 		return (MNS_ERROR);
 	mns_execute_simple(data->parsed[0], data, envp);
-	if (mns_exec_util_restore_stdout(save_stdout) == MNS_ERROR)
+	if (mns_exec_util_restore_stdfileno(save_stdout, STDOUT_FILENO) == MNS_ERROR)
 		return (MNS_ERROR);
 	i = 1;
 	while (data->parsed[i].type != NULL_TOKEN)
