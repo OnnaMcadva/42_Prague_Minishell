@@ -38,22 +38,10 @@ char	*mns_exec_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-int mns_exec_redir_out(t_parsed *parsed)
-{
-	if (parsed->type & OUT_OPERATOR)
-		return (mns_exec_util_dup(parsed->redir_out, O_CREAT | O_WRONLY | O_TRUNC, STDOUT_FILENO));
-	else if (parsed->type & OUT_APPEND_OPRTR)
-		return (mns_exec_util_dup(parsed->redir_out, O_CREAT | O_WRONLY | O_APPEND, STDOUT_FILENO));
-	else
-		return (MNS_ERROR);
-}
-
 /* Calls built-in functions */
-void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed)
+void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed, int *save_stdfileno)
 {
-	int	save_stdout;
-
-	save_stdout = mns_exec_redir_out(&parsed);
+	mns_exec_redir_set(&parsed, save_stdfileno);
 	if (parsed.type & COM_PWD)
 		mns_com_pwd();
 	else if (parsed.type & COM_EXIT)
@@ -64,17 +52,18 @@ void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed parsed)
 		mns_com_env(envp);
 	else if (parsed.type & COM_ECHO)
 		mns_com_echo(parsed.args);
-	if (save_stdout != MNS_ERROR)
-		mns_exec_util_restore_stdfileno(save_stdout, STDOUT_FILENO);
+	mns_exec_redir_restore(save_stdfileno);
 }
 
-char *mns_exec_simple_setup(t_data *data, char **envp, t_parsed parsed)
+char *mns_exec_simple_setup(t_data *data, char **envp, t_parsed parsed, int *save_stdfileno)
 {
 	char	*exec;
 
 	exec = NULL;
+	save_stdfileno[0] = -1;
+	save_stdfileno[1] = -1;
 	if (parsed.type & BUILTIN_EXEC)
-		mns_exec_builtin_call(data, envp, parsed);
+		mns_exec_builtin_call(data, envp, parsed, save_stdfileno);
 	else if (parsed.type & GLOBAL_EXEC)
 	{
 		if (mns_init_paths(data) != MNS_ERROR)
@@ -89,8 +78,9 @@ int	mns_execute_simple(t_parsed parsed, t_data *data, char **envp)
 {
 	char	*exec;
 	pid_t	pid;
+	int		save_stdfileno[2];
 
-	exec = mns_exec_simple_setup(data, envp, parsed);
+	exec = mns_exec_simple_setup(data, envp, parsed, save_stdfileno);
 	if (exec)
 	{
 		pid = fork();
@@ -98,10 +88,11 @@ int	mns_execute_simple(t_parsed parsed, t_data *data, char **envp)
 			printf ("Fork error");
 		else if (pid == CHILD)
 		{
-			mns_exec_redir_out(&parsed);
+			mns_exec_redir_set(&parsed, save_stdfileno);
 			if (execve(exec, parsed.args, envp) == MNS_ERROR)
 			{
 				ft_putendl_fd("minishell: permission denied: ", STDOUT_FILENO);
+				mns_exec_redir_restore(save_stdfileno);
 				exit (MNS_ERROR);
 			}
 		}

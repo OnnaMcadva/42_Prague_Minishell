@@ -14,8 +14,13 @@
 
 void	mns_com_cd(char *arg)
 {
+      int   ret;
 
-	if (chdir (arg) == -1)
+      if (!arg || ft_strcmp(arg, "~") == 0)
+            ret = chdir(getenv("HOME"));
+      else
+            ret = chdir(arg);
+	if (ret == MNS_ERROR)
       {
             ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
             perror (arg);

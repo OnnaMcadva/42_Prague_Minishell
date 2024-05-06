@@ -26,22 +26,19 @@ int	mns_parse_util_count_args(const char **splitted, const int *splitted_type, i
 
 int	mns_parse_utils_cmd_type(char *command)
 {
-	int	len;
-
-	len = ft_strlen(command);
-	if (len == 2 && ft_strcmp(command, "cd") == 0)
+	if (ft_strcmp(command, "cd") == 0)
 		return (COM_CD | BUILTIN_EXEC);
-	else if (len == 3 && ft_strcmp(command, "env") == 0)
+	else if (ft_strcmp(command, "env") == 0)
 		return (COM_ENV | BUILTIN_EXEC);
-	else if (len == 3 && ft_strcmp(command, "pwd") == 0)
+	else if (ft_strcmp(command, "pwd") == 0)
 		return (COM_PWD | BUILTIN_EXEC);
-	else if (len == 4 && ft_strcmp(command, "echo") == 0)
+	else if (ft_strcmp(command, "echo") == 0)
 		return (COM_ECHO | BUILTIN_EXEC);
-	else if (len == 4 && ft_strcmp(command, "exit") == 0)
+	else if (ft_strcmp(command, "exit") == 0)
 		return (COM_EXIT | BUILTIN_EXEC);
-	else if (len == 5 && ft_strcmp(command, "unset") == 0)
+	else if (ft_strcmp(command, "unset") == 0)
 		return (COM_UNSET | BUILTIN_EXEC);
-	else if (len == 6 && ft_strcmp(command, "export") == 0)
+	else if (ft_strcmp(command, "export") == 0)
 		return (COM_EXPORT | BUILTIN_EXEC);
 	else if (strchr(command, SLASH))
 		return (LOCAL_EXEC);
@@ -64,6 +61,7 @@ void	mns_parse_util_assign_args(t_parsed *parsed, const char **splitted, const i
 				parsed->redir_out = (char *)splitted[i + 1];
 			parsed->type |= splitted_type[i];
 			splitted += 2;
+			splitted_type += 2;
 			if (i != 0)
 				continue ;
 		}
