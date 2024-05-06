@@ -33,7 +33,7 @@ int		mns_split(char ***splitted, int **splitted_type, const char *line);
 int		mns_split_util_type(const char *line);
 
 int		mns_execute(t_data *data, char **envp);
-int		mns_execute_simple(t_parsed parsed, t_data *data, char **envp);
+int		mns_execute_simple(t_parsed *parsed, t_data *data, char **envp);
 int		mns_execute_complex(t_data *data, char **envp);
 void	mns_exec_redir_set(t_parsed *parsed, int *save_fileno);
 void    mns_exec_redir_restore(int *std_fileno);

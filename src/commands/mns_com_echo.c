@@ -12,6 +12,17 @@
 
 #include "../../includes/minishell.h"
 
+int mns_com_echo_check(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[++i])
+        if (str[i] != 'n')
+            return (0);
+    return (1);
+}
+
 void    mns_com_echo(char **args)
 {
     int i;
@@ -21,7 +32,7 @@ void    mns_com_echo(char **args)
     if (args[1])
     {    
         i = 1;
-        if (ft_strlen(args[1]) == 2 && ft_strcmp(args[1], "-n") == 0)
+        if (ft_strncmp(args[1], "-n", 2) == 0 && mns_com_echo_check(args[1]))
         {
             i++;
             no_nl_flag = 1;

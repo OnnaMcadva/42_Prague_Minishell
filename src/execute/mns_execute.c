@@ -28,5 +28,5 @@ int	mns_execute(t_data *data, char **envp)
 			pipes_count++;
 	if (pipes_count > 0)
 		return (mns_execute_complex(data, envp));
-	return (mns_execute_simple(data->parsed[0], data, envp));
+	return (mns_execute_simple(&data->parsed[0], data, envp));
 }
