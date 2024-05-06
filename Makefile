@@ -43,6 +43,7 @@ FILES = minishell \
 		split/mns_split \
 		split/mns_split_utils \
 		utils/mns_utils \
+		execute/mns_exec_redirections \
 		execute/mns_execute_complex \
 		execute/mns_execute_simple \
 		execute/mns_execute \

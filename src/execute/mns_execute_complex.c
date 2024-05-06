@@ -23,7 +23,7 @@ int	mns_execute_complex(t_data *data, char **envp)
 	save_stdout = mns_exec_util_dup("./temp", O_CREAT | O_RDWR | O_TRUNC, STDOUT_FILENO);
 	if (save_stdout == MNS_ERROR)
 		return (MNS_ERROR);
-	mns_execute_simple(data->parsed[0], data, envp);
+	mns_execute_simple(&data->parsed[0], data, envp);
 	if (mns_exec_util_restore_stdfileno(save_stdout, STDOUT_FILENO) == MNS_ERROR)
 		return (MNS_ERROR);
 	i = 1;
