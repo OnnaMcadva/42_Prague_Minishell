@@ -12,25 +12,37 @@
 
 #include "../../includes/minishell.h"
 
-/* Creates a temp file, writes the command output there,
-	then outputs the contents to STDOUT 
-	TODO: make it with pipes as it should be */
-int	mns_execute_complex(t_data *data, char **envp)
+int	mns_exec_pipe_dup(t_parsed *parsed, int std_fileno)
 {
-	int	i;
-	int	save_stdout;
+	int	saved;
 
-	save_stdout = mns_exec_util_dup("./temp", O_CREAT | O_RDWR | O_TRUNC, STDOUT_FILENO);
-	if (save_stdout == MNS_ERROR)
-		return (MNS_ERROR);
+	saved = dup(std_fileno);
+	dup2(parsed->fd[std_fileno], std_fileno);
+	close(parsed->fd[std_fileno]);
+	return (saved);
+}
+
+int mns_exec_pipe(t_data *data, char **envp, int count)
+{
+	int		saved_out;
+	int		saved_in;
+	int		i;
+	
+	saved_out = mns_exec_pipe_dup(&data->parsed[1], STDOUT_FILENO);
 	mns_execute_simple(&data->parsed[0], data, envp);
-	if (mns_exec_util_restore_stdfileno(save_stdout, STDOUT_FILENO) == MNS_ERROR)
-		return (MNS_ERROR);
-	i = 1;
-	while (data->parsed[i].type != NULL_TOKEN)
+	mns_exec_util_restore_stdfileno(saved_out, STDOUT_FILENO);
+	i = 2;
+	while (i < count)
 	{
-		i++;
+		saved_in = mns_exec_pipe_dup(&data->parsed[i - 1], STDIN_FILENO);
+		saved_out = mns_exec_pipe_dup(&data->parsed[i + 1], STDOUT_FILENO);
+		mns_execute_simple(&data->parsed[i], data, envp);
+		mns_exec_util_restore_stdfileno(saved_in, STDIN_FILENO);
+		mns_exec_util_restore_stdfileno(saved_out, STDOUT_FILENO);
+		i += 2;
 	}
-	mns_exec_util_file_to_output("./temp", 0);
+	saved_in = mns_exec_pipe_dup(&data->parsed[count - 1], STDIN_FILENO);
+	mns_execute_simple(&data->parsed[count], data, envp);
+	mns_exec_util_restore_stdfileno(saved_in, STDIN_FILENO);
 	return (ALL_FINE);
 }

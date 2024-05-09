@@ -32,20 +32,28 @@
 # define PROMPT "\x1B[36m[minishell] \x1B[35m[ =) ] \x1B[36m~> \x1B[0m"
 // the lenght is 42 =)
 
-# define GLOBAL_EXEC        0x0001
-# define LOCAL_EXEC         0x0002
-# define BUILTIN_EXEC       0x0004
-# define IN_OPERATOR        0x0008
-# define HERE_DOC           0x0010
-# define OUT_OPERATOR       0x0020
-# define OUT_APPEND_OPRTR   0x0040
-# define COM_CD             0x0080
-# define COM_ECHO           0x0100
-# define COM_ENV            0x0200
-# define COM_EXIT           0x0400
-# define COM_EXPORT         0x0800
-# define COM_PWD            0x1000
-# define COM_UNSET          0x2000
+# define MNS_ERROR          -1
+# define CHILD              0
+# define ALL_FINE           42
+
+# define NULL_TOKEN         0x0
+# define GLOBAL_EXEC        0x00001
+# define LOCAL_EXEC         0x00002
+# define BUILTIN_EXEC       0x00004
+# define IN_OPERATOR        0x00008
+# define HERE_DOC           0x00010
+# define OUT_OPERATOR       0x00020
+# define OUT_APPEND_OPRTR   0x00040
+# define COM_CD             0x00080
+# define COM_ECHO           0x00100
+# define COM_ENV            0x00200
+# define COM_EXIT           0x00400
+# define COM_EXPORT         0x00800
+# define COM_PWD            0x01000
+# define COM_UNSET          0x02000
+# define WORD               0x04000
+# define PIPE               0x08000
+# define ENV                0x10000
 
 # define META_CHARACTERS "|&;()<>"
 

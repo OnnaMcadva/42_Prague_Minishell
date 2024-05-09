@@ -27,6 +27,8 @@ int	mns_parse_init(t_data *data)
 		data->parsed[i].redir_in = NULL;
 		data->parsed[i].redir_out = NULL;
 		data->parsed[i].type = NULL_TOKEN;
+		data->parsed[i].fd[0] = STDIN_FILENO;
+		data->parsed[i].fd[1] = STDOUT_FILENO;
 		i++;
 	}
 	return (ALL_FINE);
@@ -35,32 +37,32 @@ int	mns_parse_init(t_data *data)
 int	mns_parse_command(const char **splitted, const int *splitted_type, t_parsed *parsed)
 {
 	int	args_count;
-	int	ret;
+	int	step;
 
 	args_count = 0;
-	ret = mns_parse_util_count_args(splitted, splitted_type, &args_count);
+	step = mns_parse_util_count_args(splitted, splitted_type, &args_count);
 	parsed->args = malloc((args_count + 1) * sizeof(char *));
 	if (!parsed->args)
 		return (perror("Malloc error"), MNS_ERROR);
 	mns_parse_util_assign_args(parsed, splitted, splitted_type);
-	return (ret);
+	return (step);
 }
 
 /* TODO: split into smaller functions */
 int	mns_parse_process(const char **splitted, const int *splitted_type, t_parsed	*parsed)
 {
 	int	i;
-	int	ret;
+	int	step;
 
 	i = 0;
 	while (splitted[i])
 	{
 		if (splitted_type[i] != PIPE)
 		{
-			ret = mns_parse_command(splitted + i, splitted_type + i, parsed);
-			if (ret == MNS_ERROR)
+			step = mns_parse_command(splitted + i, splitted_type + i, parsed);
+			if (step == MNS_ERROR)
 				return (MNS_ERROR);
-			i += ret;
+			i += step;
 		}
 		else
 		{

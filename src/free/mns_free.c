@@ -20,15 +20,15 @@ void	mns_free_data(t_data *data)
 	if (data->splitted)
 		while (data->splitted[i])
 			free(data->splitted[i++]);
+	free (data->splitted);
+	free (data->splitted_type);
 	i = 0;
 	if (data->paths)
 		while (data->paths[i])
 			free(data->paths[i++]);
+	free (data->paths);
 	if (data->parsed)
 		free(data->parsed->args);
 	free (data->parsed);
-	free (data->paths);
-	free (data->splitted);
-	free (data->splitted_type);
 	free (data->line);
 }

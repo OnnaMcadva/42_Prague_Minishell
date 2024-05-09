@@ -32,6 +32,7 @@ char	*gnl_next(char *buffer)
 		line[j++] = buffer[i++];
 	line[j] = '\0';
 	free(buffer);
+	buffer = NULL;
 	return (line);
 }
 

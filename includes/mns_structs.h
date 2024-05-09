@@ -19,6 +19,7 @@ typedef struct s_parsed
 	char	**args;
 	char	*redir_in;
 	char	*redir_out;
+	int		fd[2];
 	int		type;
 
 }				t_parsed;

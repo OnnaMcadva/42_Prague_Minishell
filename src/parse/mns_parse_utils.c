@@ -40,7 +40,7 @@ int	mns_parse_utils_cmd_type(char *command)
 		return (COM_UNSET | BUILTIN_EXEC);
 	else if (ft_strcmp(command, "export") == 0)
 		return (COM_EXPORT | BUILTIN_EXEC);
-	else if (strchr(command, SLASH))
+	else if (ft_strchr(command, SLASH))
 		return (LOCAL_EXEC);
 	else
 		return (GLOBAL_EXEC);

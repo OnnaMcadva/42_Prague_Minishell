@@ -13,13 +13,6 @@
 #ifndef MNS_ENUMS_H
 # define MNS_ENUMS_H
 
-enum e_state
-{
-	MNS_ERROR = -1,
-	CHILD = 0,
-	ALL_FINE,
-};
-
 enum e_delimiter
 {
 	WHITESPACE = ' ',
@@ -33,14 +26,6 @@ enum e_delimiter
 	PIPE_LINE = '|',
 	REDIR_IN = '<',
 	REDIR_OUT = '>',
-};
-
-enum e_tkn_type
-{
-	NULL_TOKEN = 0,
-	WORD,
-	ENV,
-	PIPE,
 };
 
 #endif

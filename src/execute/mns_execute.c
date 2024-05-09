@@ -12,6 +12,30 @@
 
 #include "../../includes/minishell.h"
 
+int mns_exec_count_set_pipes(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->parsed[i].type != NULL_TOKEN)
+	{
+		if (data->parsed[i].type == PIPE)
+		{
+			if (pipe(data->parsed[i].fd) == MNS_ERROR)
+			{
+				while (--i >= 0)
+				{
+					close(data->parsed[i].fd[0]);
+					close(data->parsed[i].fd[1]);
+				}
+				return (perror("pipe"), MNS_ERROR);
+			}
+		}
+		i++;
+	}
+	return (i - 1);
+}
+
 /* Right now looks for pipe and calls execute_complex,
 	otherwise calls mns_execute_simple.
 	TODO: call functions needed depending on context
@@ -19,14 +43,9 @@
 int	mns_execute(t_data *data, char **envp)
 {
 	int	i;
-	int	pipes_count;
 
-	i = -1;
-	pipes_count = 0;
-	while (data->parsed[++i].type != NULL_TOKEN)
-		if (data->parsed[i].type == PIPE)
-			pipes_count++;
-	if (pipes_count > 0)
-		return (mns_execute_complex(data, envp));
+	i = mns_exec_count_set_pipes(data);
+	if (i > 0)
+		return (mns_exec_pipe(data, envp, i));
 	return (mns_execute_simple(&data->parsed[0], data, envp));
 }
