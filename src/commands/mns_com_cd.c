@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+/* TODO: add the '-' option */
 void	mns_com_cd(char *arg)
 {
       int   ret;

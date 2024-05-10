@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/* Checks line for opened quotes and ... ?? */
 int	mns_check_line(const char *line)
 {
 	int		i;

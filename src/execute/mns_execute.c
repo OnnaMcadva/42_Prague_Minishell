@@ -55,7 +55,7 @@ void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed *parsed, int *sav
 	mns_exec_redir_restore(save_stdfileno);
 }
 
-char *mns_exec_simple_setup(t_data *data, char **envp, t_parsed *parsed, int *save_stdfileno)
+char *mns_exec_setup(t_data *data, char **envp, t_parsed *parsed, int *save_stdfileno)
 {
 	char	*exec;
 
@@ -80,7 +80,7 @@ int	mns_exec_process(t_parsed *parsed, t_data *data, char **envp)
 	pid_t	pid;
 	int		save_stdfileno[2];
 
-	exec = mns_exec_simple_setup(data, envp, parsed, save_stdfileno);
+	exec = mns_exec_setup(data, envp, parsed, save_stdfileno);
 	if (exec)
 	{
 		pid = fork();

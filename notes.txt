@@ -1,27 +1,11 @@
-xxx Parse input:
+TODO:
 
+cd -
 
-x Look for quote marks;
+exit 42
 
-x If there's nothing between them and something's near them - throw them;
+Parse \" as a DOUBLE_QUOTE symbol
 
-!!! ec""ho	or	""echo	or	echo""	or	e"ch"o	-	are valid cases !!!
+echo $PATH
 
-!!! "" echo	-	is not a valid case, appropriate message: "minishell: permission denied: ",
-	because it tries to execute NULL !!!
-
-x Save cmd, argument and/or flag to the struct.
-
-x Check if command has a defined path (./	or	../some_folder),
-	if not - it's a global one and you need to find a path in environment;
-
-x Check for pipes (and redirections???) == Define number of commands
-
-
-
-
-parsed[0].command = splitted[0]
-while splitted[i] != PIPE_LINE || splitted[i] != NULL || i < tkn_count
-	parsed[0].argument[0] = splitted[1]
-	parsed[0].argument[1] = splitted[2]
-	...
+echo -n -n -n
