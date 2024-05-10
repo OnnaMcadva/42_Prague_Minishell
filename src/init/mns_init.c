@@ -12,6 +12,33 @@
 
 #include "../../includes/minishell.h"
 
+int mns_init_pipes(t_data *data)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (data->parsed[i].type != NULL_TOKEN)
+	{
+		if (data->parsed[i].type == PIPE)
+		{
+			if (pipe(data->parsed[i].fd) == MNS_ERROR)
+			{
+				while (--i >= 0)
+				{
+					close(data->parsed[i].fd[0]);
+					close(data->parsed[i].fd[1]);
+				}
+				return (perror("pipe"), MNS_ERROR);
+			}
+			count++;
+		}
+		i++;
+	}
+	return (count * 2);
+}
+
 int	mns_init_paths(t_data *data)
 {
 	data->paths = ft_split(getenv("PATH"), ':');

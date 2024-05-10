@@ -12,37 +12,27 @@
 
 #include "../../includes/minishell.h"
 
-int	mns_exec_pipe_dup(t_parsed *parsed, int std_fileno)
-{
-	int	saved;
-
-	saved = dup(std_fileno);
-	dup2(parsed->fd[std_fileno], std_fileno);
-	close(parsed->fd[std_fileno]);
-	return (saved);
-}
-
 int mns_exec_pipe(t_data *data, char **envp, int count)
 {
 	int		saved_out;
 	int		saved_in;
 	int		i;
 	
-	saved_out = mns_exec_pipe_dup(&data->parsed[1], STDOUT_FILENO);
-	mns_execute_simple(&data->parsed[0], data, envp);
+	saved_out = mns_exec_util_pipe_dup(&data->parsed[1], STDOUT_FILENO);
+	mns_exec_process(&data->parsed[0], data, envp);
 	mns_exec_util_restore_stdfileno(saved_out, STDOUT_FILENO);
 	i = 2;
 	while (i < count)
 	{
-		saved_in = mns_exec_pipe_dup(&data->parsed[i - 1], STDIN_FILENO);
-		saved_out = mns_exec_pipe_dup(&data->parsed[i + 1], STDOUT_FILENO);
-		mns_execute_simple(&data->parsed[i], data, envp);
+		saved_in = mns_exec_util_pipe_dup(&data->parsed[i - 1], STDIN_FILENO);
+		saved_out = mns_exec_util_pipe_dup(&data->parsed[i + 1], STDOUT_FILENO);
+		mns_exec_process(&data->parsed[i], data, envp);
 		mns_exec_util_restore_stdfileno(saved_in, STDIN_FILENO);
 		mns_exec_util_restore_stdfileno(saved_out, STDOUT_FILENO);
 		i += 2;
 	}
-	saved_in = mns_exec_pipe_dup(&data->parsed[count - 1], STDIN_FILENO);
-	mns_execute_simple(&data->parsed[count], data, envp);
+	saved_in = mns_exec_util_pipe_dup(&data->parsed[count - 1], STDIN_FILENO);
+	mns_exec_process(&data->parsed[count], data, envp);
 	mns_exec_util_restore_stdfileno(saved_in, STDIN_FILENO);
 	return (ALL_FINE);
 }

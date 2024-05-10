@@ -22,6 +22,7 @@ void	mns_sigint_handler(int sig);
 
 int		mns_init_data(t_data *data);
 int		mns_init_paths(t_data *data);
+int     mns_init_pipes(t_data *data);
 
 int		mns_parse(t_data *data);
 int		mns_parse_util_count_args(const char **splitted, const int *splitted_type, int *count);
@@ -33,12 +34,13 @@ int		mns_split(char ***splitted, int **splitted_type, const char *line);
 int		mns_split_util_type(const char *line);
 
 int		mns_execute(t_data *data, char **envp);
-int		mns_execute_simple(t_parsed *parsed, t_data *data, char **envp);
+int		mns_exec_process(t_parsed *parsed, t_data *data, char **envp);
 int		mns_exec_pipe(t_data *data, char **envp, int count);
 void	mns_exec_redir_set(t_parsed *parsed, int *save_fileno);
 void    mns_exec_redir_restore(int *std_fileno);
 void	mns_exec_util_file_to_output(const char *filename, int unlink_or_not);
-int		mns_exec_util_dup(char *filename, int open_flag, int std_fileno);
+int     mns_exec_util_pipe_dup(t_parsed *parsed, int std_fileno);
+int		mns_exec_util_file_dup(char *filename, int open_flag, int std_fileno);
 int		mns_exec_util_restore_stdfileno(int saved_fileno, int std_fileno);
 char	*mns_exec_util_file_to_str(const char *filename);
 
