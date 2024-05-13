@@ -48,12 +48,12 @@ void    mns_com_pwd(void);
 void	mns_com_cd(char *arg);
 void    mns_com_env(char **envp);
 void    mns_com_echo(char **args);
+void	mns_com_exit(t_data *data, int code);
 
 void	mns_free_data(t_data *data);
 
 int		mns_util_in_quote(char *in_quote, char c);
 int		mns_util_is_metachar(char c);
 
-void	mns_com_exit(t_data *data, int code);
 
 #endif

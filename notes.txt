@@ -2,8 +2,6 @@ TODO:
 
 cd -
 
-exit 42
-
 Parse \" as a DOUBLE_QUOTE symbol
 
 echo $PATH
