@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:31:36 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/04 15:22:10 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:54:09 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ int	ft_atoi(const char *str)
 	if (!str)
 		return (0);
 	i = 0;
-	minus = 0;
+	minus = 1;
 	res = 0;
 	while (is_space(str[i]) && str[i] != '\0')
 		i++;
 	if (str[i] == '-')
 	{
-		minus = 1;
+		minus = -1;
 		i++;
 	}
 	else if (str[i] == '+')
@@ -54,7 +54,5 @@ int	ft_atoi(const char *str)
 		res = res * 10 + str[i] - '0';
 		i++;
 	}
-	if (minus % 2 != 0)
-		res = res * -1;
-	return (res);
+	return (res * minus);
 }

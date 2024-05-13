@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:50:50 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/13 13:02:43 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:55:03 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	pf_print_char(va_list args)
 	return (1);
 }
 
-size_t	pf_format_specifier(const char fmt, va_list args, size_t printlen)
+size_t	pf_format_specifier( char fmt, va_list args, size_t printlen)
 {
 	if (fmt == 'c')
 		printlen += pf_print_char(args);

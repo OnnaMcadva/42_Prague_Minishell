@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:01:31 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/04 15:22:00 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:57:04 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		*ft_memmove(void *dest, void *src, size_t n);
 void		*ft_memset(void *str, int c, size_t n);
 
 int			ft_printf(const char *fmt, ...);
-size_t		pf_format_specifier(const char fmt, va_list args, size_t printlen);
+size_t		pf_format_specifier( char fmt, va_list args, size_t printlen);
 int			pf_print_char(va_list args);
 int			pf_print_integer(va_list args);
 int			pf_print_string(va_list args);
