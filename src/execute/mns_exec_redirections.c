@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:29:45 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 14:32:21 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:30:49 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	mns_exec_redir_set(t_parsed *parsed, int *save_fileno)
 {
 	if (parsed->type & IN_OPERATOR)
 		save_fileno[0] = mns_exec_util_file_dup(
-				parsed->redir_in, O_RDONLY, STDIN_FILENO);
+				parsed->redir_in,
+				O_RDONLY,
+				STDIN_FILENO);
 	if (parsed->type & OUT_OPERATOR)
 		save_fileno[1] = mns_exec_util_file_dup(
 				parsed->redir_out,

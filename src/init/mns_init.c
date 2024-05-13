@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 15:00:53 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:25:38 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	mns_init_paths(t_data *data)
 	return (ALL_FINE);
 }
 
-/* Sets data elements to zero */
 int	mns_init_data(t_data *data)
 {
 	data->line = NULL;

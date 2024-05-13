@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 14:39:11 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:43:49 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ void	mns_com_exit(t_data *data, int code);
 void	mns_free_data(t_data *data);
 
 int		mns_util_in_quote(char *in_quote, char c);
-int		mns_util_is_metachar(char c);
+int		mns_utils_is_space(const char c);
 
 #endif

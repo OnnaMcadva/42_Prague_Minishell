@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:37:49 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 14:28:29 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:43:24 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,13 @@ int	mns_util_in_quote(char *in_quote, char c)
 	else
 		toggle = 0;
 	return (toggle);
+}
+
+int	mns_utils_is_space(const char c)
+{
+	if (c == WHITESPACE
+		|| c == TAB_SYMBOL
+		|| c == NEW_LINE)
+		return (1);
+	return (0);
 }
