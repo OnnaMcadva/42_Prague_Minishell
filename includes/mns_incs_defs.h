@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:53:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/24 13:55:50 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:36:45 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,5 @@
 # define ENV                0x10000
 
 # define META_CHARACTERS "|&;()<>"
-
-# ifdef MACOS
-#  include </usr/local/Homebrew/Cellar/readline/8.2.10/include/readline/readline.h>
-# endif
 
 #endif

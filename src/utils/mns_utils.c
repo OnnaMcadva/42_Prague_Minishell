@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:37:49 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/24 10:49:34 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:28:29 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ int	mns_util_in_quote(char *in_quote, char c)
 		toggle = 0;
 	return (toggle);
 }
-

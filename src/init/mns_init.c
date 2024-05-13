@@ -6,13 +6,13 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/23 14:48:34 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:00:53 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int mns_init_pipes(t_data *data)
+int	mns_init_pipes(t_data *data)
 {
 	int	i;
 	int	count;
@@ -57,5 +57,7 @@ int	mns_init_data(t_data *data)
 	data->paths = NULL;
 	data->tkn_count = 0;
 	data->pipes_count = 0;
+	if (mns_init_paths(data) == MNS_ERROR)
+		return (MNS_ERROR);
 	return (ALL_FINE);
 }

@@ -39,7 +39,10 @@ char	*mns_exec_path(char **paths, char *cmd)
 }
 
 /* Calls built-in functions */
-void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed *parsed, int *save_stdfileno)
+void	mns_exec_builtin_call(t_data *data,
+								char **envp,
+								t_parsed *parsed,
+								int *save_stdfileno)
 {
 	mns_exec_redir_set(parsed, save_stdfileno);
 	if (parsed->type & COM_PWD)
@@ -55,7 +58,10 @@ void	mns_exec_builtin_call(t_data *data, char **envp, t_parsed *parsed, int *sav
 	mns_exec_redir_restore(save_stdfileno);
 }
 
-char *mns_exec_setup(t_data *data, char **envp, t_parsed *parsed, int *save_stdfileno)
+char	*mns_exec_setup(t_data *data,
+						char **envp,
+						t_parsed *parsed,
+						int *save_stdfileno)
 {
 	char	*exec;
 
@@ -65,10 +71,7 @@ char *mns_exec_setup(t_data *data, char **envp, t_parsed *parsed, int *save_stdf
 	if (parsed->type & BUILTIN_EXEC)
 		mns_exec_builtin_call(data, envp, parsed, save_stdfileno);
 	else if (parsed->type & GLOBAL_EXEC)
-	{
-		if (mns_init_paths(data) != MNS_ERROR)
 			exec = mns_exec_path(data->paths, parsed->command);
-	}
 	else
 		exec = ft_strdup(parsed->command);
 	return (exec);

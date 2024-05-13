@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:56:17 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/24 14:18:16 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:26:01 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	mns_parse_init(t_data *data)
 	return (ALL_FINE);
 }
 
-int	mns_parse_command(const char **splitted, const int *splitted_type, t_parsed *parsed)
+int	mns_parse_command(char **splitted, int *splitted_type, t_parsed *parsed)
 {
 	int	args_count;
 	int	step;
@@ -49,7 +49,7 @@ int	mns_parse_command(const char **splitted, const int *splitted_type, t_parsed 
 }
 
 /* TODO: split into smaller functions */
-int	mns_parse_process(const char **splitted, const int *splitted_type, t_parsed	*parsed)
+int	mns_parse_process(char **splitted, int *splitted_type, t_parsed	*parsed)
 {
 	int	i;
 	int	step;
@@ -79,10 +79,13 @@ int	mns_parse_process(const char **splitted, const int *splitted_type, t_parsed	
 	or if there's an unclosed quote. */
 int	mns_parse(t_data *data)
 {
-	data->tkn_count = mns_split(&data->splitted, &data->splitted_type, data->line);
+	data->tkn_count = mns_split(&data->splitted,
+			&data->splitted_type,
+			data->line);
 	if (mns_check_line(data->line) == MNS_ERROR || !data->tkn_count)
 		return (MNS_ERROR);
 	if (mns_parse_init(data) == MNS_ERROR)
 		return (MNS_ERROR);
-	return (mns_parse_process((const char **) data->splitted, data->splitted_type, data->parsed));
+	return (mns_parse_process(
+			(char **) data->splitted, data->splitted_type, data->parsed));
 }

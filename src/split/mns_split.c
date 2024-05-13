@@ -6,13 +6,13 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/24 11:29:19 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:35:12 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	mns_tknlen(const char *line, int *tkn_len)
+int	mns_tknlen( char *line, int *tkn_len)
 {
 	char	in_quote;
 	int		pos;
@@ -36,7 +36,7 @@ int	mns_tknlen(const char *line, int *tkn_len)
 	return (pos);
 }
 
-char	*mns_tkncpy(const char *line, char *token, int tkn_len, int next_pos)
+char	*mns_tkncpy( char *line, char *token, int tkn_len, int next_pos)
 {
 	int		i;
 	int		j;
@@ -63,7 +63,7 @@ char	*mns_tkncpy(const char *line, char *token, int tkn_len, int next_pos)
 }
 
 int	mns_split_process(char **splitted, int *spltd_type,
-						const char *line, int tokens)
+						char *line, int tokens)
 {
 	int	i;
 	int	tkn_len;
@@ -88,7 +88,7 @@ int	mns_split_process(char **splitted, int *spltd_type,
 }
 
 /* Counts a number of tokens to allocate */
-int	mns_count_tokens(const char *line)
+int	mns_count_tokens( char *line)
 {
 	int		i;
 	int		count;
@@ -120,7 +120,7 @@ int	mns_count_tokens(const char *line)
 	to make parsing easier.
 	Returns 0 in case of empty line.
 	Returns -1 (MNS_ERROR) in case of malloc error. */
-int	mns_split(char ***splitted, int **spltd_type, const char *line)
+int	mns_split(char ***splitted, int **spltd_type, char *line)
 {
 	int	tokens;
 

@@ -1,8 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mns_parse_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/13 13:23:16 by mmakagon          #+#    #+#             */
+/*   Updated: 2024/05/13 14:25:21 by mmakagon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 /* Counts arguments for a parsed command,
-	skips redirection operators (those will be set to a special string in parsed struct)*/
-int	mns_parse_util_count_args(const char **splitted, const int *splitted_type, int *count)
+	skips redirection operators
+	(those will be set to a special string in parsed struct)*/
+int	mns_parse_util_count_args(char **splitted,
+								int *splitted_type,
+								int *count)
 {
 	int	i;
 
@@ -46,14 +61,18 @@ int	mns_parse_utils_cmd_type(char *command)
 		return (GLOBAL_EXEC);
 }
 
-void	mns_parse_util_assign_args(t_parsed *parsed, const char **splitted, const int *splitted_type)
+void	mns_parse_util_assign_args(t_parsed *parsed,
+									char **splitted,
+									int *splitted_type)
 {
 	int	i;
 
 	i = 0;
-	while(splitted[i] && splitted_type[i] != PIPE)
+	while (splitted[i] && splitted_type[i] != PIPE)
 	{
-		if (splitted_type[i] == IN_OPERATOR || splitted_type[i] == OUT_OPERATOR || splitted_type[i] == OUT_APPEND_OPRTR)
+		if (splitted_type[i] == IN_OPERATOR
+			|| splitted_type[i] == OUT_OPERATOR
+			|| splitted_type[i] == OUT_APPEND_OPRTR)
 		{
 			if (splitted_type[i] == IN_OPERATOR)
 				parsed->redir_in = (char *)splitted[i + 1];
