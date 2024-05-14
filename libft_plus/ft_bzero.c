@@ -18,5 +18,5 @@ void	ft_bzero(void *s, size_t n)
 
 	ch = s;
 	while (n--)
-		*ch++ = '\0';
+		*ch++ = 0;
 }

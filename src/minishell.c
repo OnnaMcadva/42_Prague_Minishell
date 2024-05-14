@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/04/24 13:04:33 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:44:47 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	signal (SIGINT, mns_sigint_handler);
-	if (argc == 1)
-		mns_main_loop(&data, envp);
-	else
-		printf
-		("%s %s ... - boooo, try without arguments!\n", argv[0], argv[1]);
+	if (argc > 1)
+	{
+		printf("%s %s???\nWatch your arguments!!!\n", argv[0], argv[1]);
+		return (42);
+	}
+	if (mns_init_env_copy(envp, &data) == MNS_ERROR)
+		return (1);
+	signal(SIGINT, mns_sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+	mns_main_loop(&data, envp);
 }

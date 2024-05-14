@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 13:55:52 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:20:19 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	mns_com_exit(t_data *data, char *str_code)
 		}
 	}
 	mns_free_data(data);
+	mns_free_tab(data->env_copy);
 	exit (code);
 }

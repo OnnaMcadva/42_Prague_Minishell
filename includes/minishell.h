@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 15:16:33 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:20:10 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 void	mns_sigint_handler(int sig);
 
+int		mns_init_env_copy(char **envp, t_data *data);
 int		mns_init_data(t_data *data);
 int		mns_init_paths(t_data *data);
 int		mns_init_pipes(t_data *data);
@@ -33,7 +34,7 @@ void	mns_parse_util_assign_args(t_parsed *parsed,
 			int *splitted_type);
 
 int		mns_check_quotes(char *line);
-int		mns_check_redirs(int *splitted_type, int tkn_count);
+int		mns_check_redirs(int *spltd_type, int tkn_count);
 
 int		mns_split(char ***splitted, int **splitted_type, char *line);
 int		mns_split_util_type(char *line);
@@ -56,6 +57,7 @@ int		mns_com_echo(char **args);
 void	mns_com_exit(t_data *data, char *str_code);
 
 void	mns_free_data(t_data *data);
+void	mns_free_tab(char **tab);
 
 int		mns_util_in_quote(char *in_quote, char c);
 int		mns_utils_is_space(const char c);

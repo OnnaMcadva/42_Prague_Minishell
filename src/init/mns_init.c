@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 15:25:38 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:26:20 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,31 @@ int	mns_init_data(t_data *data)
 	data->pipes_count = 0;
 	if (mns_init_paths(data) == MNS_ERROR)
 		return (MNS_ERROR);
+	return (ALL_FINE);
+}
+
+int	mns_init_env_copy(char **envp, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while(envp[i])
+		i++;
+	if (!i)
+		return (MNS_ERROR);
+	data->env_copy = malloc(i * sizeof(char *));
+	if (!data->env_copy)
+		return (perror("malloc"), MNS_ERROR);
+	data->env_copy[--i] = NULL;
+	while (--i >= 0)
+	{
+		data->env_copy[i] = ft_strdup(envp[i]);
+		if (!data->env_copy[i])
+		{
+			while (data->env_copy[++i])
+				free(data->env_copy[i]);
+			return (MNS_ERROR);
+		}
+	}
 	return (ALL_FINE);
 }

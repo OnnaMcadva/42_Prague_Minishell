@@ -12,23 +12,27 @@
 
 #include "../../includes/minishell.h"
 
-int		mns_check_redirs(int *splitted_type, int tkn_count)
+int		mns_check_redirs(int *spltd_type, int tkn_count)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = 0;
 	while (i < tkn_count)
 	{
-		if (splitted_type[i] == IN_OPERATOR
-			|| splitted_type[i] == OUT_OPERATOR
-			|| splitted_type[i] == OUT_APPEND_OPRTR)
-		{
-			if (splitted_type[i + 1] != WORD)
-				return (ft_putendl_fd("minishell: syntax error near unexpected token `newline\'", STDOUT_FILENO), MNS_ERROR);
-		}
+		if (((spltd_type[i] == IN_OPERATOR || spltd_type[i] == OUT_OPERATOR
+			|| spltd_type[i] == OUT_APPEND_OPRTR) && spltd_type[i + 1] != WORD)
+			|| (spltd_type[i] == PIPE && spltd_type[i + 1] == PIPE))
+				break ;
 		i++;
+	}
+	if (i < tkn_count)
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token ", STDOUT_FILENO);
+		if (spltd_type[tkn_count - 1] == PIPE)
+			ft_putendl_fd("`|\'", STDOUT_FILENO);
+		else
+			ft_putendl_fd("`newline\'", STDOUT_FILENO);
+		return (MNS_ERROR);
 	}
 	return (ALL_FINE);
 }

@@ -44,17 +44,17 @@ void	mns_exec_builtin_call(t_data *data,
 								t_parsed *parsed,
 								int *save_stdfileno)
 {
-	pid_t	pid;
+	// pid_t	pid;
 	int		ret;
 
 	ret = 0;
 	if (parsed->type & COM_EXIT)
 		mns_com_exit(data, parsed->args[1]);
-	pid = fork();
-	if (pid == MNS_ERROR)
-		perror("fork");
-	else if (pid == CHILD)
-	{
+	// pid = fork();
+	// if (pid == MNS_ERROR)
+	// 	perror("fork");
+	// else if (pid == CHILD)
+	// {
 		mns_exec_redir_set(parsed, save_stdfileno);
 		if (parsed->type & COM_PWD)
 			ret = mns_com_pwd();
@@ -65,10 +65,11 @@ void	mns_exec_builtin_call(t_data *data,
 		else if (parsed->type & COM_ECHO)
 			ret = mns_com_echo(parsed->args);
 		mns_exec_redir_restore(save_stdfileno);
-		exit (ret);
-	}
-	else
-		wait(NULL);
+	(void)ret;
+	// 	exit (ret);
+	// }
+	// else
+	// 	wait(NULL);
 }
 
 char	*mns_exec_setup(t_data *data,
