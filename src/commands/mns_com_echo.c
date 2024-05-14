@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:46 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 14:28:19 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:59:18 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	mns_com_echo_check(char *str)
 	return (1);
 }
 
-void	mns_com_echo(char **args)
+int	mns_com_echo(char **args)
 {
 	int	i;
 	int	no_nl_flag;
@@ -46,4 +46,5 @@ void	mns_com_echo(char **args)
 	}
 	if (no_nl_flag == 0)
 		ft_putchar_fd(NEW_LINE, STDOUT_FILENO);
+	return (0);
 }

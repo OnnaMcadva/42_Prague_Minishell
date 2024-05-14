@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 15:43:49 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:01:01 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int		mns_exec_util_file_dup(char *filename, int open_flag, int std_fileno);
 int		mns_exec_util_restore_stdfileno(int saved_fileno, int std_fileno);
 char	*mns_exec_util_file_to_str( char *filename);
 
-void	mns_com_pwd(void);
-void	mns_com_cd(char *arg);
-void	mns_com_env(char **envp);
-void	mns_com_echo(char **args);
+int		mns_com_pwd(void);
+int		mns_com_cd(char *arg);
+int		mns_com_env(char **envp);
+int		mns_com_echo(char **args);
 void	mns_com_exit(t_data *data, char *str_code);
 
 void	mns_free_data(t_data *data);
