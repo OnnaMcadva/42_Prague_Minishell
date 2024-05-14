@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	mns_split_util_type( char *line)
+int	mns_split_util_type(char *line)
 {
 	char	in_quote;
 

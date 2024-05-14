@@ -55,6 +55,6 @@
 # define PIPE               0x08000
 # define ENV                0x10000
 
-# define META_CHARACTERS "|&;()<>"
+# define META_CHARACTERS " \t\n\'\'\\/$|<>"
 
 #endif

@@ -48,7 +48,7 @@ void	mns_exec_builtin_call(t_data *data,
 	if (parsed->type & COM_PWD)
 		mns_com_pwd();
 	else if (parsed->type & COM_EXIT)
-		mns_com_exit(data, ft_atoi(parsed->args[1]));
+		mns_com_exit(data, parsed->args[1]);
 	else if (parsed->type & COM_CD)
 		mns_com_cd(parsed->args[1]);
 	else if (parsed->type & COM_ENV)

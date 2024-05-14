@@ -12,9 +12,26 @@
 
 #include "../../includes/minishell.h"
 
-void	mns_com_exit(t_data *data, int code)
+void	mns_com_exit(t_data *data, char *str_code)
 {
-	ft_putendl_fd("exit", STDIN_FILENO);
+	int	code;
+	int	i;
+
+	code = ft_atoi(str_code);
+	ft_putendl_fd("exit", STDOUT_FILENO);
+	i = 0;
+	while (str_code[i])
+	{
+		if (!ft_isdigit(str_code[i]))
+		{
+			code = 255;
+			ft_putstr_fd("minishell: exit: ", STDOUT_FILENO);
+			ft_putstr_fd(str_code, STDOUT_FILENO);
+			ft_putendl_fd(": numeric argument required", STDOUT_FILENO);
+			break ;
+		}
+		i++;
+	}
 	mns_free_data(data);
 	exit (code);
 }

@@ -52,7 +52,7 @@ void	mns_com_pwd(void);
 void	mns_com_cd(char *arg);
 void	mns_com_env(char **envp);
 void	mns_com_echo(char **args);
-void	mns_com_exit(t_data *data, int code);
+void	mns_com_exit(t_data *data, char *str_code);
 
 void	mns_free_data(t_data *data);
 

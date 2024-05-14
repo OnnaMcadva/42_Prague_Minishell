@@ -18,7 +18,7 @@ void	mns_main_loop(t_data *data, char **envp)
 	{
 		data->line = readline(PROMPT);
 		if (!data->line)
-			mns_com_exit(data, 0);
+			mns_com_exit(data, "0");
 		if (*data->line)
 		{
 			if (mns_parse(data) == ALL_FINE)
