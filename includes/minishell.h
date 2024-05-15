@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/15 01:15:58 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/15 14:58:15 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ int		mns_split(char ***splitted, int **splitted_type, char *line);
 int		mns_split_util_type(char *line);
 
 int		mns_env_add(t_data *data, char *to_add);
+int		mns_env_delete(t_data *data, char *to_delete);
+int		mns_env_change(t_data *data, char *key, char *value);
+char	*mns_env_find(char **envp, char *key);
+
 int		mns_env_util_malloc_check(char **tab, int i);
+char	*mns_env_util_join(char *key, char *value);
 
 int		mns_execute(t_data *data);
 int		mns_exec_process(t_parsed *parsed, t_data *data);
@@ -63,7 +68,8 @@ void	mns_free_data(t_data *data);
 void	mns_free_tab(char **tab);
 
 int		mns_util_in_quote(char *in_quote, char c);
-int		mns_utils_is_space(const char c);
+int		mns_util_is_space(const char c);
 int		mns_util_tablen(char **tab);
+void	mns_util_free_tab(char **tab);
 
 #endif
