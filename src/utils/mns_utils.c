@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:37:49 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/15 00:32:32 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/15 14:55:28 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	mns_util_in_quote(char *in_quote, char c)
 	return (toggle);
 }
 
-int	mns_utils_is_space(const char c)
+int	mns_util_is_space(const char c)
 {
 	if (c == WHITESPACE
 		|| c == TAB_SYMBOL
@@ -50,4 +50,17 @@ int	mns_util_tablen(char **tab)
 		while (tab[i])
 			i++;
 	return (i);
+}
+
+void	mns_util_free_tab(char **tab)
+{
+	int	i;
+
+	if (tab)
+	{
+		i = 0;
+		while(tab[i])
+			free(tab[i++]);
+		free(tab);
+	}
 }

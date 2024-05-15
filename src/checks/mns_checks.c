@@ -6,28 +6,31 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:35 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 16:00:36 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:12:36 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		mns_check_redirs(int *spltd_type, int tkn_count)
+int	mns_check_redirs(int *spltd_type, int tkn_count)
 {
 	int	i;
 
 	i = 0;
 	while (i < tkn_count)
 	{
-		if (((spltd_type[i] == IN_OPERATOR || spltd_type[i] == OUT_OPERATOR
-			|| spltd_type[i] == OUT_APPEND_OPRTR) && spltd_type[i + 1] != WORD)
+		if (((spltd_type[i] == IN_OPERATOR
+					|| spltd_type[i] == OUT_OPERATOR
+					|| spltd_type[i] == OUT_APPEND_OPRTR)
+				&& spltd_type[i + 1] != WORD)
 			|| (spltd_type[i] == PIPE && spltd_type[i + 1] == PIPE))
-				break ;
+			break ;
 		i++;
 	}
 	if (i < tkn_count)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token ", STDOUT_FILENO);
+		ft_putstr_fd("minishell: ", STDOUT_FILENO);
+		ft_putstr_fd("syntax error near unexpected token ", STDOUT_FILENO);
 		if (spltd_type[tkn_count - 1] == PIPE)
 			ft_putendl_fd("`|\'", STDOUT_FILENO);
 		else

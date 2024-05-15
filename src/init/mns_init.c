@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/15 00:10:25 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/15 14:50:59 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,8 @@ int	mns_init_env_copy(char **envp, t_data *data)
 	while (--i >= 0)
 	{
 		data->env_copy[i] = ft_strdup(envp[i]);
-		if (!data->env_copy[i])
-		{
-			while (data->env_copy[++i])
-				free(data->env_copy[i]);
+		if (mns_env_util_malloc_check(data->env_copy, i) == MNS_ERROR)
 			return (MNS_ERROR);
-		}
 	}
 	return (ALL_FINE);
 }

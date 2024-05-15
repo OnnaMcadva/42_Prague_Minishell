@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 23:47:21 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/15 14:55:28 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	mns_tknlen( char *line, int *tkn_len)
 			pos++;
 		else
 		{
-			if (!in_quote && mns_utils_is_space(line[pos]))
+			if (!in_quote && mns_util_is_space(line[pos]))
 				break ;
 			(*tkn_len)++;
 			pos++;
 		}
 	}
-	while (mns_utils_is_space(line[pos]))
+	while (mns_util_is_space(line[pos]))
 		pos++;
 	return (pos);
 }
@@ -51,7 +51,7 @@ char	*mns_tkncpy( char *line, char *token, int tkn_len, int next_pos)
 			i++;
 		else
 		{
-			if (!in_quote && mns_utils_is_space(line[i]))
+			if (!in_quote && mns_util_is_space(line[i]))
 				break ;
 			else if (j < tkn_len)
 				token[j++] = line[i];
@@ -100,9 +100,9 @@ int	mns_count_tokens(char *line)
 	while (line[i])
 	{
 		mns_util_in_quote(&in_quote, line[i]);
-		if (!in_quote && mns_utils_is_space(line[i]))
+		if (!in_quote && mns_util_is_space(line[i]))
 		{
-			while (mns_utils_is_space(line[i]))
+			while (mns_util_is_space(line[i]))
 				i++;
 			if (!line[i])
 				break ;
@@ -124,7 +124,7 @@ int	mns_split(char ***splitted, int **spltd_type, char *line)
 {
 	int	tokens;
 
-	while (mns_utils_is_space(*line))
+	while (mns_util_is_space(*line))
 		line++;
 	if (!*line)
 		return (0);
