@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_incs_defs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:53:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 14:36:45 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/15 01:19:01 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

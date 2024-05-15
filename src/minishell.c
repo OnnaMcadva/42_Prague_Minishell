@@ -6,13 +6,13 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 23:44:47 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/14 23:55:15 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	mns_main_loop(t_data *data, char **envp)
+void	mns_main_loop(t_data *data)
 {
 	while (mns_init_data(data) != MNS_ERROR)
 	{
@@ -22,7 +22,7 @@ void	mns_main_loop(t_data *data, char **envp)
 		if (*data->line)
 		{
 			if (mns_parse(data) == ALL_FINE)
-				mns_execute(data, envp);
+				mns_execute(data);
 			if (data->tkn_count)
 				add_history(data->line);
 		}
@@ -43,5 +43,5 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	signal(SIGINT, mns_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-	mns_main_loop(&data, envp);
+	mns_main_loop(&data);
 }

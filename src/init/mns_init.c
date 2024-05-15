@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 23:26:20 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/15 00:10:25 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,15 @@ int	mns_init_env_copy(char **envp, t_data *data)
 	int	i;
 
 	i = 0;
-	while(envp[i])
-		i++;
+	if (envp)
+		while(envp[i])
+			i++;
 	if (!i)
 		return (MNS_ERROR);
-	data->env_copy = malloc(i * sizeof(char *));
+	data->env_copy = malloc((i + 1) * sizeof(char *));
 	if (!data->env_copy)
 		return (perror("malloc"), MNS_ERROR);
-	data->env_copy[--i] = NULL;
+	data->env_copy[i] = NULL;
 	while (--i >= 0)
 	{
 		data->env_copy[i] = ft_strdup(envp[i]);

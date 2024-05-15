@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 23:20:10 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/15 01:15:58 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ int		mns_check_redirs(int *spltd_type, int tkn_count);
 int		mns_split(char ***splitted, int **splitted_type, char *line);
 int		mns_split_util_type(char *line);
 
-int		mns_execute(t_data *data, char **envp);
-int		mns_exec_process(t_parsed *parsed, t_data *data, char **envp);
-int		mns_exec_pipe(t_data *data, char **envp, int count);
+int		mns_env_add(t_data *data, char *to_add);
+int		mns_env_util_malloc_check(char **tab, int i);
+
+int		mns_execute(t_data *data);
+int		mns_exec_process(t_parsed *parsed, t_data *data);
+int		mns_exec_pipe(t_data *data, int count);
 void	mns_exec_redir_set(t_parsed *parsed, int *save_fileno);
 void	mns_exec_redir_restore(int *std_fileno);
 void	mns_exec_util_file_to_output( char *filename, int unlink_or_not);
@@ -61,5 +64,6 @@ void	mns_free_tab(char **tab);
 
 int		mns_util_in_quote(char *in_quote, char c);
 int		mns_utils_is_space(const char c);
+int		mns_util_tablen(char **tab);
 
 #endif

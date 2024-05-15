@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 15:50:16 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:47:21 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	mns_split_process(char **splitted, int *spltd_type,
 }
 
 /* Counts a number of tokens to allocate */
-int	mns_count_tokens( char *line)
+int	mns_count_tokens(char *line)
 {
 	int		i;
 	int		count;

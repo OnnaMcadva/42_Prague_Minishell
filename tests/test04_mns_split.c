@@ -4,6 +4,7 @@
 
 # define DELIMETERS " 	\n\'\"\\$|<>"
 
+
 enum e_delimiter
 {
 	WHITESPACE = ' ',

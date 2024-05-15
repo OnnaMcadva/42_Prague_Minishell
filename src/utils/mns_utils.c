@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:37:49 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 15:43:24 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/15 00:32:32 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,15 @@ int	mns_utils_is_space(const char c)
 		|| c == NEW_LINE)
 		return (1);
 	return (0);
+}
+
+int	mns_util_tablen(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (tab)
+		while (tab[i])
+			i++;
+	return (i);
 }
