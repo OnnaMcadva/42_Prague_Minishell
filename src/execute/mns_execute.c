@@ -22,16 +22,19 @@ char	*mns_exec_path(char **paths, char *cmd)
 	char	*possible_path;
 	char	*possible_exec;
 
-	i = 0;
-	while (paths[i])
+	if (paths)
 	{
-		possible_path = ft_strjoin(paths[i], "/");
-		possible_exec = ft_strjoin(possible_path, cmd);
-		free(possible_path);
-		if (access(possible_exec, F_OK | X_OK) == 0)
-			return (possible_exec);
-		free(possible_exec);
-		i++;
+		i = 0;
+		while (paths[i])
+		{
+			possible_path = ft_strjoin(paths[i], "/");
+			possible_exec = ft_strjoin(possible_path, cmd);
+			free(possible_path);
+			if (access(possible_exec, F_OK | X_OK) == 0)
+				return (possible_exec);
+			free(possible_exec);
+			i++;
+		}
 	}
 	ft_putstr_fd("minishell: command not found: ", STDOUT_FILENO);
 	ft_putendl_fd(cmd, STDOUT_FILENO);
@@ -52,7 +55,7 @@ void	mns_exec_builtin_call(t_data *data,
 	if (parsed->type & COM_PWD)
 		ret = mns_com_pwd();
 	else if (parsed->type & COM_CD)
-		ret = mns_com_cd(parsed->args[1]);
+		ret = mns_com_cd(data->env_copy, parsed->args[1]);
 	else if (parsed->type & COM_ENV)
 		ret = mns_com_env(data->env_copy);
 	else if (parsed->type & COM_ECHO)

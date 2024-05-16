@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:08:57 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 14:46:27 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 09:25:02 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ char	**ft_split(char const *s, char c)
 	int		index;
 	char	**split;
 
-	split = malloc ((count_words(s, c) + 1) * sizeof (char *));
+	if (s)
+		split = malloc ((count_words(s, c) + 1) * sizeof (char *));
 	if (!s || !split)
-		return (free(split), NULL);
+		return (NULL);
 	i = 0;
 	j = 0;
 	index = -1;

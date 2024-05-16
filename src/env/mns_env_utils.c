@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_env_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 01:14:48 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/15 14:55:38 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:07:15 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,5 @@ int	mns_env_util_malloc_check(char **tab, int i)
 	return (ALL_FINE);
 }
 
-char	*mns_env_util_join(char *key, char *value)
-{
-	char	*temp;
-	char	*new_entry;
-
-	temp = ft_strjoin(key, "=");
-	if (!temp)
-		return (perror("malloc"), NULL);
-	new_entry = ft_strjoin(temp, value);
-	free (temp);
-	return (new_entry);
-}
 
 

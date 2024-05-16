@@ -99,7 +99,7 @@ int	mns_env_add(t_data *data, char *to_add)
 	return (ALL_FINE);
 }
 
-char	*mns_env_find(char **envp, char *key)
+char	**mns_env_find(char **envp, char *key)
 {
 	int		i;
 	int		len;
@@ -117,26 +117,26 @@ char	*mns_env_find(char **envp, char *key)
 		i++;
 	}
 	free(tf_equals);
-	return (envp[i]);
+	return (envp + i);
 }
 
 int	mns_env_delete(t_data *data, char *to_delete)
 {
 	char	**temp_envp;
-	char	*pointer;
+	char	**pointer;
 	int		i;
 	int		flag;
 
 	pointer = mns_env_find(data->env_copy, to_delete);
 	i = mns_util_tablen(data->env_copy);
 	temp_envp = malloc(i * sizeof(char *));
-	if (!temp_envp || !pointer || i <= 0)
+	if (!temp_envp || !*pointer || i <= 0)
 		return (free(temp_envp), MNS_ERROR);
 	temp_envp[i - 1] = NULL;
 	flag = 1;
 	while (--i >= 0)
 	{
-		if (data->env_copy[i] == pointer)
+		if (data->env_copy[i] == *pointer)
 		{
 			flag = 0;
 			i--;
@@ -149,45 +149,44 @@ int	mns_env_delete(t_data *data, char *to_delete)
 	return (data->env_copy = temp_envp, ALL_FINE);
 }
 
-char	*mns_env_util_join(char *key, char *value)
-{
-	char	*temp;
-	char	*new_entry;
-
-	temp = ft_strjoin(key, "=");
-	if (!temp)
-		return (perror("malloc"), NULL);
-	new_entry = ft_strjoin(temp, value);
-	free (temp);
-	return (new_entry);
-}
-
 int	mns_env_change(t_data *data, char *key, char *value)
 {
-	char	*pointer;
+	char	**pointer;
+	char	*temp;
 	char	*new_entry;
-	int		i;
 
 	pointer = mns_env_find(data->env_copy, key);
 	if (!pointer)
 		return (MNS_ERROR);
-	new_entry = mns_env_util_join(key, value);
+	temp = ft_strjoin(key, "=");
+	if (!temp)
+		return (perror("malloc"), MNS_ERROR);
+	new_entry = ft_strjoin(temp, value);
+	free (temp);
 	if (!new_entry)
 		return (perror("malloc"), MNS_ERROR);
-	i = 0;
-	while (data->env_copy[i])
-	{
-		if (data->env_copy[i] == pointer)
-		{
-			free(data->env_copy[i]);
-			data->env_copy[i] = new_entry;
-			break ;
-		}
-		i++;
-	}
+	free(*pointer);
+	*pointer = new_entry;
 	return (ALL_FINE);
 }
 
+char *mns_getenv(char **envp, char *key)
+{
+	char	**pointer;
+	int		i;
+
+	pointer = mns_env_find(envp, key);
+	if (!pointer)
+		return (NULL);
+	i = 0;
+	while ((*pointer)[i])
+	{
+		if ((*pointer)[i] == '=')
+			return (*pointer + i + 1);
+		i++;
+	}
+	return (NULL);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -198,16 +197,21 @@ int	main(int argc, char **argv, char **envp)
 	if (mns_init_env_copy(envp, &data) == MNS_ERROR)
 		return (13);
 	mns_env_add(&data, "AHOJ=nazdar");
-	// mns_com_env(data.env_copy);
-	printf("\n%s\n\n", mns_env_find(data.env_copy, "AHOJ")); // Must be "AHOJ=nazdar"
+	mns_com_env(data.env_copy);
+	printf("\n%s\n\n", *mns_env_find(data.env_copy, "AHOJ")); // Must be "AHOJ=nazdar"
+
+	printf ("%s\n", mns_getenv(data.env_copy, "AHOJ"));
 
 	mns_env_change(&data, "AHOJ", "dobry_den");
 	// mns_com_env(data.env_copy);
-	printf("\n%s\n\n", mns_env_find(data.env_copy, "AHOJ")); // Must be "AHOJ=dobry_den"
+	printf("\n%s\n\n", *mns_env_find(data.env_copy, "AHOJ")); // Must be "AHOJ=dobry_den"
+
+	printf ("%s\n", mns_getenv(data.env_copy, "AHOJ"));
 
 	mns_env_delete(&data, "AHOJ");
-	// mns_com_env(data.env_copy);
-	printf("\n%s\n\n", mns_env_find(data.env_copy, "AHOJ")); // Must be "(null)"
+	// // mns_com_env(data.env_copy);
+	printf("\n%s\n\n", *mns_env_find(data.env_copy, "AHOJ")); // Must be "(null)"
+
 
 	mns_util_free_tab(data.env_copy);
 	return (0);

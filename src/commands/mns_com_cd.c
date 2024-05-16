@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:42 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 13:59:05 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 09:13:19 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	mns_com_cd(char *arg)
+int	mns_com_cd(char **envp, char *arg)
 {
 	int	ret;
 
 	if (!arg || ft_strcmp(arg, "~") == 0)
-		ret = chdir(getenv("HOME"));
+		ret = chdir(mns_getenv(envp, "HOME"));
 	else if (ft_strcmp(arg, "-") == 0)
 		ret = chdir(getenv("OLDPWD"));
 	else

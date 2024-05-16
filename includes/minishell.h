@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/15 14:58:15 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 09:11:04 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ int		mns_split_util_type(char *line);
 int		mns_env_add(t_data *data, char *to_add);
 int		mns_env_delete(t_data *data, char *to_delete);
 int		mns_env_change(t_data *data, char *key, char *value);
-char	*mns_env_find(char **envp, char *key);
-
+char	**mns_env_find(char **envp, char *key);
+char	*mns_getenv(char **envp, char *key);
 int		mns_env_util_malloc_check(char **tab, int i);
-char	*mns_env_util_join(char *key, char *value);
 
 int		mns_execute(t_data *data);
 int		mns_exec_process(t_parsed *parsed, t_data *data);
@@ -59,7 +58,7 @@ int		mns_exec_util_restore_stdfileno(int saved_fileno, int std_fileno);
 char	*mns_exec_util_file_to_str(char *filename);
 
 int		mns_com_pwd(void);
-int		mns_com_cd(char *arg);
+int		mns_com_cd(char **envp, char *arg);
 int		mns_com_env(char **envp);
 int		mns_com_echo(char **args);
 void	mns_com_exit(t_data *data, char *str_code);
