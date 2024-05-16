@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:13:47 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/16 11:13:14 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:23:42 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**mns_env_find(char **envp, char *key)
 	int		len;
 	char	*tf_equals;
 
-	if (!envp || !key)
+	if (!envp || !key || !*key)
 		return (NULL);
 	tf_equals = ft_strjoin(key, "=");
 	len = ft_strlen(tf_equals);

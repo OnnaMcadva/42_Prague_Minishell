@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_structs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:40 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/14 23:05:45 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/16 14:44:22 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_data
 	t_parsed	*parsed;
 	int			tkn_count;
 	int			pipes_count;
+	int			exit_status;
 }				t_data;
 
 #endif

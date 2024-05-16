@@ -61,7 +61,7 @@ void	mns_exec_builtin_call(t_data *data,
 	else if (parsed->type & COM_ECHO)
 		ret = mns_com_echo(parsed->args);
 	mns_exec_redir_restore(save_stdfileno);
-	(void)ret;
+	data->exit_status = ret;
 }
 
 char	*mns_exec_setup(t_data *data,
@@ -105,7 +105,7 @@ int	mns_exec_process(t_parsed *parsed, t_data *data)
 			}
 		}
 		else
-			wait(NULL);
+			wait(&data->exit_status);
 	}
 	free (exec);
 	return (ALL_FINE);
