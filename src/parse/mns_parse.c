@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:56:17 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 16:01:16 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 11:57:02 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	mns_parse_init(t_data *data)
 	return (ALL_FINE);
 }
 
-int	mns_parse_command(char **splitted, int *splitted_type, t_parsed *parsed)
+int	mns_parse_command(t_data *data, char **splitted,
+			int *splitted_type, t_parsed *parsed)
 {
 	int	args_count;
 	int	step;
@@ -44,22 +45,23 @@ int	mns_parse_command(char **splitted, int *splitted_type, t_parsed *parsed)
 	parsed->args = malloc((args_count + 1) * sizeof(char *));
 	if (!parsed->args)
 		return (perror("Malloc error"), MNS_ERROR);
-	mns_parse_util_assign_args(parsed, splitted, splitted_type);
+	mns_parse_util_assign_args(parsed, data, splitted, splitted_type);
 	return (step);
 }
 
 /* TODO: split into smaller functions */
-int	mns_parse_process(char **splitted, int *splitted_type, t_parsed	*parsed)
+int	mns_parse_process(t_data *data, t_parsed *parsed)
 {
 	int	i;
 	int	step;
 
 	i = 0;
-	while (splitted[i])
+	while (data->splitted[i])
 	{
-		if (splitted_type[i] != PIPE)
+		if (data->splitted_type[i] != PIPE)
 		{
-			step = mns_parse_command(splitted + i, splitted_type + i, parsed);
+			step = mns_parse_command(data, data->splitted + i,
+					data->splitted_type + i, parsed);
 			if (step == MNS_ERROR)
 				return (MNS_ERROR);
 			i += step;
@@ -88,6 +90,5 @@ int	mns_parse(t_data *data)
 		return (MNS_ERROR);
 	if (mns_parse_init(data) == MNS_ERROR)
 		return (MNS_ERROR);
-	return (mns_parse_process(
-			data->splitted, data->splitted_type, data->parsed));
+	return (mns_parse_process(data, data->parsed));
 }

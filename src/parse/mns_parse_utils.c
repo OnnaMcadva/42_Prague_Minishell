@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:23:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 14:25:21 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 11:28:14 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	mns_parse_utils_cmd_type(char *command)
 }
 
 void	mns_parse_util_assign_args(t_parsed *parsed,
+									t_data *data,
 									char **splitted,
 									int *splitted_type)
 {
@@ -89,7 +90,10 @@ void	mns_parse_util_assign_args(t_parsed *parsed,
 			parsed->command = (char *)splitted[0];
 			parsed->type |= mns_parse_utils_cmd_type(parsed->command);
 		}
-		parsed->args[i] = (char *)splitted[i];
+		if (splitted_type[i] == ENV)
+			parsed->args[i] = mns_getenv(data->env_copy, splitted[i]);
+		else
+			parsed->args[i] = splitted[i];
 		i++;
 	}
 	parsed->args[i] = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 09:27:34 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/16 11:02:10 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,17 @@ int	mns_init_pipes(t_data *data)
 
 int	mns_init_paths(t_data *data)
 {
-	data->paths = ft_split(mns_getenv(data->env_copy, "PATH"), ':');
-	if (!data->paths)
-		return (MNS_ERROR);
+	char	*temp;
+
+	temp = mns_getenv(data->env_copy, "PATH");
+	if (temp)
+	{
+		data->paths = ft_split(temp, ':');
+		if (!data->paths)
+			return (perror("ft_split: malloc"), MNS_ERROR);
+	}
+	else
+		data->paths = NULL;
 	return (ALL_FINE);
 }
 
@@ -56,9 +64,8 @@ int	mns_init_data(t_data *data)
 	data->paths = NULL;
 	data->tkn_count = 0;
 	data->pipes_count = 0;
-	// if (mns_init_paths(data) == MNS_ERROR)
-	// 	return (MNS_ERROR);
-	mns_init_paths(data);
+	if (mns_init_paths(data) == MNS_ERROR)
+		return (MNS_ERROR);
 	return (ALL_FINE);
 }
 
@@ -68,7 +75,7 @@ int	mns_init_env_copy(char **envp, t_data *data)
 
 	i = 0;
 	if (envp)
-		while(envp[i])
+		while (envp[i])
 			i++;
 	if (!i)
 		return (MNS_ERROR);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 09:42:14 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 23:31:10 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/16 10:51:22 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	mns_free_tab(char **tab)
 	if (tab)
 	{
 		i = 0;
-		while(tab[i])
+		while (tab[i])
 			free(tab[i++]);
 		free(tab);
 	}
@@ -39,4 +39,3 @@ void	mns_free_data(t_data *data)
 	mns_free_tab(data->paths);
 	free (data->line);
 }
-

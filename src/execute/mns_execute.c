@@ -49,7 +49,7 @@ void	mns_exec_builtin_call(t_data *data,
 	int	ret;
 
 	if (parsed->type & COM_EXIT)
-		mns_com_exit(data, parsed->args[1]);
+		mns_com_exit(data, parsed->args);
 	ret = 0;
 	mns_exec_redir_set(parsed, save_stdfileno);
 	if (parsed->type & COM_PWD)
@@ -76,7 +76,7 @@ char	*mns_exec_setup(t_data *data,
 	if (parsed->type & BUILTIN_EXEC)
 		mns_exec_builtin_call(data, parsed, save_stdfileno);
 	else if (parsed->type & GLOBAL_EXEC)
-			exec = mns_exec_path(data->paths, parsed->command);
+		exec = mns_exec_path(data->paths, parsed->command);
 	else
 		exec = ft_strdup(parsed->command);
 	return (exec);

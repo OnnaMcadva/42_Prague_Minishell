@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 09:11:04 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/16 11:55:52 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		mns_parse_util_count_args(char **splitted,
 			int *splitted_type,
 			int *count);
 void	mns_parse_util_assign_args(t_parsed *parsed,
+			t_data *data,
 			char **splitted,
 			int *splitted_type);
 
@@ -61,7 +62,7 @@ int		mns_com_pwd(void);
 int		mns_com_cd(char **envp, char *arg);
 int		mns_com_env(char **envp);
 int		mns_com_echo(char **args);
-void	mns_com_exit(t_data *data, char *str_code);
+void	mns_com_exit(t_data *data, char **args);
 
 void	mns_free_data(t_data *data);
 void	mns_free_tab(char **tab);

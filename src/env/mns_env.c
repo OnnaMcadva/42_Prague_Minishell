@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:13:47 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/15 20:46:14 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/16 11:13:14 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	**mns_env_find(char **envp, char *key)
 	int		len;
 	char	*tf_equals;
 
+	if (!envp || !key)
+		return (NULL);
 	tf_equals = ft_strjoin(key, "=");
 	len = ft_strlen(tf_equals);
 	if (!len)
@@ -111,20 +113,25 @@ int	mns_env_change(t_data *data, char *key, char *value)
 	return (ALL_FINE);
 }
 
-char *mns_getenv(char **envp, char *key)
+char	*mns_getenv(char **envp, char *key)
 {
 	char	**pointer;
 	int		i;
 
-	pointer = mns_env_find(envp, key);
-	if (!pointer || !*pointer)
-		return (NULL);
-	i = 0;
-	while ((*pointer)[i])
+	if (key && envp)
 	{
-		if ((*pointer)[i] == '=')
-			return (*pointer + i + 1);
-		i++;
+		if (key[0] == DOLLAR_SIGN)
+			key++;
+		pointer = mns_env_find(envp, key);
+		if (!pointer || !*pointer)
+			return (NULL);
+		i = 0;
+		while ((*pointer)[i])
+		{
+			if ((*pointer)[i] == '=')
+				return (*pointer + i + 1);
+			i++;
+		}
 	}
 	return (NULL);
 }
