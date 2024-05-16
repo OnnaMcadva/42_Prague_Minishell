@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 11:47:43 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:24:25 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 		printf("%s %s???\nWatch your arguments!!!\n", argv[0], argv[1]);
 		return (42);
 	}
-	if (mns_init_env_copy(envp, &data) == MNS_ERROR)
+	if (mns_init_env(envp, &data) == MNS_ERROR)
 		return (1);
 	signal(SIGINT, mns_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);

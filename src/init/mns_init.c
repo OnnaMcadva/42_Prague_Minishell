@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 11:02:10 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:51:07 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,30 @@ int	mns_init_data(t_data *data)
 	return (ALL_FINE);
 }
 
-int	mns_init_env_copy(char **envp, t_data *data)
+int	mns_init_shell(t_data *data)
+{
+	int		shlvl;
+	char	*temp;
+
+	shlvl = 1;
+	temp = mns_getenv(data->env_copy, "SHLVL");
+	if (temp)
+		shlvl += (ft_atoi(temp));
+	temp = ft_itoa(shlvl);
+	if (temp)
+	{
+		if (mns_env_change(data, "SHLVL", temp) == MNS_ERROR)
+			return (free(temp), MNS_ERROR);
+		free(temp);
+	}
+	temp = mns_getenv(data->env_copy, "_");
+	if (temp)
+		if (mns_env_change(data, "SHELL", temp) == MNS_ERROR)
+			return (MNS_ERROR);
+	return (ALL_FINE);
+}
+
+int	mns_init_env(char **envp, t_data *data)
 {
 	int	i;
 
@@ -89,5 +112,5 @@ int	mns_init_env_copy(char **envp, t_data *data)
 		if (mns_env_util_malloc_check(data->env_copy, i) == MNS_ERROR)
 			return (MNS_ERROR);
 	}
-	return (ALL_FINE);
+	return (mns_init_shell(data));
 }

@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 11:55:52 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:24:34 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 void	mns_sigint_handler(int sig);
 
-int		mns_init_env_copy(char **envp, t_data *data);
+int		mns_init_env(char **envp, t_data *data);
 int		mns_init_data(t_data *data);
 int		mns_init_paths(t_data *data);
 int		mns_init_pipes(t_data *data);
