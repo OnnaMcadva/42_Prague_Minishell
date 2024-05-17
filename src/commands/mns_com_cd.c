@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:42 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 13:05:25 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:58:54 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	mns_com_cd_set_pwd(t_data *data, char *arg)
 	char	dir[PATH_MAX];
 	char	*s;
 
-	ret = mns_env_change(data, "OLDPWD", mns_getenv(data->env_copy, "PWD"));
+	temp = mns_getenv(data->env_copy, "PWD");
+	ret = mns_env_change(data, "OLDPWD", temp);
 	if (ret == MNS_ERROR)
 	{
 		temp = ft_strjoin("OLDPWD=", arg);

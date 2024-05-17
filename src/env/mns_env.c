@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:13:47 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/16 14:23:42 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:58:36 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	mns_env_change(t_data *data, char *key, char *value)
 	char	*new_entry;
 
 	pointer = mns_env_find(data->env_copy, key);
-	if (!pointer)
+	if (!pointer || !*pointer)
 		return (MNS_ERROR);
 	temp = ft_strjoin(key, "=");
 	if (!temp)
