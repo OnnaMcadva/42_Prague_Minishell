@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:14:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 15:43:18 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:41:09 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,24 @@ int	mns_split_util_type(char *line)
 	}
 	else
 		return (WORD);
+}
+
+void	mns_split_util_read_env(t_data *data, char **splitted_i)
+{
+	char	*temp;
+
+	if (splitted_i && *splitted_i)
+	{
+		if (ft_strcmp(*splitted_i, "$?") == 0)
+			temp = ft_itoa(data->exit_status);
+		else
+			temp = ft_strdup(mns_getenv(data->env_copy, *splitted_i));
+		if (temp)
+		{
+			free(*splitted_i);
+			*splitted_i = temp;
+		}
+		else
+			perror("read_env error");
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 11:38:37 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/17 13:36:33 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,11 @@ int	mns_split_process(t_data *data, char *line, int tokens)
 		data->splitted[i] = (char *)malloc((tkn_len + 1) * sizeof(char));
 		if (!data->splitted[i])
 			return (MNS_ERROR);
-		data->splitted[i] = mns_tkncpy(line, data->splitted[i], tkn_len, next_pos);
+		data->splitted[i] = mns_tkncpy(line, data->splitted[i],
+				tkn_len, next_pos);
 		data->splitted_type[i] = mns_split_util_type(line);
+		if (data->splitted_type[i] == ENV)
+			mns_split_util_read_env(data, &data->splitted[i]);
 		line += next_pos;
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 12:14:45 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/17 13:37:30 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		mns_check_redirs(int *spltd_type, int tkn_count);
 // int		mns_split(char ***splitted, int **splitted_type, char *line);
 int		mns_split(t_data *data, char *line);
 int		mns_split_util_type(char *line);
+void	mns_split_util_read_env(t_data *data, char **splitted_i);
 
 int		mns_env_add(t_data *data, char *to_add);
 int		mns_env_delete(t_data *data, char *to_delete);

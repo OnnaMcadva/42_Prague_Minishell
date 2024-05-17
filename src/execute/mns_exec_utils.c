@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_exec_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:28:40 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 06:51:50 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/17 13:05:14 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
