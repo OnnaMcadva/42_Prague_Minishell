@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 13:36:33 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ int	mns_split_process(t_data *data, char *line, int tokens)
 			return (MNS_ERROR);
 		data->splitted[i] = mns_tkncpy(line, data->splitted[i],
 				tkn_len, next_pos);
-		data->splitted_type[i] = mns_split_util_type(line);
-		if (data->splitted_type[i] == ENV)
+		data->spltd_type[i] = mns_split_util_type(line);
+		if (data->spltd_type[i] == ENV)
 			mns_split_util_read_env(data, &data->splitted[i]);
 		line += next_pos;
 		i++;
 	}
 	data->splitted[i] = NULL;
-	data->splitted_type[i] = NULL_TOKEN;
+	data->spltd_type[i] = NULL_TOKEN;
 	return (ALL_FINE);
 }
 
@@ -134,8 +134,8 @@ int	mns_split(t_data *data, char *line)
 	data->splitted = malloc((tokens + 1) * sizeof(char *));
 	if (!data->splitted)
 		return (perror("malloc"), MNS_ERROR);
-	data->splitted_type = malloc((tokens + 1) * sizeof(int));
-	if (!data->splitted_type)
+	data->spltd_type = malloc((tokens + 1) * sizeof(int));
+	if (!data->spltd_type)
 		return (perror("malloc"), MNS_ERROR);
 	if (mns_split_process(data, line, tokens) == MNS_ERROR)
 		return (MNS_ERROR);

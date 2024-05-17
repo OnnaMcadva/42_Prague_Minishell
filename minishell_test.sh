@@ -57,7 +57,7 @@ printf "\nbash: minishell exit code: $? \n\n"
 
 unset PATH
 ./minishell << EOF
-echo "someone just unsetted PATH in bash, so system commands won't work"
+echo "Someone just unset the PATH in Bash, so system commands won't work"
 env > env_without_PATH.txt
 printf "REALLY?\n"
 echo TOLD YOU!

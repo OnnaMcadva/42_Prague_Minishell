@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_structs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:40 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/16 17:13:26 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_data
 	char		**paths;
 	char		*line;
 	char		**splitted;
-	int			*splitted_type;
+	int			*spltd_type;
 	t_parsed	*parsed;
 	int			tkn_count;
 	int			pipes_count;

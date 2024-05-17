@@ -7,5 +7,7 @@ add << (heredoc)
 
 add PWD to the prompt
 
+?? work on exit redirections
+
 ?? Parse \" as a DOUBLE_QUOTE symbol
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 11:10:29 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/17 14:54:04 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	mns_com_exit_numeric_check(char *arg_one, int *code)
 		{
 			if (!ft_isdigit(arg_one[i]))
 			{
-				ft_putstr_fd("minishell: exit: ", STDOUT_FILENO);
-				ft_putstr_fd(arg_one, STDOUT_FILENO);
-				ft_putendl_fd(": numeric argument required", STDOUT_FILENO);
+				ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+				ft_putstr_fd(arg_one, STDERR_FILENO);
+				ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 				*code = 2;
 				return (MNS_ERROR);
 			}
@@ -52,11 +52,14 @@ void	mns_com_exit(t_data *data, char **args)
 		if (mns_com_exit_numeric_check(args[1], &code) != MNS_ERROR && i > 2)
 		{
 			code = EXIT_FAILURE;
-			ft_putstr_fd("minishell: exit: ", STDOUT_FILENO);
-			ft_putendl_fd("too many arguments", STDOUT_FILENO);
+			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+			ft_putendl_fd("too many arguments", STDERR_FILENO);
 		}
 	}
-	mns_free_data(data);
-	mns_free_tab(data->env_copy);
-	exit (code);
+	if (data->pipes_count == 0)
+	{
+		mns_free_data(data);
+		mns_free_tab(data->env_copy);
+		exit (code);
+	}
 }

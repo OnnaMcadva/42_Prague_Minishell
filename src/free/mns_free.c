@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 09:42:14 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 14:49:55 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	mns_free_data(t_data *data)
 			free(data->parsed[i++].args);
 	free (data->parsed);
 	mns_free_tab(data->splitted);
-	free (data->splitted_type);
+	free (data->spltd_type);
 	mns_free_tab(data->paths);
 	free (data->line);
 }

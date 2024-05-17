@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 17:08:22 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	mns_init_pipes(t_data *data)
 {
 	int	i;
-	int	count;
 
 	i = 0;
-	count = 0;
 	while (data->parsed[i].type != NULL_TOKEN)
 	{
 		if (data->parsed[i].type == PIPE)
@@ -32,11 +30,11 @@ int	mns_init_pipes(t_data *data)
 				}
 				return (perror("pipe"), MNS_ERROR);
 			}
-			count++;
+			data->pipes_count++;
 		}
 		i++;
 	}
-	return (count * 2);
+	return (data->pipes_count * 2);
 }
 
 int	mns_init_paths(t_data *data)
@@ -60,7 +58,7 @@ int	mns_init_data(t_data *data)
 	data->line = NULL;
 	data->splitted = NULL;
 	data->parsed = NULL;
-	data->splitted_type = NULL;
+	data->spltd_type = NULL;
 	data->paths = NULL;
 	data->tkn_count = 0;
 	data->pipes_count = 0;

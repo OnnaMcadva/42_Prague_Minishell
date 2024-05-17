@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 13:37:30 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,15 @@ int		mns_init_pipes(t_data *data);
 
 int		mns_parse(t_data *data);
 int		mns_parse_util_count_args(char **splitted,
-			int *splitted_type,
+			int *spltd_type,
 			int *count);
 void	mns_parse_util_assign_args(t_parsed *parsed,
-			t_data *data,
 			char **splitted,
-			int *splitted_type);
+			int *spltd_type);
 
 int		mns_check_quotes(char *line);
-int		mns_check_redirs(int *spltd_type, int tkn_count);
+int		mns_check_redirs(t_data *data);
 
-// int		mns_split(char ***splitted, int **splitted_type, char *line);
 int		mns_split(t_data *data, char *line);
 int		mns_split_util_type(char *line);
 void	mns_split_util_read_env(t_data *data, char **splitted_i);

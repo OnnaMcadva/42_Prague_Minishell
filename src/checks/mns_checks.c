@@ -6,36 +6,37 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:35 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 11:55:11 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:28:02 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	mns_check_redirs(int *spltd_type, int tkn_count)
+int	mns_check_redirs(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < tkn_count)
+	while (i < data->tkn_count)
 	{
-		if (((spltd_type[i] == IN_OPERATOR
-					|| spltd_type[i] == OUT_OPERATOR
-					|| spltd_type[i] == OUT_APPEND_OPRTR)
-				&& spltd_type[i + 1] != WORD)
-			|| (spltd_type[i] == PIPE && spltd_type[i + 1] == PIPE))
+		if (((data->spltd_type[i] == IN_OPERATOR
+					|| data->spltd_type[i] == OUT_OPERATOR
+					|| data->spltd_type[i] == OUT_APPEND_OPRTR)
+				&& data->spltd_type[i + 1] != WORD)
+			|| (data->spltd_type[i] == PIPE
+				&& data->spltd_type[i + 1] == PIPE))
 			break ;
 		i++;
 	}
-	if (i < tkn_count)
+	if (i < data->tkn_count)
 	{
 		ft_putstr_fd("minishell: ", STDOUT_FILENO);
 		ft_putstr_fd("syntax error near unexpected token ", STDOUT_FILENO);
-		if (spltd_type[tkn_count - 1] == PIPE)
+		if (data->spltd_type[data->tkn_count - 1] == PIPE)
 			ft_putendl_fd("`|\'", STDOUT_FILENO);
 		else
 			ft_putendl_fd("`newline\'", STDOUT_FILENO);
-		return (MNS_ERROR);
+		return (data->exit_status = 2, MNS_ERROR);
 	}
 	return (ALL_FINE);
 }

@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:23:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 13:42:54 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 	skips redirection operators
 	(those will be set to a special string in parsed struct)*/
 int	mns_parse_util_count_args(char **splitted,
-								int *splitted_type,
+								int *spltd_type,
 								int *count)
 {
 	int	i;
 
 	i = 0;
-	while (splitted[i] && splitted_type[i] != PIPE)
+	while (splitted[i] && spltd_type[i] != PIPE)
 	{
-		if (splitted_type[i] == IN_OPERATOR
-			|| splitted_type[i] == OUT_OPERATOR
-			|| splitted_type[i] == OUT_APPEND_OPRTR)
+		if (spltd_type[i] == IN_OPERATOR
+			|| spltd_type[i] == OUT_OPERATOR
+			|| spltd_type[i] == OUT_APPEND_OPRTR)
 		{
 			i += 2;
 		}
@@ -61,23 +61,22 @@ int	mns_parse_utils_cmd_type(char *command)
 		return (GLOBAL_EXEC);
 }
 
-void	mns_parse_util_assign_args(t_parsed *parsed, t_data *data, char **splitted, int *splitted_type)
+void	mns_parse_util_assign_args(t_parsed *parsed, char **splitted, int *spltd_type)
 {
 	int	i;
 
-	(void)data;
 	i = 0;
-	while (splitted[i] && splitted_type[i] != PIPE)
+	while (splitted[i] && spltd_type[i] != PIPE)
 	{
-		if (splitted_type[i] == IN_OPERATOR || splitted_type[i] == OUT_OPERATOR || splitted_type[i] == OUT_APPEND_OPRTR)
+		if (spltd_type[i] == IN_OPERATOR || spltd_type[i] == OUT_OPERATOR || spltd_type[i] == OUT_APPEND_OPRTR)
 		{
-			if (splitted_type[i] == IN_OPERATOR)
+			if (spltd_type[i] == IN_OPERATOR)
 				parsed->redir_in = splitted[i + 1];
 			else
 				parsed->redir_out = splitted[i + 1];
-			parsed->type |= splitted_type[i];
+			parsed->type |= spltd_type[i];
 			splitted += 2;
-			splitted_type += 2;
+			spltd_type += 2;
 			continue ;
 		}
 		if (!parsed->command)
