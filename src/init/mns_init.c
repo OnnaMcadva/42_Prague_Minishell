@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 14:44:33 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:08:22 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	mns_init_data(t_data *data)
 	data->parsed = NULL;
 	data->splitted_type = NULL;
 	data->paths = NULL;
-	data->exit_status = 0;
 	data->tkn_count = 0;
 	data->pipes_count = 0;
 	if (mns_init_paths(data) == MNS_ERROR)
@@ -98,6 +97,7 @@ int	mns_init_env(char **envp, t_data *data)
 	int	i;
 
 	i = 0;
+	data->exit_status = 0;
 	if (envp)
 		while (envp[i])
 			i++;

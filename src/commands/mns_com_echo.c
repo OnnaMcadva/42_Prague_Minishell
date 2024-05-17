@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:46 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 13:59:18 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 00:16:28 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ int	mns_com_echo(char **args)
 	}
 	if (no_nl_flag == 0)
 		ft_putchar_fd(NEW_LINE, STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }

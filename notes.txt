@@ -1,9 +1,11 @@
 TODO:
 
-cd -
+cat | cat | ls
+should output ls and wait for cat
 
-Parse \" as a DOUBLE_QUOTE symbol
+cd ..
 
-echo $PATH
+?? cd -
 
-echo -n -n -n
+?? Parse \" as a DOUBLE_QUOTE symbol
+

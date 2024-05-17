@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_exec_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:28:40 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 14:29:28 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 06:51:50 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,16 @@ int	mns_exec_util_file_dup(char *filename, int open_flag, int std_fileno)
 	}
 	close(fd);
 	return (saved_std_fileno);
+}
+
+void	mns_exec_util_exit_status(t_data *data, int status)
+{
+	if (WIFEXITED(status))
+		data->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		data->exit_status = WTERMSIG(status);
+		if (data->exit_status != SIGTRAP + 128)
+			data->exit_status += 128;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:56:17 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 11:57:02 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:25:58 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,10 @@ int	mns_parse_process(t_data *data, t_parsed *parsed)
 	or if there's an unclosed quote. */
 int	mns_parse(t_data *data)
 {
-	data->tkn_count = mns_split(&data->splitted,
-			&data->splitted_type,
-			data->line);
+	// data->tkn_count = mns_split(&data->splitted,
+	// 		&data->splitted_type,
+	// 		data->line);
+	data->tkn_count = mns_split(data, data->line);
 	if (mns_check_quotes(data->line) == MNS_ERROR
 		|| !data->tkn_count
 		|| mns_check_redirs(data->splitted_type, data->tkn_count) == MNS_ERROR)

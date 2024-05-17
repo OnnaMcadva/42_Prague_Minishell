@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_structs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:40 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/16 14:44:22 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:13:26 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

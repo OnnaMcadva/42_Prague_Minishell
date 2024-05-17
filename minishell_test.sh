@@ -1,5 +1,4 @@
 #!/bin/bash
-
 make
 ./minishell << EOF
 echo abc
@@ -11,6 +10,8 @@ echo -n 'do you like my '
 
 echo -nnnnnnnn 'do you still like my '
 
+echo "\$USER"
+echo '\$USER'
 mecho
 ls -l | grep drwx | wc -l
 < Makefile cat | grep rm > xfile
@@ -26,23 +27,41 @@ rm xfile
 ls
 ls | |
 cat <
+ls -z
+echo "\$?"
+
+cd tests/
+pwd
+cd ..
+pwd
+cd ~
+pwd
+cd -
+pwd
 exit 42
 EOF
-printf "\nminishell exit code: $? \n\n"
+
+printf "\nbash: minishell exit code: $? \n\n"
+
 ./minishell << EOF
 exit 1 a
 EOF
-printf "\nminishell exit code: $? \n\n"
+
+printf "\nbash: minishell exit code: $? \n\n"
+
 ./minishell << EOF
 exit a 1
 EOF
-printf "\nminishell exit code: $? \n\n"
+
+printf "\nbash: minishell exit code: $? \n\n"
+
 unset PATH
 ./minishell << EOF
 echo "someone just unsetted PATH in bash, so system commands won't work"
+env > env_without_PATH.txt
 printf "REALLY?\n"
-echo TOLD YOU! But it didn't crash =)
+echo TOLD YOU!
 exit abc
 EOF
 
-printf "\nminishell exit code: $? \n"
+printf "\nbash: minishell exit code: $? \n\n"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:52 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 13:59:28 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 00:16:47 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ int	mns_com_env(char **envp)
 {
 	int	i;
 
+	if (!envp)
+		return (EXIT_FAILURE);
 	i = 0;
-	if (envp)
-		while (envp[i])
-			ft_putendl_fd(envp[i++], STDOUT_FILENO);
-	return (0);
+	while (envp[i])
+		ft_putendl_fd(envp[i++], STDOUT_FILENO);
+	return (EXIT_SUCCESS);
 }

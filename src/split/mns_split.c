@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mns_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/15 14:55:28 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:38:37 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	mns_tknlen( char *line, int *tkn_len)
+int	mns_tknlen(char *line, int *tkn_len)
 {
 	char	in_quote;
 	int		pos;
@@ -36,7 +36,7 @@ int	mns_tknlen( char *line, int *tkn_len)
 	return (pos);
 }
 
-char	*mns_tkncpy( char *line, char *token, int tkn_len, int next_pos)
+char	*mns_tkncpy(char *line, char *token, int tkn_len, int next_pos)
 {
 	int		i;
 	int		j;
@@ -62,8 +62,7 @@ char	*mns_tkncpy( char *line, char *token, int tkn_len, int next_pos)
 	return (token);
 }
 
-int	mns_split_process(char **splitted, int *spltd_type,
-						char *line, int tokens)
+int	mns_split_process(t_data *data, char *line, int tokens)
 {
 	int	i;
 	int	tkn_len;
@@ -74,16 +73,16 @@ int	mns_split_process(char **splitted, int *spltd_type,
 	while (i < tokens)
 	{
 		next_pos = mns_tknlen(line, &tkn_len);
-		splitted[i] = (char *)malloc((tkn_len + 1) * sizeof(char));
-		if (!splitted[i])
+		data->splitted[i] = (char *)malloc((tkn_len + 1) * sizeof(char));
+		if (!data->splitted[i])
 			return (MNS_ERROR);
-		spltd_type[i] = mns_split_util_type(line);
-		splitted[i] = mns_tkncpy(line, splitted[i], tkn_len, next_pos);
+		data->splitted[i] = mns_tkncpy(line, data->splitted[i], tkn_len, next_pos);
+		data->splitted_type[i] = mns_split_util_type(line);
 		line += next_pos;
 		i++;
 	}
-	splitted[i] = NULL;
-	spltd_type[i] = NULL_TOKEN;
+	data->splitted[i] = NULL;
+	data->splitted_type[i] = NULL_TOKEN;
 	return (ALL_FINE);
 }
 
@@ -120,7 +119,7 @@ int	mns_count_tokens(char *line)
 	to make parsing easier.
 	Returns 0 in case of empty line.
 	Returns -1 (MNS_ERROR) in case of malloc error. */
-int	mns_split(char ***splitted, int **spltd_type, char *line)
+int	mns_split(t_data *data, char *line)
 {
 	int	tokens;
 
@@ -129,11 +128,13 @@ int	mns_split(char ***splitted, int **spltd_type, char *line)
 	if (!*line)
 		return (0);
 	tokens = mns_count_tokens(line);
-	*splitted = malloc((tokens + 1) * sizeof(char *));
-	*spltd_type = malloc((tokens + 1) * sizeof(int));
-	if (!*splitted || !*spltd_type)
-		return (MNS_ERROR);
-	if (mns_split_process(*splitted, *spltd_type, line, tokens) == MNS_ERROR)
+	data->splitted = malloc((tokens + 1) * sizeof(char *));
+	if (!data->splitted)
+		return (perror("malloc"), MNS_ERROR);
+	data->splitted_type = malloc((tokens + 1) * sizeof(int));
+	if (!data->splitted_type)
+		return (perror("malloc"), MNS_ERROR);
+	if (mns_split_process(data, line, tokens) == MNS_ERROR)
 		return (MNS_ERROR);
 	return (tokens);
 }

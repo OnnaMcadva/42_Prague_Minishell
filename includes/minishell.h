@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 12:24:34 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:14:45 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	mns_parse_util_assign_args(t_parsed *parsed,
 int		mns_check_quotes(char *line);
 int		mns_check_redirs(int *spltd_type, int tkn_count);
 
-int		mns_split(char ***splitted, int **splitted_type, char *line);
+// int		mns_split(char ***splitted, int **splitted_type, char *line);
+int		mns_split(t_data *data, char *line);
 int		mns_split_util_type(char *line);
 
 int		mns_env_add(t_data *data, char *to_add);
@@ -57,9 +58,10 @@ int		mns_exec_util_pipe_dup(t_parsed *parsed, int std_fileno);
 int		mns_exec_util_file_dup(char *filename, int open_flag, int std_fileno);
 int		mns_exec_util_restore_stdfileno(int saved_fileno, int std_fileno);
 char	*mns_exec_util_file_to_str(char *filename);
+void	mns_exec_util_exit_status(t_data *data, int status);
 
 int		mns_com_pwd(void);
-int		mns_com_cd(char **envp, char *arg);
+int		mns_com_cd(t_data *data, char *arg);
 int		mns_com_env(char **envp);
 int		mns_com_echo(char **args);
 void	mns_com_exit(t_data *data, char **args);

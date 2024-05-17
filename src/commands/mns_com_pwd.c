@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:49:10 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 22:30:55 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/17 11:50:19 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	mns_com_pwd(void)
 	if (!s)
 	{
 		perror("Error getting pwd");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	ft_putendl_fd(dir, STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }

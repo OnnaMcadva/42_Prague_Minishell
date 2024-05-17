@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 10:49:42 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:10:29 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	mns_com_exit_check(char *arg_one, int *code)
+int	mns_com_exit_numeric_check(char *arg_one, int *code)
 {
 	int	i;
 
@@ -49,9 +49,9 @@ void	mns_com_exit(t_data *data, char **args)
 			i++;
 	if (i > 1)
 	{
-		if (mns_com_exit_check(args[1], &code) != MNS_ERROR && i > 2)
+		if (mns_com_exit_numeric_check(args[1], &code) != MNS_ERROR && i > 2)
 		{
-			code = 1;
+			code = EXIT_FAILURE;
 			ft_putstr_fd("minishell: exit: ", STDOUT_FILENO);
 			ft_putendl_fd("too many arguments", STDOUT_FILENO);
 		}

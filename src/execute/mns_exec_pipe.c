@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:04:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/14 23:59:22 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/17 06:58:58 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	mns_exec_pipe(t_data *data, int count)
 	int		i;
 
 	saved_out = mns_exec_util_pipe_dup(&data->parsed[1], STDOUT_FILENO);
-	mns_exec_process(&data->parsed[0], data);
+	if (mns_exec_process(&data->parsed[0], data) == MNS_ERROR)
+		return (MNS_ERROR);
 	mns_exec_util_restore_stdfileno(saved_out, STDOUT_FILENO);
 	i = 2;
 	while (i < count)
