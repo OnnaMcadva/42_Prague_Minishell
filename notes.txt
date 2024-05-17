@@ -1,11 +1,11 @@
 TODO:
 
 cat | cat | ls
-should output ls and wait for cat
+should output ls and wait for cat (tweak signals and change wait to waitpid)
 
-cd ..
+add << (heredoc)
 
-?? cd -
+add PWD to the prompt
 
 ?? Parse \" as a DOUBLE_QUOTE symbol
 
