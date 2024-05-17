@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+         #
+#    By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 10:26:38 by mmakagon          #+#    #+#              #
-#    Updated: 2024/05/15 01:16:34 by maxmakagono      ###   ########.fr        #
+#    Updated: 2024/05/17 15:36:09 by mmakagon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
