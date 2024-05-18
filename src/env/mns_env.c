@@ -6,21 +6,21 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:13:47 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/17 20:58:36 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/18 09:32:58 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**mns_env_find(char **envp, char *key)
+char	**mns_env_find(char **envp, char *to_find)
 {
 	int		i;
 	int		len;
 	char	*tf_equals;
 
-	if (!envp || !key || !*key)
+	if (!envp || !to_find || !*to_find)
 		return (NULL);
-	tf_equals = ft_strjoin(key, "=");
+	tf_equals = ft_strjoin(to_find, "=");
 	len = ft_strlen(tf_equals);
 	if (!len)
 		return (free(tf_equals), NULL);
@@ -72,7 +72,7 @@ int	mns_env_delete(t_data *data, char *to_delete)
 
 	pointer = mns_env_find(data->env_copy, to_delete);
 	i = mns_util_tablen(data->env_copy);
-	temp_envp = malloc(i * sizeof(char *));
+	temp_envp = malloc((i) * sizeof(char *));
 	if (!temp_envp || !*pointer || i <= 0)
 		return (free(temp_envp), MNS_ERROR);
 	temp_envp[i - 1] = NULL;

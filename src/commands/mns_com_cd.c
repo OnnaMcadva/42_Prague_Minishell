@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:42 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 20:58:54 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/18 10:09:58 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ int	mns_com_cd_set_pwd(t_data *data, char *arg)
 	char	dir[PATH_MAX];
 	char	*s;
 
-	temp = mns_getenv(data->env_copy, "PWD");
-	ret = mns_env_change(data, "OLDPWD", temp);
-	if (ret == MNS_ERROR)
+	if (ft_strcmp(arg, "-") != 0)
 	{
-		temp = ft_strjoin("OLDPWD=", arg);
-		mns_env_add(data, temp);
-		free (temp);
+		temp = mns_getenv(data->env_copy, "PWD");
+		ret = mns_env_change(data, "OLDPWD", temp);
+		if (ret == MNS_ERROR)
+		{
+			temp = ft_strjoin("OLDPWD=", arg);
+			mns_env_add(data, temp);
+			free (temp);
+		}
 	}
 	s = getcwd(dir, PATH_MAX);
 	if (!s)
@@ -40,10 +43,16 @@ int	mns_com_cd(t_data *data, char *arg)
 {
 	int	ret;
 
+	ret = ALL_FINE;
 	if (!arg || ft_strcmp(arg, "~") == 0)
 		ret = chdir(mns_getenv(data->env_copy, "HOME"));
 	else if (ft_strcmp(arg, "-") == 0)
-		ret = chdir(mns_getenv(data->env_copy, "OLDPWD"));
+	{
+		if (mns_getenv(data->env_copy, "OLDPWD"))
+			ret = chdir(mns_getenv(data->env_copy, "OLDPWD"));
+		else
+			ft_putendl_fd("minishell: cd: OLDPWD not set", STDERR_FILENO);
+	}
 	else
 		ret = chdir(arg);
 	if (ret == MNS_ERROR || mns_com_cd_set_pwd(data, arg) != ALL_FINE)

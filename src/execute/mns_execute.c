@@ -58,6 +58,8 @@ void	mns_exec_builtin_call(t_data *data,
 		ret = mns_com_env(data->env_copy);
 	else if (parsed->type & COM_ECHO)
 		ret = mns_com_echo(parsed->args);
+	else if (parsed->type & COM_UNSET)
+		ret = mns_com_unset(data, parsed->args);
 	else if (parsed->type & COM_EXIT)
 		mns_com_exit(data, parsed->args);
 	mns_exec_redir_restore(save_stdfileno);
@@ -76,7 +78,11 @@ char	*mns_exec_setup(t_data *data,
 	if (parsed->type & BUILTIN_EXEC)
 		mns_exec_builtin_call(data, parsed, save_stdfileno);
 	else if (parsed->type & GLOBAL_EXEC)
+	{
 		exec = mns_exec_path(data->paths, parsed->command);
+		if (!exec)
+			data->exit_status = 127;
+	}
 	else
 		exec = ft_strdup(parsed->command);
 	return (exec);

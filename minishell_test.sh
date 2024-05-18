@@ -1,6 +1,10 @@
 #!/bin/bash
 make
+
+echo "bash: SHLVL is $SHLVL"
 ./minishell << EOF
+echo "\$SHLVL"
+echo "\$SHELL"
 echo abc
 echo
     echo    a       b  c
@@ -38,6 +42,10 @@ cd ~
 pwd
 cd -
 pwd
+unset OLDPWD PATH
+cd -
+ls
+env > env_without_PATH1.txt
 exit 42
 EOF
 
@@ -58,7 +66,7 @@ printf "\nbash: minishell exit code: $? \n\n"
 unset PATH
 ./minishell << EOF
 echo "Someone just unset the PATH in Bash, so system commands won't work"
-env > env_without_PATH.txt
+env > env_without_PATH2.txt
 printf "REALLY?\n"
 echo TOLD YOU!
 exit abc
