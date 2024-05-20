@@ -6,14 +6,14 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:37:49 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/16 10:50:53 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:35:15 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /* Toggles the in_quote switch and returns either it was toggled or not */
-int	mns_util_in_quote(char *in_quote, char c)
+int	mns_util_in_quote(unsigned char *in_quote, char c)
 {
 	int	toggle;
 

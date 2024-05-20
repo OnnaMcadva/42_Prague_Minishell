@@ -58,6 +58,8 @@ void	mns_exec_builtin_call(t_data *data,
 		ret = mns_com_env(data->env_copy);
 	else if (parsed->type & COM_ECHO)
 		ret = mns_com_echo(parsed->args);
+	else if (parsed->type & COM_EXPORT) // Добавляем обработку команды export
+        ret = mns_com_export(data, parsed->args);
 	else if (parsed->type & COM_UNSET)
 		ret = mns_com_unset(data, parsed->args);
 	else if (parsed->type & COM_EXIT)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+         #
+#    By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 10:26:38 by mmakagon          #+#    #+#              #
-#    Updated: 2024/05/18 17:42:57 by maxmakagono      ###   ########.fr        #
+#    Updated: 2024/05/20 12:41:42 by mmakagon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ FILES = minishell \
 		split/mns_split_utils \
 		split/mns_split \
 		utils/mns_utils \
+		env/mns_env_common \
 
 
 SRCS_DIR = ./src/
