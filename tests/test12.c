@@ -1,26 +1,41 @@
-#include <stdio.h>
+#include "../includes/minishell.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+int	mns_util_tabcpy(char **dest, char **src, char *last_line)
 {
-	char	*new_dest;
-
-	if (!dest || !src)
-		return (NULL);
-	new_dest = dest;
-	while (*src != '\0')
+	if (!src || !*src)
+		return (MNS_ERROR);
+	while (*src && *src != last_line)
 	{
-		*dest = *src;
+		*dest = ft_strdup(*src);
+		if (!*dest)
+			return (mns_free_tab(dest), MNS_ERROR);
 		dest++;
 		src++;
 	}
-	*dest = '\0';
-	return (new_dest);
+	*dest = NULL;
+	return (ALL_FINE);
 }
 
-
-int main()
+int mns_env_delete(t_data *data, char *to_delete)
 {
-	char *str;
+	char	**temp_envp;
+	char	**pointer;
+	int		i;
+	int		env_count;
 
-	printf ("%s\n", ft_strcpy(str, "hello"));
+	pointer = mns_env_find(data->env_copy, to_delete);
+	if (!pointer || !*pointer)
+		return (MNS_ERROR);
+	env_count = mns_util_tablen(data->env_copy);
+	temp_envp = malloc(env_count * sizeof(char *));
+	if (!temp_envp)
+		return (MNS_ERROR);
+	if (mns_util_tabcpy(temp_envp, data->env_copy, *pointer) == MNS_ERROR)
+		return (MNS_ERROR);
+	i = mns_util_tablen(temp_envp);
+	if (mns_util_tabcpy(temp_envp + i, pointer + 1, NULL) == MNS_ERROR)
+		return (MNS_ERROR);
+	mns_free_tab(data->env_copy);
+	data->env_copy = temp_envp;
+	return (ALL_FINE);
 }

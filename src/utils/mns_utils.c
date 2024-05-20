@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:37:49 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/20 12:35:15 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:47:43 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,20 @@ int	mns_util_tablen(char **tab)
 	return (i);
 }
 
-void	mns_util_free_tab(char **tab)
+int	mns_util_tabcpy(char **dest, char **src, char *last_line)
 {
 	int	i;
 
-	if (tab)
+	if (!src || !*src)
+		return (1);
+	i = 0;
+	while (src[i] && src[i] != last_line)
 	{
-		i = 0;
-		while (tab[i])
-			free(tab[i++]);
-		free(tab);
+		dest[i] = ft_strdup(src[i]);
+		if (!dest[i])
+			return (mns_free_tab(dest), MNS_ERROR);
+		i++;
 	}
+	dest[i] = NULL;
+	return (ALL_FINE);
 }

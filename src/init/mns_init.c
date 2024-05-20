@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/20 15:22:49 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:39:47 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	mns_init_shell(t_data *data)
 	shlvl = 1;
 	temp = mns_getenv(data->env_copy, "SHLVL");
 	if (temp)
-		shlvl += (ft_atoi(temp));
+		shlvl += ft_atoi(temp);
 	temp = ft_itoa(shlvl);
 	if (!temp)
 		return (perror("init_atoi"), MNS_ERROR);
@@ -98,7 +98,6 @@ int	mns_init_shell(t_data *data)
 
 int	mns_init_env(char **envp, t_data *data)
 {
-	int	i;
 	int	tab_len;
 
 	data->exit_status = 0;
@@ -108,14 +107,7 @@ int	mns_init_env(char **envp, t_data *data)
 	data->env_copy = malloc((tab_len + 1) * sizeof(char *));
 	if (!data->env_copy)
 		return (perror("malloc"), MNS_ERROR);
-	i = 0;
-	while (i < tab_len)
-	{
-		data->env_copy[i] = ft_strdup(envp[i]);
-		if (!data->env_copy[i])
-			return (free(data->env_copy), MNS_ERROR);
-		i++;
-	}
-	data->env_copy[tab_len] = NULL;
+	if (mns_util_tabcpy(data->env_copy, envp, NULL) == MNS_ERROR)
+		return (MNS_ERROR);
 	return (mns_init_shell(data));
 }

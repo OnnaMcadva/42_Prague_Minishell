@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/20 12:39:37 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:21:56 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ void	mns_free_tab(char **tab);
 int		mns_util_in_quote(unsigned char *in_quote, char c);
 int		mns_util_is_space(const char c);
 int		mns_util_tablen(char **tab);
-void	mns_util_free_tab(char **tab);
+int		mns_util_tabcpy(char **dest, char **src, char *last_line);
 
 
-void swap_strings(char **str1, char **str2);
+void 	swap_strings(char **str1, char **str2);
 char	*extract_env_key(char *str);
 char	*extract_value_from_env_string(char *str);
 void	print_export_variables(t_data *data);
-int	mns_com_export(t_data *data, char **argv);
-void swap_strings(char **str1, char **str2);
-void bubble_sort(char **array, int rows);
+int		mns_com_export(t_data *data, char **argv);
+void	swap_strings(char **str1, char **str2);
+void	bubble_sort(char **array, int rows);
 void    print_env_by_abc(char **env);
 
 #endif
