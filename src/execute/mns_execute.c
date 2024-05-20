@@ -112,6 +112,8 @@ int	mns_exec_process(t_parsed *parsed, t_data *data)
 			}
 		}
 		wait(&status);
+		if (parsed->type & HERE_DOC)
+			unlink (HEREDOC_FILENAME);
 		mns_exec_util_exit_status(data, status);
 	}
 	return (free(exec), ALL_FINE);

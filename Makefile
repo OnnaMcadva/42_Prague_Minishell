@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+         #
+#    By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 10:26:38 by mmakagon          #+#    #+#              #
-#    Updated: 2024/05/17 15:36:09 by mmakagon         ###   ########.fr        #
+#    Updated: 2024/05/18 17:42:57 by maxmakagono      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ FILES = minishell \
 		commands/mns_com_export \
 		commands/mns_com_pwd \
 		commands/mns_com_unset \
-		env/mns_env \
 		env/mns_env_utils \
+		env/mns_env \
 		execute/mns_exec_pipe \
 		execute/mns_exec_redirections \
 		execute/mns_exec_utils \
@@ -46,8 +46,8 @@ FILES = minishell \
 		parse/mns_parse_utils \
 		parse/mns_parse \
 		signal/mns_signal \
-		split/mns_split \
 		split/mns_split_utils \
+		split/mns_split \
 		utils/mns_utils \
 
 

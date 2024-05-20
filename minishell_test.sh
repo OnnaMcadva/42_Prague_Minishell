@@ -3,8 +3,8 @@ make
 
 echo "bash: SHLVL is $SHLVL"
 ./minishell << EOF
-echo "\$SHLVL"
-echo "\$SHELL"
+echo \$SHLVL
+echo \$SHELL
 echo abc
 echo
     echo    a       b  c
@@ -16,6 +16,8 @@ echo -nnnnnnnn 'do you still like my '
 
 echo "\$USER"
 echo '\$USER'
+echo \$SABARABADA
+echo \$
 mecho
 ls -l | grep drwx | wc -l
 < Makefile cat | grep rm > xfile
@@ -29,6 +31,10 @@ cat xfile
 ls
 rm xfile
 ls
+cat << END
+abc
+def
+END
 ls | |
 cat <
 ls -z
@@ -66,10 +72,10 @@ printf "\nbash: minishell exit code: $? \n\n"
 unset PATH
 ./minishell << EOF
 echo "Someone just unset the PATH in Bash, so system commands won't work"
-env > env_without_PATH2.txt
 printf "REALLY?\n"
 echo TOLD YOU!
-exit abc
+env > env_without_PATH2.txt
 EOF
 
 printf "\nbash: minishell exit code: $? \n\n"
+echo "********************************************************************************"

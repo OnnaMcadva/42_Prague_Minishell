@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:35 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 15:28:02 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/20 10:59:14 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	mns_check_redirs(t_data *data)
 	while (i < data->tkn_count)
 	{
 		if (((data->spltd_type[i] == IN_OPERATOR
+					|| data->spltd_type[i] == HERE_DOC
 					|| data->spltd_type[i] == OUT_OPERATOR
 					|| data->spltd_type[i] == OUT_APPEND_OPRTR)
 				&& data->spltd_type[i + 1] != WORD)
@@ -43,8 +44,8 @@ int	mns_check_redirs(t_data *data)
 
 int	mns_check_quotes(char *line)
 {
-	int		i;
-	char	in_quote;
+	int				i;
+	unsigned char	in_quote;
 
 	if (!line)
 		return (MNS_ERROR);

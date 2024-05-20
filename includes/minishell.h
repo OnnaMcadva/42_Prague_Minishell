@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/18 08:41:03 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/20 10:58:33 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		mns_com_unset(t_data *data, char **argv);
 void	mns_free_data(t_data *data);
 void	mns_free_tab(char **tab);
 
-int		mns_util_in_quote(char *in_quote, char c);
+int		mns_util_in_quote(unsigned char *in_quote, char c);
 int		mns_util_is_space(const char c);
 int		mns_util_tablen(char **tab);
 void	mns_util_free_tab(char **tab);

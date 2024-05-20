@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/19 12:25:59 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,22 @@ int	mns_init_shell(t_data *data)
 	if (temp)
 		shlvl += (ft_atoi(temp));
 	temp = ft_itoa(shlvl);
-	if (temp)
+	if (!temp)
+		return (perror("init_atoi"), MNS_ERROR);
+	else
 	{
 		if (mns_env_change(data, "SHLVL", temp) == MNS_ERROR)
 			return (free(temp), MNS_ERROR);
 		free(temp);
 	}
-	temp = mns_getenv(data->env_copy, "_");
+	temp = mns_getenv(data->env_copy, "PWD");
 	if (temp)
-		if (mns_env_change(data, "SHELL", temp) == MNS_ERROR)
-			return (MNS_ERROR);
+	{
+		temp = ft_strjoin(temp, "/minishell");
+		if (temp)
+			mns_env_change(data, "SHELL", temp);
+		free (temp);
+	}
 	return (ALL_FINE);
 }
 

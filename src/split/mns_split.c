@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:13:20 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	mns_tknlen(char *line, int *tkn_len)
 {
-	char	in_quote;
-	int		pos;
+	unsigned char	in_quote;
+	int				pos;
 
 	in_quote = 0;
 	pos = 0;
@@ -38,9 +38,9 @@ int	mns_tknlen(char *line, int *tkn_len)
 
 char	*mns_tkncpy(char *line, char *token, int tkn_len, int next_pos)
 {
-	int		i;
-	int		j;
-	char	in_quote;
+	int				i;
+	int				j;
+	unsigned char	in_quote;
 
 	in_quote = 0;
 	i = 0;
@@ -92,9 +92,9 @@ int	mns_split_process(t_data *data, char *line, int tokens)
 /* Counts a number of tokens to allocate */
 int	mns_count_tokens(char *line)
 {
-	int		i;
-	int		count;
-	char	in_quote;
+	int				i;
+	int				count;
+	unsigned char	in_quote;
 
 	i = 0;
 	count = 1;

@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:53:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/15 01:19:01 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/19 16:11:01 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@
 # define ENV                0x10000
 
 # define META_CHARACTERS " \t\n\'\'\\/$|<>"
+# define HEREDOC_FILENAME ".mns_temp_heredoc"
 
 #endif

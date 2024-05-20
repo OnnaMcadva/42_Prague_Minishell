@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_exec_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:29:45 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/13 15:30:49 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:56:59 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	mns_exec_redir_set(t_parsed *parsed, int *save_fileno)
 {
-	if (parsed->type & IN_OPERATOR)
+	if (parsed->type & IN_OPERATOR ||  parsed->type & HERE_DOC)
 		save_fileno[0] = mns_exec_util_file_dup(
 				parsed->redir_in,
 				O_RDONLY,

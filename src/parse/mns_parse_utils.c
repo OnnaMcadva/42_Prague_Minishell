@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_parse_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:23:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:57:52 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	mns_parse_util_count_args(char **splitted,
 	while (splitted[i] && spltd_type[i] != PIPE)
 	{
 		if (spltd_type[i] == IN_OPERATOR
+			|| spltd_type[i] == HERE_DOC
 			|| spltd_type[i] == OUT_OPERATOR
 			|| spltd_type[i] == OUT_APPEND_OPRTR)
 		{
@@ -61,6 +62,31 @@ int	mns_parse_utils_cmd_type(char *command)
 		return (GLOBAL_EXEC);
 }
 
+char	*mns_parse_util_heredoc(t_parsed *parsed, char *stop_word)
+{
+	char	*input;
+	int		fd;
+
+	(void)parsed;
+	fd = open(HEREDOC_FILENAME, O_CREAT | O_TRUNC | O_RDWR, 0777);
+    if (fd == MNS_ERROR)
+    {
+        perror("Failed to create temp file for heredoc");
+        return (NULL);
+    }
+	while (1)
+	{
+		input = readline("> ");
+		if (!input || ft_strcmp(input, stop_word) == 0)
+			break ;
+		ft_putendl_fd(input, fd);
+		free (input);
+	}
+	free (input);
+	close (fd);
+	return (HEREDOC_FILENAME);
+}
+
 void	mns_parse_util_assign_args(t_parsed *parsed, char **splitted, int *spltd_type)
 {
 	int	i;
@@ -68,10 +94,12 @@ void	mns_parse_util_assign_args(t_parsed *parsed, char **splitted, int *spltd_ty
 	i = 0;
 	while (splitted[i] && spltd_type[i] != PIPE)
 	{
-		if (spltd_type[i] == IN_OPERATOR || spltd_type[i] == OUT_OPERATOR || spltd_type[i] == OUT_APPEND_OPRTR)
+		if (spltd_type[i] == IN_OPERATOR || spltd_type[i] == HERE_DOC || spltd_type[i] == OUT_OPERATOR || spltd_type[i] == OUT_APPEND_OPRTR)
 		{
 			if (spltd_type[i] == IN_OPERATOR)
 				parsed->redir_in = splitted[i + 1];
+			else if (spltd_type[i] == HERE_DOC)
+				parsed->redir_in = mns_parse_util_heredoc(parsed, splitted[i + 1]);
 			else
 				parsed->redir_out = splitted[i + 1];
 			parsed->type |= spltd_type[i];

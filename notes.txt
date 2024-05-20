@@ -3,9 +3,11 @@ TODO:
 cat | cat | ls
 should output ls and wait for cat (tweak signals and change wait to waitpid)
 
-add << (heredoc)
+work on signals
 
 add PWD to the prompt
+
+parse special symbols without spaces (like <infile or command|command)
 
 ?? work on exit redirections
 
