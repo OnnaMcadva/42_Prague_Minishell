@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:13:47 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/18 09:32:58 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/20 15:19:03 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,61 +35,71 @@ char	**mns_env_find(char **envp, char *to_find)
 	return (envp + i);
 }
 
+
 int	mns_env_add(t_data *data, char *to_add)
 {
 	int		i;
-	char	**temp_envp;
+	int		tab_len;
+	char	**temp_env;
 
-	i = mns_util_tablen(data->env_copy);
-	if (i <= 0)
+	tab_len = mns_util_tablen(data->env_copy);
+	if (tab_len <= 0)
 		return (MNS_ERROR);
-	temp_envp = malloc((i + 2) * sizeof(char *));
-	if (!temp_envp)
+	temp_env = malloc((tab_len + 2) * sizeof(char *));
+	if (!temp_env)
 		return (perror("malloc"), MNS_ERROR);
-	temp_envp[i + 1] = NULL;
-	temp_envp[i] = ft_strdup(data->env_copy[i - 1]);
-	temp_envp[--i] = ft_strdup(to_add);
-	if (mns_env_util_malloc_check(temp_envp, i) == MNS_ERROR
-		|| mns_env_util_malloc_check(temp_envp, i + 1) == MNS_ERROR)
-		return (MNS_ERROR);
-	while (--i >= 0)
+	i = 0;
+	while (i < tab_len - 1)
 	{
-		temp_envp[i] = ft_strdup(data->env_copy[i]);
-		if (mns_env_util_malloc_check(temp_envp, i) == MNS_ERROR)
-			return (MNS_ERROR);
+		temp_env[i] = ft_strdup(data->env_copy[i]);
+		if (!temp_env[i])
+			return(mns_util_free_tab(temp_env), MNS_ERROR);
+		i++;
 	}
+	temp_env[i] = ft_strdup(to_add);
+	if (!temp_env[i])
+		return(mns_util_free_tab(temp_env), MNS_ERROR);
+	temp_env[i + 1] = ft_strdup(data->env_copy[tab_len - 1]);
+	if (!temp_env[i + 1])
+		return(mns_util_free_tab(temp_env), MNS_ERROR);
+	temp_env[i + 2 ] = NULL;
 	mns_util_free_tab(data->env_copy);
-	data->env_copy = temp_envp;
+	data->env_copy = temp_env;
 	return (ALL_FINE);
 }
 
-int	mns_env_delete(t_data *data, char *to_delete)
+int mns_env_delete(t_data *data, char *to_delete)
 {
 	char	**temp_envp;
 	char	**pointer;
 	int		i;
-	int		flag;
+	int		j;
+	int		env_count;
 
 	pointer = mns_env_find(data->env_copy, to_delete);
-	i = mns_util_tablen(data->env_copy);
-	temp_envp = malloc((i) * sizeof(char *));
-	if (!temp_envp || !*pointer || i <= 0)
-		return (free(temp_envp), MNS_ERROR);
-	temp_envp[i - 1] = NULL;
-	flag = 1;
-	while (--i >= 0)
+	if (!pointer || !*pointer)
+		return (MNS_ERROR);
+	env_count = mns_util_tablen(data->env_copy);
+	temp_envp = malloc(env_count * sizeof(char *));
+	if (!temp_envp)
+		return (MNS_ERROR);
+	i = 0;
+	j = 0;
+	while (i < env_count)
 	{
-		if (data->env_copy[i] == *pointer)
+		if (data->env_copy[i] != *pointer)
 		{
-			flag = 0;
-			i--;
+			temp_envp[j] = ft_strdup(data->env_copy[i]);
+			if (!temp_envp[j])
+				return (mns_util_free_tab(temp_envp), MNS_ERROR);
+			j++;
 		}
-		temp_envp[i - flag] = ft_strdup(data->env_copy[i]);
-		if (mns_env_util_malloc_check(temp_envp, i - flag) == MNS_ERROR)
-			return (MNS_ERROR);
+		i++;
 	}
+	temp_envp[j] = NULL;
 	mns_util_free_tab(data->env_copy);
-	return (data->env_copy = temp_envp, ALL_FINE);
+	data->env_copy = temp_envp;
+	return (ALL_FINE);
 }
 
 int	mns_env_change(t_data *data, char *key, char *value)

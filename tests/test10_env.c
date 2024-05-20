@@ -71,6 +71,7 @@ int	mns_init_env_copy(char **envp, t_data *data)
 	return (ALL_FINE);
 }
 
+#if 0
 int	mns_env_add(t_data *data, char *to_add)
 {
 	int		i;
@@ -96,6 +97,39 @@ int	mns_env_add(t_data *data, char *to_add)
 	}
 	mns_util_free_tab(data->env_copy);
 	data->env_copy = temp_envp;
+	return (ALL_FINE);
+}
+#endif
+
+int	mns_env_add(t_data *data, char *to_add)
+{
+	int		i;
+	int		tab_len;
+	char	**temp_env;
+
+	tab_len = mns_util_tablen(data->env_copy);
+	if (tab_len <= 0)
+		return (MNS_ERROR);
+	temp_env = malloc((tab_len + 2) * sizeof(char *));
+	if (!temp_env)
+		return (perror("malloc"), MNS_ERROR);
+	i = 0;
+	while (i < tab_len - 1)
+	{
+		temp_env[i] = ft_strdup(data->env_copy[i]);
+		if (!temp_env[i])
+			return(mns_util_free_tab(temp_env), MNS_ERROR);
+		i++;
+	}
+	temp_env[i] = ft_strdup(to_add);
+	if (!temp_env[i])
+		return(mns_util_free_tab(temp_env), MNS_ERROR);
+	temp_env[i + 1] = ft_strdup(data->env_copy[i]);
+	if (!temp_env[i + 1])
+		return(mns_util_free_tab(temp_env), MNS_ERROR);
+	temp_env[i + 2 ] = NULL;
+	mns_util_free_tab(data->env_copy);
+	data->env_copy = temp_env;
 	return (ALL_FINE);
 }
 

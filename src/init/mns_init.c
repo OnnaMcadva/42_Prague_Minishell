@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/19 12:25:59 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/20 15:22:49 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,23 +99,23 @@ int	mns_init_shell(t_data *data)
 int	mns_init_env(char **envp, t_data *data)
 {
 	int	i;
+	int	tab_len;
 
-	i = 0;
 	data->exit_status = 0;
-	if (envp)
-		while (envp[i])
-			i++;
-	if (!i)
+	tab_len = mns_util_tablen(envp);
+	if (tab_len <= 0)
 		return (MNS_ERROR);
-	data->env_copy = malloc((i + 1) * sizeof(char *));
+	data->env_copy = malloc((tab_len + 1) * sizeof(char *));
 	if (!data->env_copy)
 		return (perror("malloc"), MNS_ERROR);
-	data->env_copy[i] = NULL;
-	while (--i >= 0)
+	i = 0;
+	while (i < tab_len)
 	{
 		data->env_copy[i] = ft_strdup(envp[i]);
-		if (mns_env_util_malloc_check(data->env_copy, i) == MNS_ERROR)
-			return (MNS_ERROR);
+		if (!data->env_copy[i])
+			return (free(data->env_copy), MNS_ERROR);
+		i++;
 	}
+	data->env_copy[tab_len] = NULL;
 	return (mns_init_shell(data));
 }
