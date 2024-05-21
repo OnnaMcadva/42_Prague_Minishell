@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 10:12:30 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 10:24:38 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,15 @@ char	*mns_init_prompt(t_data *data)
 	char	dir[PATH_MAX];
 	char	*temp;
 	char	*home;
-	int		home_len;
+	int		len;
 
 	temp = getcwd(dir, PATH_MAX);
 	if (!temp)
 		return (NULL);
 	home = mns_getenv(data->env_copy, "HOME");
-	if (!home)
-		return (NULL);
-	home_len = ft_strlen(home);
-	if (ft_strncmp(home, dir, home_len) == 0 && ft_strcmp(home, dir) != 0)
-		temp = ft_strjoin("~", dir + home_len);
+	len = ft_strlen(home);
+	if (home && ft_strncmp(home, dir, len) == 0 && ft_strcmp(home, dir) != 0)
+		temp = ft_strjoin("~", dir + len);
 	else
 		temp = ft_strdup(dir);
 	if (!temp)
