@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   mns_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:35 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 10:10:00 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 12:15:51 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	mns_check_redirs_err(t_data *data)
+{
+	ft_putstr_fd("minishell: ", STDOUT_FILENO);
+	ft_putstr_fd("syntax error near unexpected token ", STDOUT_FILENO);
+	if (data->spltd_type[data->tkn_count - 1] == PIPE)
+		ft_putendl_fd("`|\'", STDOUT_FILENO);
+	else
+		ft_putendl_fd("`newline\'", STDOUT_FILENO);
+	data->exit_status = 2;
+}
 
 int	mns_check_redirs(t_data *data)
 {
@@ -30,15 +41,7 @@ int	mns_check_redirs(t_data *data)
 		i++;
 	}
 	if (i < data->tkn_count)
-	{
-		ft_putstr_fd("minishell: ", STDOUT_FILENO);
-		ft_putstr_fd("syntax error near unexpected token ", STDOUT_FILENO);
-		if (data->spltd_type[data->tkn_count - 1] == PIPE)
-			ft_putendl_fd("`|\'", STDOUT_FILENO);
-		else
-			ft_putendl_fd("`newline\'", STDOUT_FILENO);
-		return (data->exit_status = 2, MNS_ERROR);
-	}
+		return (mns_check_redirs_err(data), MNS_ERROR);
 	return (ALL_FINE);
 }
 
@@ -56,7 +59,8 @@ int	mns_check_quotes(char *line)
 	if (in_quote != 0)
 	{
 		ft_putendl_fd("From the subject: ", STDOUT_FILENO);
-		ft_putendl_fd("Your shell should not interpret unclosed quotes", STDOUT_FILENO);
+		ft_putendl_fd("Your shell should not interpret unclosed quotes",
+			STDOUT_FILENO);
 		return (MNS_ERROR);
 	}
 	return (ALL_FINE);

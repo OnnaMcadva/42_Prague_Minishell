@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:25:24 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/21 09:25:45 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 13:01:08 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	mns_init_shell(t_data *data)
 int	mns_init_env(char **envp, t_data *data)
 {
 	int	tab_len;
-	
+
 	data->exit_status = 0;
 	tab_len = mns_util_tablen(envp);
 	if (tab_len <= 0)

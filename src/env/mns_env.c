@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:13:47 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/21 08:18:34 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 13:02:00 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 
 char	**mns_env_find(char **envp, char *to_find)
 {
-	int		i;
-	int		len;
-	char	*tf_equals;
+	int	len;
 
 	if (!envp || !*envp || !to_find || !*to_find)
 		return (NULL);
-	tf_equals = ft_strjoin(to_find, "=");
-	len = ft_strlen(tf_equals);
+	len = ft_strlen(to_find);
 	if (len <= 0)
-		return (free(tf_equals), NULL);
-	i = 0;
-	while (envp[i])
+		return (NULL);
+	while (*envp)
 	{
-		if (ft_strncmp(envp[i], tf_equals, len) == 0)
-			break ;
-		i++;
+		if (ft_strncmp(*envp, to_find, len) == 0)
+			if (!(*envp)[len] || (*envp)[len] == '=')
+				return (envp);
+		envp++;
 	}
-	free(tf_equals);
-	return (envp + i);
+	return (NULL);
 }
 
 int	mns_env_add(t_data *data, char *to_add)
@@ -58,7 +54,7 @@ int	mns_env_add(t_data *data, char *to_add)
 		return (mns_free_tab(temp_env), MNS_ERROR);
 	pointer = data->env_copy + tab_len - 1;
 	if (mns_util_tabcpy(temp_env + tab_len, pointer, NULL) == MNS_ERROR)
-			return (MNS_ERROR);
+		return (MNS_ERROR);
 	mns_free_tab(data->env_copy);
 	data->env_copy = temp_env;
 	return (ALL_FINE);

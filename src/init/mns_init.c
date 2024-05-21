@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 10:24:38 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 11:49:14 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*mns_init_prompt(t_data *data)
 		return (NULL);
 	home = mns_getenv(data->env_copy, "HOME");
 	len = ft_strlen(home);
-	if (home && ft_strncmp(home, dir, len) == 0 && ft_strcmp(home, dir) != 0)
+	if (home && ft_strncmp(home, dir, len) == 0)
 		temp = ft_strjoin("~", dir + len);
 	else
 		temp = ft_strdup(dir);

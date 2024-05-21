@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:49:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/18 09:36:11 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 12:11:48 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

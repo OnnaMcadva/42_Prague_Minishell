@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 09:32:41 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 13:02:17 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	mns_main_loop(t_data *data)
 	{
 		if (data->prompt)
 			data->line = readline(data->prompt);
-		else 
+		else
 			data->line = readline(PROMPT_FULL);
 		if (!data->line)
 			mns_com_exit(data, NULL);

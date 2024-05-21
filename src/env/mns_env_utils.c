@@ -3,12 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   mns_env_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 01:14:48 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/21 01:04:24 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 13:01:23 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-

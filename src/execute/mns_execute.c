@@ -18,22 +18,20 @@
 	if not - writes an error and returns NULL. */
 char	*mns_exec_path(char **paths, char *cmd)
 {
-	int		i;
 	char	*possible_path;
 	char	*possible_exec;
 
 	if (paths)
 	{
-		i = 0;
-		while (paths[i])
+		while (*paths)
 		{
-			possible_path = ft_strjoin(paths[i], "/");
+			possible_path = ft_strjoin(*paths, "/");
 			possible_exec = ft_strjoin(possible_path, cmd);
 			free(possible_path);
 			if (access(possible_exec, F_OK | X_OK) == 0)
 				return (possible_exec);
 			free(possible_exec);
-			i++;
+			paths++;
 		}
 	}
 	ft_putstr_fd("minishell: command not found: ", STDOUT_FILENO);
@@ -58,8 +56,8 @@ void	mns_exec_builtin_call(t_data *data,
 		ret = mns_com_env(data->env_copy);
 	else if (parsed->type & COM_ECHO)
 		ret = mns_com_echo(parsed->args);
-	else if (parsed->type & COM_EXPORT) // Добавляем обработку команды export
-        ret = mns_com_export(data, parsed->args);
+	else if (parsed->type & COM_EXPORT)
+		ret = mns_com_export(data, parsed->args);
 	else if (parsed->type & COM_UNSET)
 		ret = mns_com_unset(data, parsed->args);
 	else if (parsed->type & COM_EXIT)
@@ -109,7 +107,7 @@ int	mns_exec_process(t_parsed *parsed, t_data *data)
 			mns_exec_redir_set(parsed, save_stdfileno);
 			if (execve(exec, parsed->args, data->env_copy) == MNS_ERROR)
 			{
-				ft_putendl_fd("minishell: permission denied: ", STDOUT_FILENO);
+				ft_putendl_fd("minishell: permission denied: ", STDERR_FILENO);
 				mns_exec_redir_restore(save_stdfileno);
 				exit (EXIT_FAILURE);
 			}
