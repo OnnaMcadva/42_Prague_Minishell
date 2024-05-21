@@ -49,6 +49,8 @@ pwd
 cd -
 pwd
 export > export.txt
+unset HOME
+cd
 unset OLDPWD PATH
 cd -
 ls
