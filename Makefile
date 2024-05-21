@@ -6,7 +6,7 @@
 #    By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 10:26:38 by mmakagon          #+#    #+#              #
-#    Updated: 2024/05/21 09:26:21 by maxmakagono      ###   ########.fr        #
+#    Updated: 2024/05/21 18:12:55 by maxmakagono      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,10 @@ FILES = minishell \
 		commands/mns_com_echo \
 		commands/mns_com_env \
 		commands/mns_com_exit \
+		commands/mns_com_export_utils \
 		commands/mns_com_export \
 		commands/mns_com_pwd \
 		commands/mns_com_unset \
-		env/mns_env_utils \
 		env/mns_env \
 		execute/mns_exec_pipe \
 		execute/mns_exec_redirections \
@@ -50,7 +50,6 @@ FILES = minishell \
 		split/mns_split_utils \
 		split/mns_split \
 		utils/mns_utils \
-		env/mns_env_common \
 
 
 SRCS_DIR = ./src/

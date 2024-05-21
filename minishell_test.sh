@@ -40,6 +40,16 @@ cat <
 ls -z
 echo "\$?"
 
+export > export.txt
+export ABC=def
+export lalala
+export GHI=
+export AB?C=doesnt_work
+unset AB
+unset ABCD
+env > env_with_ABC.txt
+
+cd blabla
 cd tests/
 pwd
 cd ..

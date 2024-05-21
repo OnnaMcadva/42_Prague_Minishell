@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mns_env_common.c                                   :+:      :+:    :+:   */
+/*   mns_com_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 12:40:33 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 15:05:53 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:31:10 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void bubble_sort(char **array, int rows)
 			int j = 0;
 			while (j < rows - i - 1)
 			{
-				if (strcmp(array[j], array[j + 1]) > 0)
+				if (ft_strcmp(array[j], array[j + 1]) > 0)
 					swap_strings(&array[j], &array[j + 1]);
 				j++;
 			}
@@ -49,11 +49,11 @@ char **copy_env_copy(char **env)
     len = mns_util_tablen(env);
     copy = (char **)malloc((len + 1) * sizeof(char *));
     if (!copy)
-        return (NULL);
+        return (perror("malloc"), NULL);
     i = 0;
     while (i < len)
 	{
-        copy[i] = strdup(env[i]);
+        copy[i] = ft_strdup(env[i]);
         if (!copy[i])
 		{
             while (i > 0)
@@ -64,7 +64,7 @@ char **copy_env_copy(char **env)
         i++;
     }
     copy[len] = NULL;
-    return copy;
+    return (copy);
 }
 
 int     is_look_like_key(char *args, t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 15:02:57 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:58:38 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int		mns_com_env(char **envp);
 int		mns_com_echo(char **args);
 void	mns_com_exit(t_data *data, char **args);
 int		mns_com_unset(t_data *data, char **argv);
+int		mns_com_export(t_data *data, char **argv);
+char	*extract_env_key(char *str);
+void	bubble_sort(char **array, int rows);
+char	**copy_env_copy(char **env);
+int     is_look_like_key(char *args, t_data *data);
 
 void	mns_free_data(t_data *data);
 void	mns_free_tab(char **tab);
@@ -74,18 +79,5 @@ int		mns_util_in_quote(unsigned char *in_quote, char c);
 int		mns_util_is_space(const char c);
 int		mns_util_tablen(char **tab);
 int		mns_util_tabcpy(char **dest, char **src, char *last_line);
-
-
-void 	swap_strings(char **str1, char **str2);
-char	*extract_env_key(char *str);
-char	*extract_value_from_env_string(char *str);
-// void	print_export_variables(t_data *data);
-int		mns_com_export(t_data *data, char **argv);
-void	swap_strings(char **str1, char **str2);
-void	bubble_sort(char **array, int rows);
-void	print_and_free_sorted_env(char **env);
-char	**copy_env_copy(char **env);
-void	print_sorted_env(char **env_copy);
-int     is_look_like_key(char *args, t_data *data);
 
 #endif
