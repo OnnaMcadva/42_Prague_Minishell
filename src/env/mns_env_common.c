@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mns_env_common.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 12:40:33 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/20 21:44:38 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 15:05:53 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* Прототип функции обмена строк */
 void swap_strings(char **str1, char **str2)
 {
     char *temp = *str1;
@@ -20,7 +19,6 @@ void swap_strings(char **str1, char **str2)
     *str2 = temp;
 }
 
-/* Функция пузырьковой сортировки */
 void bubble_sort(char **array, int rows)
 {
     int i;
@@ -33,7 +31,7 @@ void bubble_sort(char **array, int rows)
 			int j = 0;
 			while (j < rows - i - 1)
 			{
-				if (ft_strcmp(array[j], array[j + 1]) > 0)
+				if (strcmp(array[j], array[j + 1]) > 0)
 					swap_strings(&array[j], &array[j + 1]);
 				j++;
 			}
@@ -42,25 +40,50 @@ void bubble_sort(char **array, int rows)
 	}
 }
 
-/* Функция печатает переменные окружения по алфавиту */
-void    print_env_by_abc(char **env)
+char **copy_env_copy(char **env)
 {
-	char	*tmp_key;
-	char	*tmp_value;
-	int	i;
+    int i;
+	int len;
+    char **copy;
 
-	i = -1;
-    bubble_sort(env, mns_util_tablen(env));
-	while (env[++i])
+    len = mns_util_tablen(env);
+    copy = (char **)malloc((len + 1) * sizeof(char *));
+    if (!copy)
+        return (NULL);
+    i = 0;
+    while (i < len)
 	{
-		tmp_key = extract_env_key(env[i]);
-		tmp_value = extract_value_from_env_string(env[i]);
-		write(1, "declare -x ", 12);
-		write(1, tmp_key, ft_strlen(tmp_key));
-		write(1, "=\"", 3);
-		write(1, tmp_value, ft_strlen(tmp_value));
-		ft_putendl_fd("\"", STDOUT_FILENO);
-		free(tmp_key);
-		free(tmp_value);
-	}
+        copy[i] = strdup(env[i]);
+        if (!copy[i])
+		{
+            while (i > 0)
+                free(copy[--i]);
+            free(copy);
+            return (NULL);
+        }
+        i++;
+    }
+    copy[len] = NULL;
+    return copy;
+}
+
+int     is_look_like_key(char *args, t_data *data)
+{
+    int i;
+    char *tmp_key;
+
+    if (!ft_isalpha(args[0]) && args[0] != '_')
+        return (0);
+    i = 1;
+    while (args[i] && args[i] != '=')
+    {
+        if (!ft_isalnum(args[i]) && args[i] != '_')
+            return (0);
+        i++;
+    }
+    tmp_key = extract_env_key(args);
+    mns_env_delete(data, tmp_key);
+    mns_env_add(data, args);
+    free(tmp_key);
+    return (1);
 }

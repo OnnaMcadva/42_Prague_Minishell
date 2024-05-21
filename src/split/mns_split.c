@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mns_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:49:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/20 11:13:20 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 14:55:40 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 
 int	mns_tknlen(char *line, int *tkn_len)
 {
@@ -89,29 +90,26 @@ int	mns_split_process(t_data *data, char *line, int tokens)
 	return (ALL_FINE);
 }
 
-/* Counts a number of tokens to allocate */
 int	mns_count_tokens(char *line)
 {
-	int				i;
 	int				count;
 	unsigned char	in_quote;
 
-	i = 0;
 	count = 1;
 	in_quote = 0;
-	while (line[i])
+	while (*line)
 	{
-		mns_util_in_quote(&in_quote, line[i]);
-		if (!in_quote && mns_util_is_space(line[i]))
+		mns_util_in_quote(&in_quote, *line);
+		if (!in_quote && mns_util_is_space(*line))
 		{
-			while (mns_util_is_space(line[i]))
-				i++;
-			if (!line[i])
+			while (mns_util_is_space(*line))
+				line++;
+			if (!*line)
 				break ;
 			count++;
 			continue ;
 		}
-		i++;
+		line++;
 	}
 	return (count);
 }

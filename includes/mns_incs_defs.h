@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_incs_defs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:53:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 09:32:31 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 14:55:15 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 // # include <unistd.h>
 // # include <termios.h>
 // # include <term.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -57,7 +58,7 @@
 # define PIPE               0x08000
 # define ENV                0x10000
 
-# define META_CHARACTERS " \t\n\'\'\\/$|<>"
+# define META_CHARACTERS "$|<>"
 # define HEREDOC_FILENAME ".mns_temp_heredoc"
 
 #endif

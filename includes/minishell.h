@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 01:10:57 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 15:02:57 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,13 @@ int		mns_util_tabcpy(char **dest, char **src, char *last_line);
 void 	swap_strings(char **str1, char **str2);
 char	*extract_env_key(char *str);
 char	*extract_value_from_env_string(char *str);
-void	print_export_variables(t_data *data);
+// void	print_export_variables(t_data *data);
 int		mns_com_export(t_data *data, char **argv);
 void	swap_strings(char **str1, char **str2);
 void	bubble_sort(char **array, int rows);
-void    print_env_by_abc(char **env);
+void	print_and_free_sorted_env(char **env);
+char	**copy_env_copy(char **env);
+void	print_sorted_env(char **env_copy);
+int     is_look_like_key(char *args, t_data *data);
 
 #endif
