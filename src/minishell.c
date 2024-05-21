@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 20:41:57 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 09:32:41 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	mns_main_loop(t_data *data)
 {
 	while (mns_init_data(data) != MNS_ERROR)
 	{
-		data->line = readline(PROMPT);
+		if (data->prompt)
+			data->line = readline(data->prompt);
+		else 
+			data->line = readline(PROMPT_FULL);
 		if (!data->line)
 			mns_com_exit(data, NULL);
 		if (*data->line)

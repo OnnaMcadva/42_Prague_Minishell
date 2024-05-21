@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:37:47 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/20 21:39:47 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 10:12:30 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,35 @@ int	mns_init_paths(t_data *data)
 	return (ALL_FINE);
 }
 
+char	*mns_init_prompt(t_data *data)
+{
+	char	dir[PATH_MAX];
+	char	*temp;
+	char	*home;
+	int		home_len;
+
+	temp = getcwd(dir, PATH_MAX);
+	if (!temp)
+		return (NULL);
+	home = mns_getenv(data->env_copy, "HOME");
+	if (!home)
+		return (NULL);
+	home_len = ft_strlen(home);
+	if (ft_strncmp(home, dir, home_len) == 0 && ft_strcmp(home, dir) != 0)
+		temp = ft_strjoin("~", dir + home_len);
+	else
+		temp = ft_strdup(dir);
+	if (!temp)
+		return (NULL);
+	home = ft_strjoin(PROMPT_START, temp);
+	free (temp);
+	if (!home)
+		return (NULL);
+	temp = ft_strjoin(home, PROMPT_END);
+	free (home);
+	return (temp);
+}
+
 int	mns_init_data(t_data *data)
 {
 	data->line = NULL;
@@ -64,50 +93,6 @@ int	mns_init_data(t_data *data)
 	data->pipes_count = 0;
 	if (mns_init_paths(data) == MNS_ERROR)
 		return (MNS_ERROR);
+	data->prompt = mns_init_prompt(data);
 	return (ALL_FINE);
-}
-
-int	mns_init_shell(t_data *data)
-{
-	int		shlvl;
-	char	*temp;
-
-	shlvl = 1;
-	temp = mns_getenv(data->env_copy, "SHLVL");
-	if (temp)
-		shlvl += ft_atoi(temp);
-	temp = ft_itoa(shlvl);
-	if (!temp)
-		return (perror("init_atoi"), MNS_ERROR);
-	else
-	{
-		if (mns_env_change(data, "SHLVL", temp) == MNS_ERROR)
-			return (free(temp), MNS_ERROR);
-		free(temp);
-	}
-	temp = mns_getenv(data->env_copy, "PWD");
-	if (temp)
-	{
-		temp = ft_strjoin(temp, "/minishell");
-		if (temp)
-			mns_env_change(data, "SHELL", temp);
-		free (temp);
-	}
-	return (ALL_FINE);
-}
-
-int	mns_init_env(char **envp, t_data *data)
-{
-	int	tab_len;
-
-	data->exit_status = 0;
-	tab_len = mns_util_tablen(envp);
-	if (tab_len <= 0)
-		return (MNS_ERROR);
-	data->env_copy = malloc((tab_len + 1) * sizeof(char *));
-	if (!data->env_copy)
-		return (perror("malloc"), MNS_ERROR);
-	if (mns_util_tabcpy(data->env_copy, envp, NULL) == MNS_ERROR)
-		return (MNS_ERROR);
-	return (mns_init_shell(data));
 }

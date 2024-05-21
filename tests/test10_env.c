@@ -226,8 +226,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	data.env_copy = NULL;
 	if (mns_init_env(envp, &data) == MNS_ERROR)
-		return (13);
+		return (MNS_ERROR);
 	mns_env_add(&data, "AHOJ=nazdar");
 	mns_env_add(&data, "ABC=def");
 	mns_com_env(data.env_copy);

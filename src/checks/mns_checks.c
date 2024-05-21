@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:35 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/20 10:59:14 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 10:10:00 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ int	mns_check_quotes(char *line)
 		mns_util_in_quote(&in_quote, line[i++]);
 	if (in_quote != 0)
 	{
-		ft_putendl_fd
-			("From subject:\nYour shell should not interpret unclosed quotes",
-			STDOUT_FILENO);
+		ft_putendl_fd("From the subject: ", STDOUT_FILENO);
+		ft_putendl_fd("Your shell should not interpret unclosed quotes", STDOUT_FILENO);
 		return (MNS_ERROR);
 	}
 	return (ALL_FINE);

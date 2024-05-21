@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_structs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:40 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:23:35 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_data
 {
 	char		**env_copy;
 	char		**paths;
+	char		*prompt;
 	char		*line;
 	char		**splitted;
 	int			*spltd_type;

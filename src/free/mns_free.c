@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 09:42:14 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 15:26:17 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:45:12 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void	mns_free_data(t_data *data)
 	free (data->spltd_type);
 	mns_free_tab(data->paths);
 	free (data->line);
+	free (data->prompt);
 }

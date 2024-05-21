@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+         #
+#    By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 10:26:38 by mmakagon          #+#    #+#              #
-#    Updated: 2024/05/20 12:41:42 by mmakagon         ###   ########.fr        #
+#    Updated: 2024/05/21 09:26:21 by maxmakagono      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ FILES = minishell \
 		execute/mns_execute \
 		free/mns_free \
 		init/mns_init \
+		init/mns_init_env \
 		parse/mns_parse_utils \
 		parse/mns_parse \
 		signal/mns_signal \

@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:53:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/19 16:11:01 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 09:32:31 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@
 # include <sys/ioctl.h>
 # include <sys/param.h>
 
-# define PROMPT "\x1B[36m[minishell] \x1B[35m[ =) ] \x1B[36m~> \x1B[0m"
-// the lenght is 42 =)
+# define PROMPT_FULL "\x1B[36m[minishell] \x1B[35m[ =) ] \x1B[36m~> \x1B[0m"
+# define PROMPT_START "\x1B[36m[minishell] \x1B[35m"
+# define PROMPT_END " \x1B[36m~> \x1B[0m"
+
 
 # define MNS_ERROR          -1
 # define CHILD              0

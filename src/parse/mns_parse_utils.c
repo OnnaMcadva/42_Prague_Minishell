@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:23:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/19 15:57:52 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 08:02:01 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*mns_parse_util_heredoc(t_parsed *parsed, char *stop_word)
 	fd = open(HEREDOC_FILENAME, O_CREAT | O_TRUNC | O_RDWR, 0777);
     if (fd == MNS_ERROR)
     {
-        perror("Failed to create temp file for heredoc");
+        perror("heredoc");
         return (NULL);
     }
 	while (1)

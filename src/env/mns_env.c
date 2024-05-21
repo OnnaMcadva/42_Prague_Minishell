@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:13:47 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/20 23:55:43 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/21 08:18:34 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ char	**mns_env_find(char **envp, char *to_find)
 	int		len;
 	char	*tf_equals;
 
-	if (!envp || !to_find || !*to_find)
+	if (!envp || !*envp || !to_find || !*to_find)
 		return (NULL);
 	tf_equals = ft_strjoin(to_find, "=");
 	len = ft_strlen(tf_equals);
-	if (!len)
+	if (len <= 0)
 		return (free(tf_equals), NULL);
 	i = 0;
 	while (envp[i])
