@@ -34,7 +34,6 @@
 # define PROMPT_START "\x1B[36m[minishell] \x1B[35m"
 # define PROMPT_END " \x1B[36m~> \x1B[0m"
 
-
 # define MNS_ERROR          -1
 # define CHILD              0
 # define ALL_FINE           42
