@@ -69,11 +69,11 @@ char	*mns_parse_util_heredoc(t_parsed *parsed, char *stop_word)
 
 	(void)parsed;
 	fd = open(HEREDOC_FILENAME, O_CREAT | O_TRUNC | O_RDWR, 0777);
-    if (fd == MNS_ERROR)
-    {
-        perror("heredoc");
-        return (NULL);
-    }
+	if (fd == MNS_ERROR)
+	{
+		perror("heredoc");
+		return (NULL);
+	}
 	while (1)
 	{
 		input = readline("> ");
