@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-
 int	mns_tknlen(char *line, int *tkn_len)
 {
 	unsigned char	in_quote;
