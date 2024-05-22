@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:44 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/22 23:13:37 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/22 23:16:09 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void	mns_sigint_exec(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
-        signal(SIGINT, mns_sigint_exec);
+        signal(SIGINT, mns_sigint_handler);
     }
 }
