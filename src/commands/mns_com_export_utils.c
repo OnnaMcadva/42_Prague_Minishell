@@ -12,23 +12,26 @@
 
 #include "../../includes/minishell.h"
 
-void swap_strings(char **str1, char **str2)
+void	swap_strings(char **str1, char **str2)
 {
-    char *temp = *str1;
-    *str1 = *str2;
-    *str2 = temp;
+	char	*temp;
+
+	temp = *str1;
+	*str1 = *str2;
+	*str2 = temp;
 }
 
-void bubble_sort(char **array, int rows)
+void	bubble_sort(char **array, int rows)
 {
-    int i;
+	int	i;
+	int	j;
 
-    i = 0;
+	i = 0;
 	if (array)
 	{
 		while (i < rows - 1)
 		{
-			int j = 0;
+			j = 0;
 			while (j < rows - i - 1)
 			{
 				if (ft_strcmp(array[j], array[j + 1]) > 0)
@@ -40,50 +43,50 @@ void bubble_sort(char **array, int rows)
 	}
 }
 
-char **copy_env_copy(char **env)
+char	**copy_env_copy(char **env)
 {
-    int i;
-	int len;
-    char **copy;
+	int		i;
+	int		len;
+	char	**copy;
 
-    len = mns_util_tablen(env);
-    copy = (char **)malloc((len + 1) * sizeof(char *));
-    if (!copy)
-        return (perror("malloc"), NULL);
-    i = 0;
-    while (i < len)
+	len = mns_util_tablen(env);
+	copy = (char **)malloc((len + 1) * sizeof(char *));
+	if (!copy)
+		return (perror("malloc"), NULL);
+	i = 0;
+	while (i < len)
 	{
-        copy[i] = ft_strdup(env[i]);
-        if (!copy[i])
+		copy[i] = ft_strdup(env[i]);
+		if (!copy[i])
 		{
-            while (i > 0)
-                free(copy[--i]);
-            free(copy);
-            return (NULL);
-        }
-        i++;
-    }
-    copy[len] = NULL;
-    return (copy);
+			while (i > 0)
+				free(copy[--i]);
+			free(copy);
+			return (NULL);
+		}
+		i++;
+	}
+	copy[len] = NULL;
+	return (copy);
 }
 
-int     is_look_like_key(char *args, t_data *data)
+int	is_look_like_key(char *args, t_data *data)
 {
-    int i;
-    char *tmp_key;
+	int		i;
+	char	*tmp_key;
 
-    if (!ft_isalpha(args[0]) && args[0] != '_')
-        return (0);
-    i = 1;
-    while (args[i] && args[i] != '=')
-    {
-        if (!ft_isalnum(args[i]) && args[i] != '_')
-            return (0);
-        i++;
-    }
-    tmp_key = extract_env_key(args);
-    mns_env_delete(data, tmp_key);
-    mns_env_add(data, args);
-    free(tmp_key);
-    return (1);
+	if (!ft_isalpha(args[0]) && args[0] != '_')
+		return (0);
+	i = 1;
+	while (args[i] && args[i] != '=')
+	{
+		if (!ft_isalnum(args[i]) && args[i] != '_')
+			return (0);
+		i++;
+	}
+	tmp_key = extract_env_key(args);
+	mns_env_delete(data, tmp_key);
+	mns_env_add(data, args);
+	free(tmp_key);
+	return (1);
 }
