@@ -98,12 +98,13 @@ int	mns_exec_process(t_parsed *parsed, t_data *data)
 	exec = mns_exec_setup(data, parsed, save_stdfileno);
 	if (exec)
 	{
+		signal (SIGINT, mns_sigint_exec);
 		pid = fork();
 		if (pid == MNS_ERROR)
 			perror("fork");
 		else if (pid == CHILD)
 		{
-			signal (SIGINT, mns_sigint_child);
+			signal (SIGINT, mns_sigint_exec);
 			mns_exec_redir_set(parsed, save_stdfileno);
 			if (execve(exec, parsed->args, data->env_copy) == MNS_ERROR)
 			{

@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:44 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 01:10:41 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/22 23:13:37 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ void	mns_sigint_handler(int sig)
 	rl_redisplay();
 }
 
-void	mns_sigint_child(int sig)
+void	mns_sigint_exec(int sig)
 {
-	(void)sig;
-	exit (1);
+	if (sig == SIGINT)
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+        signal(SIGINT, mns_sigint_exec);
+    }
 }

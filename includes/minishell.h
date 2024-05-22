@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 19:58:38 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/22 23:12:40 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "./mns_enums.h"
 
 void	mns_sigint_handler(int sig);
-void	mns_sigint_child(int sig);
+void	mns_sigint_exec(int sig);
 
 int		mns_init_env(char **envp, t_data *data);
 int		mns_init_data(t_data *data);
