@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 13:02:17 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/22 23:20:34 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	mns_main_loop(t_data *data)
 {
 	while (mns_init_data(data) != MNS_ERROR)
 	{
+		signal(SIGINT, mns_sigint_handler);
+		signal(SIGQUIT, SIG_IGN);
 		if (data->prompt)
 			data->line = readline(data->prompt);
 		else
@@ -44,7 +46,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (mns_init_env(envp, &data) == MNS_ERROR)
 		return (1);
-	signal(SIGINT, mns_sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
 	mns_main_loop(&data);
 }
