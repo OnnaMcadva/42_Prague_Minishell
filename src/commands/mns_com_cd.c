@@ -42,7 +42,7 @@ int	mns_com_cd_set_pwd(t_data *data, char *arg)
 int	mns_com_cd_home(t_data *data)
 {
 	char	*ptr;
-	
+
 	ptr = mns_getenv(data->env_copy, "HOME");
 	if (!ptr)
 	{
