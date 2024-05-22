@@ -42,12 +42,13 @@ char	*extract_value_from_env_string(char *str)
 	return (ft_strdup(&str[i]));
 }
 
-void print_sorted_env(char **env_copy)
+void	print_sorted_env(char **env_copy)
 {
-	char *tmp_key;
-	char *tmp_value;
-	int i = 0;
+	char	*tmp_key;
+	char	*tmp_value;
+	int		i;
 
+	i = 0;
 	bubble_sort(env_copy, mns_util_tablen(env_copy));
 	while (env_copy[i])
 	{
@@ -64,19 +65,18 @@ void print_sorted_env(char **env_copy)
 	}
 }
 
-void print_and_free_sorted_env(char **env)
+void	print_and_free_sorted_env(char **env)
 {
-	char **env_copy_copy;
-	int i;
+	char	**env_copy_copy;
+	int		i;
 
 	env_copy_copy = copy_env_copy(env);
 	if (!env_copy_copy)
 	{
-		ft_putendl_fd("Error: Unable to copy environment variables", STDERR_FILENO);
+		ft_putendl_fd("Error: Unable to copy env. variables", STDERR_FILENO);
 		return ;
 	}
 	print_sorted_env(env_copy_copy);
-
 	i = 0;
 	while (env_copy_copy[i])
 	{
@@ -88,7 +88,7 @@ void print_and_free_sorted_env(char **env)
 
 int	mns_com_export(t_data *data, char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (!argv[i])
