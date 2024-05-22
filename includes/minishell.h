@@ -70,7 +70,7 @@ int		mns_com_export(t_data *data, char **argv);
 char	*extract_env_key(char *str);
 void	bubble_sort(char **array, int rows);
 char	**copy_env_copy(char **env);
-int     is_look_like_key(char *args, t_data *data);
+int		is_look_like_key(char *args, t_data *data);
 
 void	mns_free_data(t_data *data);
 void	mns_free_tab(char **tab);
