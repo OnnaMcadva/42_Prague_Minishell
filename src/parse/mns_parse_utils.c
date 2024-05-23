@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:23:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/23 01:36:23 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 07:10:43 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,10 @@ char	*mns_parse_util_heredoc(t_parsed *parsed, char *stop_word)
 	int		fd;
 
 	(void)parsed;
+	signal(SIGINT, SIG_IGN);
 	fd = open(HEREDOC_FILENAME, O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (fd == MNS_ERROR)
-	{
-		perror("heredoc");
-		return (NULL);
-	}
+		return (perror("heredoc"), NULL);
 	while (1)
 	{
 		input = readline("> ");

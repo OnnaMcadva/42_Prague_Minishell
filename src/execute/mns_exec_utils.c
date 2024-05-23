@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:28:40 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/23 02:27:51 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 07:20:26 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ int	mns_exec_util_file_dup(char *filename, int open_flag, int std_fileno)
 	return (saved_std_fileno);
 }
 
-void	mns_exec_util_exit(t_data *data, t_parsed * parsed, int status)
+void	mns_exec_util_exit(t_data *data, t_parsed *parsed)
 {
+	int status;
+	
+	if (data->pipes_count <= 0)
+		wait (&status);
 	if (parsed->type & HERE_DOC)
 			unlink (HEREDOC_FILENAME);
 	if (WIFEXITED(status))

@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:04:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/23 02:06:35 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 07:34:25 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,27 @@ int	mns_exec_pipe(t_data *data, int count)
 }
 #endif
 
+void	mns_exec_pipe_exit(t_data *data, int count)
+{
+	int status;
+	int	i;
+	
+	i = 0;
+	while (i <= count)
+	{
+		waitpid(data->parsed[i].pid, &status, 0);
+		i += 2;
+	}
+	if (WIFEXITED(status))
+		data->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		data->exit_status = WTERMSIG(status);
+		if (data->exit_status != SIGTRAP + 128)
+			data->exit_status += 128;
+	}
+}
+
 int	mns_exec_pipe(t_data *data, int count)
 {
 	int		saved_out;
@@ -63,5 +84,6 @@ int	mns_exec_pipe(t_data *data, int count)
 	saved_in = mns_exec_util_pipe_dup(&data->parsed[count - 1], STDIN_FILENO);
 	mns_exec_process(&data->parsed[count], data);
 	mns_exec_util_restore_stdfileno(saved_in, STDIN_FILENO);
+	mns_exec_pipe_exit(data, count);
 	return (ALL_FINE);
 }

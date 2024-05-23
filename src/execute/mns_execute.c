@@ -91,18 +91,16 @@ char	*mns_exec_setup(t_data *data,
 int	mns_exec_process(t_parsed *parsed, t_data *data)
 {
 	char	*exec;
-	pid_t	pid;
 	int		save_stdfileno[2];
-	int		status;
 
 	exec = mns_exec_setup(data, parsed, save_stdfileno);
 	if (exec)
 	{
 		signal (SIGINT, mns_sigint_exec);
-		pid = fork();
-		if (pid == MNS_ERROR)
+		parsed->pid = fork();
+		if (parsed->pid == MNS_ERROR)
 			perror("fork");
-		else if (pid == CHILD)
+		else if (parsed->pid == CHILD)
 		{
 			if (mns_exec_redir_set(parsed, save_stdfileno) == ALL_FINE)
 				if (execve(exec, parsed->args, data->env_copy) == MNS_ERROR)
@@ -113,8 +111,7 @@ int	mns_exec_process(t_parsed *parsed, t_data *data)
 				exit (EXIT_FAILURE);
 			}
 		}
-		wait(&status);
-		mns_exec_util_exit(data, parsed, status);
+		mns_exec_util_exit(data, parsed);
 	}
 	return (free(exec), ALL_FINE);
 }

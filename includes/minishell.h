@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/23 02:27:29 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 06:54:38 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		mns_exec_util_pipe_dup(t_parsed *parsed, int std_fileno);
 int		mns_exec_util_file_dup(char *filename, int open_flag, int std_fileno);
 int		mns_exec_util_restore_stdfileno(int saved_fileno, int std_fileno);
 char	*mns_exec_util_file_to_str(char *filename);
-void	mns_exec_util_exit(t_data *data, t_parsed *parsed, int status);
+void	mns_exec_util_exit(t_data *data, t_parsed *parsed);
 
 int		mns_com_pwd(void);
 int		mns_com_cd(t_data *data, char *arg);

@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:40 by maxmakagono       #+#    #+#             */
-/*   Updated: 2024/05/21 09:23:35 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 07:21:25 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_parsed
 	char	**args;
 	char	*redir_in;
 	char	*redir_out;
+	pid_t	pid;
 	int		fd[2];
 	int		type;
 
