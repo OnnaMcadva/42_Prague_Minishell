@@ -10,6 +10,22 @@
 #                                                                              #
 # **************************************************************************** #
 
+# Colors
+DEF_COLOR	= \033[0;39m
+GRAY		= \033[0;90m
+RED		= \033[0;91m
+GREEN		= \033[0;92m
+BLUE		= \033[0;94m
+MAGENTA		= \033[0;95m
+CYAN		= \033[0;96m
+WHITE		= \033[0;97m
+ORANGE		= \033[38;5;220m
+GREEN_BR	= \033[38;5;118m
+BLUE_BR		= \033[38;5;219m
+YELLOW_BR	= \033[38;5;227m
+PINK_BR		= \033[38;5;206m
+PINK_POKOJ	= \033[38;5;160m
+
 NAME = minishell
 UNAME = $(shell uname -s)
 CC = @clang
@@ -67,7 +83,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT_LIB) $(OBJS) ./includes/minishell.h
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFLAGS)
-	@echo "minishell compiled"
+	@echo "$(BLUE_BR)minishell compiled$(DEF_COLOR)"
 
 $(LIBFT_LIB):
 	@make -s -C $(LIBFT_DIR)
@@ -77,8 +93,8 @@ clean:
 
 fclean:
 	$(RM) $(NAME) $(OBJS_DIR) env_with* export.txt
-	@echo "ALL minishell binaries cleaned!"
-	@make fclean -C $(LIBFT_DIR)
+	@echo "$(YELLOW_BR)ALL minishell binaries cleaned!$(DEF_COLOR)"
+	@make -s fclean -C $(LIBFT_DIR)
 
 re: clean all
 
