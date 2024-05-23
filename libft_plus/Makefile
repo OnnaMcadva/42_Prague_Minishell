@@ -10,6 +10,22 @@
 #                                                                              #
 # **************************************************************************** #
 
+# Colors
+DEF_COLOR	= \033[0;39m
+GRAY		= \033[0;90m
+RED		= \033[0;91m
+GREEN		= \033[0;92m
+BLUE		= \033[0;94m
+MAGENTA		= \033[0;95m
+CYAN		= \033[0;96m
+WHITE		= \033[0;97m
+ORANGE		= \033[38;5;220m
+GREEN_BR	= \033[38;5;118m
+BLUE_BR		= \033[38;5;219m
+YELLOW_BR	= \033[38;5;227m
+PINK_BR		= \033[38;5;206m
+PINK_POKOJ	= \033[38;5;160m
+
 NAME = libft_plus.a
 CC = @clang
 CFLAGS = -Wall -Wextra -Werror
@@ -79,10 +95,10 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 	@mkdir -p obj
 	$(CC) -c $(CFLAGS) -o $@ $<
-	@printf "*"
+	@printf "$(YELLOW_BR)*$(DEF_COLOR)"
 
 all: $(NAME)
-	@echo "\nLIBFT done!"
+	@echo "$(GREEN_BR)\nLIBFT done!$(DEF_COLOR)"
 
 $(NAME): libft.h $(OBJS)
 	$(AR) $(NAME) $(OBJS)
@@ -90,13 +106,13 @@ $(NAME): libft.h $(OBJS)
 
 clean:
 	$(RM) $(OBJS) $(OBJS_DIR)
-	@echo "LIBFT objects cleaned!"
+	@echo "$(CYAN)LIBFT objects cleaned!$(DEF_COLOR)"
 
 fclean: clean
 	$(RM) $(NAME)
-	@echo "AND THE LIBFT LIBRARY FILE!!!"
+	@echo "$(MAGENTA)AND THE LIBFT LIBRARY FILE!!!$(DEF_COLOR)"
 
 re: clean all
-	@echo "Dej pokoj!"
+	@echo "$(PINK_POKOJ)Dej pokoj!$(DEF_COLOR)"
 
 .PHONY: all clean fclean re
