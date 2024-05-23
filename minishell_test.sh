@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "********************************************************************************"
 make
 
 echo "bash: SHLVL is $SHLVL"
@@ -20,6 +21,7 @@ echo \$SABARABADA
 echo \$
 mecho
 ls -l | grep drwx | wc -l
+cat < nofile
 < Makefile cat | grep rm > xfile
 cat xfile
 

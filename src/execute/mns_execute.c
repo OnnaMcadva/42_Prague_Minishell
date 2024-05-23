@@ -104,19 +104,17 @@ int	mns_exec_process(t_parsed *parsed, t_data *data)
 			perror("fork");
 		else if (pid == CHILD)
 		{
-			signal (SIGINT, mns_sigint_exec);
-			mns_exec_redir_set(parsed, save_stdfileno);
-			if (execve(exec, parsed->args, data->env_copy) == MNS_ERROR)
+			if (mns_exec_redir_set(parsed, save_stdfileno) == ALL_FINE)
+				if (execve(exec, parsed->args, data->env_copy) == MNS_ERROR)
+					ft_putendl_fd("minishell: permission denied: ", STDERR_FILENO);
 			{
-				ft_putendl_fd("minishell: permission denied: ", STDERR_FILENO);
 				mns_exec_redir_restore(save_stdfileno);
+				mns_free_data(data);
 				exit (EXIT_FAILURE);
 			}
 		}
 		wait(&status);
-		if (parsed->type & HERE_DOC)
-			unlink (HEREDOC_FILENAME);
-		mns_exec_util_exit_status(data, status);
+		mns_exec_util_exit(data, parsed, status);
 	}
 	return (free(exec), ALL_FINE);
 }

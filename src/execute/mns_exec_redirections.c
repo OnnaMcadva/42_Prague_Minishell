@@ -3,32 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   mns_exec_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:29:45 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 12:16:50 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/23 02:17:53 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	mns_exec_redir_set(t_parsed *parsed, int *save_fileno)
+int	mns_exec_redir_set(t_parsed *parsed, int *save_fileno)
 {
 	if (parsed->type & IN_OPERATOR || parsed->type & HERE_DOC)
+	{
 		save_fileno[0] = mns_exec_util_file_dup(
 				parsed->redir_in,
 				O_RDONLY,
 				STDIN_FILENO);
+		if (save_fileno[0] == MNS_ERROR)
+			return (MNS_ERROR);
+	}
 	if (parsed->type & OUT_OPERATOR)
+	{
 		save_fileno[1] = mns_exec_util_file_dup(
 				parsed->redir_out,
 				O_CREAT | O_WRONLY | O_TRUNC,
 				STDOUT_FILENO);
+		if (save_fileno[1] == MNS_ERROR)
+			return (MNS_ERROR);
+	}
 	else if (parsed->type & OUT_APPEND_OPRTR)
+	{
 		save_fileno[1] = mns_exec_util_file_dup(
 				parsed->redir_out,
 				O_CREAT | O_WRONLY | O_APPEND,
 				STDOUT_FILENO);
+		if (save_fileno[1] == MNS_ERROR)
+			return (MNS_ERROR);
+	}
+	return (ALL_FINE);
 }
 
 void	mns_exec_redir_restore(int *std_fileno)

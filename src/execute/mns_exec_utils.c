@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_exec_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:28:40 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 13:05:14 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/23 02:27:51 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ int	mns_exec_util_file_dup(char *filename, int open_flag, int std_fileno)
 	return (saved_std_fileno);
 }
 
-void	mns_exec_util_exit_status(t_data *data, int status)
+void	mns_exec_util_exit(t_data *data, t_parsed * parsed, int status)
 {
+	if (parsed->type & HERE_DOC)
+			unlink (HEREDOC_FILENAME);
 	if (WIFEXITED(status))
 		data->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
