@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:42 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 18:03:54 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 15:01:23 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,22 @@ int	mns_com_cd_home(t_data *data)
 	return (chdir(ptr));
 }
 
+int	mns_com_cd_last(char **envp)
+{
+	char	*old_pwd;
+	int		ret;
+
+	old_pwd = mns_getenv(envp, "OLDPWD");
+	if (!old_pwd)
+		return (-2);
+	ret = chdir(old_pwd);
+	mns_com_pwd();
+	return (ret);
+}
+
 int	mns_com_cd(t_data *data, char *arg)
 {
-	int	ret;
+	int		ret;
 
 	ret = ALL_FINE;
 	if (!arg || ft_strcmp(arg, "~") == 0)
@@ -65,9 +78,8 @@ int	mns_com_cd(t_data *data, char *arg)
 	}
 	else if (ft_strcmp(arg, "-") == 0)
 	{
-		if (mns_getenv(data->env_copy, "OLDPWD"))
-			ret = chdir(mns_getenv(data->env_copy, "OLDPWD"));
-		else
+		ret = mns_com_cd_last(data->env_copy);
+		if (ret == -2)
 			ft_putendl_fd("minishell: cd: OLDPWD not set", STDERR_FILENO);
 	}
 	else
