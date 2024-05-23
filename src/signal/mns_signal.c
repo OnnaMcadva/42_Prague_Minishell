@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:46:44 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/22 23:19:22 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 13:32:54 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ void	mns_sigint_handler(int sig)
 void	mns_sigint_exec(int sig)
 {
 	if (sig == SIGINT)
-	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
-    }
+}
+
+void	mns_sigquit_exec(int sig)
+{
+	if (sig == SIGQUIT)
+	{
+		ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
+	}
 }

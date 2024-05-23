@@ -68,6 +68,8 @@ char	*mns_exec_setup(t_data *data,
 {
 	char	*exec;
 
+	signal(SIGINT, mns_sigint_exec);
+	signal(SIGQUIT, mns_sigquit_exec);
 	exec = NULL;
 	save_stdfileno[0] = -1;
 	save_stdfileno[1] = -1;
@@ -92,7 +94,6 @@ int	mns_exec_process(t_parsed *parsed, t_data *data)
 	exec = mns_exec_setup(data, parsed, save_stdfileno);
 	if (exec)
 	{
-		signal (SIGINT, mns_sigint_exec);
 		parsed->pid = fork();
 		if (parsed->pid == MNS_ERROR)
 			perror("fork");
@@ -100,7 +101,8 @@ int	mns_exec_process(t_parsed *parsed, t_data *data)
 		{
 			if (mns_exec_redir_set(parsed, save_stdfileno) == ALL_FINE)
 				if (execve(exec, parsed->args, data->env_copy) == MNS_ERROR)
-					ft_putendl_fd("minishell: permission denied: ", STDERR_FILENO);
+					ft_putendl_fd("minishell: permission denied: ",
+						STDERR_FILENO);
 			{
 				mns_exec_redir_restore(save_stdfileno);
 				mns_free_data(data);

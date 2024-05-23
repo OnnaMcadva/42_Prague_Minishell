@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:37:49 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 12:16:31 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:39:16 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,14 @@ int	mns_util_tabcpy(char **dest, char **src, char *last_line)
 	}
 	dest[i] = NULL;
 	return (ALL_FINE);
+}
+
+int	mns_util_isredir(int type)
+{
+	if (type == IN_OPERATOR
+		|| type == HERE_DOC
+		|| type == OUT_OPERATOR
+		|| type == OUT_APPEND_OPRTR)
+		return (1);
+	return (0);
 }

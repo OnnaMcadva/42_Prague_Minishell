@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_parse_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:23:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/23 07:10:43 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 13:50:25 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,29 @@ char	*mns_parse_util_heredoc(t_parsed *parsed, char *stop_word)
 	return (HEREDOC_FILENAME);
 }
 
-void	mns_parse_util_assign_args(t_parsed *parsed, char **splitted, int *spltd_type)
+void	mns_parse_redirs(t_parsed *parsed, char **splitted, int *spltd_type)
+{
+	if (*spltd_type == IN_OPERATOR)
+		parsed->redir_in = *(splitted + 1);
+	else if (*spltd_type == HERE_DOC)
+		parsed->redir_in = mns_parse_util_heredoc(parsed, *(splitted + 1));
+	else
+		parsed->redir_out = *(splitted + 1);
+	parsed->type |= *spltd_type;
+}
+
+void	mns_parse_util_assign_args(t_parsed *parsed,
+					char **splitted,
+					int *spltd_type)
 {
 	int	i;
 
 	i = 0;
 	while (splitted[i] && spltd_type[i] != PIPE)
 	{
-		if (spltd_type[i] == IN_OPERATOR || spltd_type[i] == HERE_DOC || spltd_type[i] == OUT_OPERATOR || spltd_type[i] == OUT_APPEND_OPRTR)
+		if (mns_util_isredir(spltd_type[i]))
 		{
-			if (spltd_type[i] == IN_OPERATOR)
-				parsed->redir_in = splitted[i + 1];
-			else if (spltd_type[i] == HERE_DOC)
-				parsed->redir_in = mns_parse_util_heredoc(parsed, splitted[i + 1]);
-			else
-				parsed->redir_out = splitted[i + 1];
-			parsed->type |= spltd_type[i];
+			mns_parse_redirs(parsed, splitted + i, spltd_type + i);
 			splitted += 2;
 			spltd_type += 2;
 			continue ;
