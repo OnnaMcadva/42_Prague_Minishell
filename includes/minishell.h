@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/23 06:54:38 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 13:39:31 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 void	mns_sigint_handler(int sig);
 void	mns_sigint_exec(int sig);
+void	mns_sigquit_exec(int sig);
 
 int		mns_init_env(char **envp, t_data *data);
 int		mns_init_data(t_data *data);
@@ -79,5 +80,6 @@ int		mns_util_in_quote(unsigned char *in_quote, char c);
 int		mns_util_is_space(const char c);
 int		mns_util_tablen(char **tab);
 int		mns_util_tabcpy(char **dest, char **src, char *last_line);
+int		mns_util_isredir(int type);
 
 #endif
