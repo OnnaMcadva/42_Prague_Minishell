@@ -44,26 +44,22 @@ void	mns_exec_builtin_call(t_data *data,
 								t_parsed *parsed,
 								int *save_stdfileno)
 {
-	int	ret;
-
-	ret = 0;
 	mns_exec_redir_set(parsed, save_stdfileno);
 	if (parsed->type & COM_PWD)
-		ret = mns_com_pwd();
+		data->exit_status = mns_com_pwd();
 	else if (parsed->type & COM_CD)
-		ret = mns_com_cd(data, parsed->args[1]);
+		data->exit_status = mns_com_cd(data, parsed->args[1]);
 	else if (parsed->type & COM_ENV)
-		ret = mns_com_env(data->env_copy);
+		data->exit_status = mns_com_env(data->env_copy);
 	else if (parsed->type & COM_ECHO)
-		ret = mns_com_echo(parsed->args);
+		data->exit_status = mns_com_echo(parsed->args);
 	else if (parsed->type & COM_EXPORT)
-		ret = mns_com_export(data, parsed->args);
+		data->exit_status = mns_com_export(data, parsed->args);
 	else if (parsed->type & COM_UNSET)
-		ret = mns_com_unset(data, parsed->args);
+		data->exit_status = mns_com_unset(data, parsed->args);
 	else if (parsed->type & COM_EXIT)
 		mns_com_exit(data, parsed->args);
 	mns_exec_redir_restore(save_stdfileno);
-	data->exit_status = ret;
 }
 
 char	*mns_exec_setup(t_data *data,

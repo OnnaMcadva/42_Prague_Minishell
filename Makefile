@@ -6,7 +6,7 @@
 #    By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 10:26:38 by mmakagon          #+#    #+#              #
-#    Updated: 2024/05/21 18:12:55 by maxmakagono      ###   ########.fr        #
+#    Updated: 2024/05/23 10:13:57 by maxmakagono      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ clean:
 	$(RM) $(NAME)
 
 fclean:
-	$(RM) $(NAME) $(OBJS_DIR)
+	$(RM) $(NAME) $(OBJS_DIR) env_with* export.txt
 	@echo "ALL minishell binaries cleaned!"
 	@make fclean -C $(LIBFT_DIR)
 
