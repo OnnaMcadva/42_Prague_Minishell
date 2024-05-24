@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:14:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/24 02:23:06 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/24 06:30:41 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,31 @@ void	mns_split_util_read_env(t_data *data, char **splitted_i)
 	}
 }
 
-void	mns_copy_line_process(const char *input, char *output, size_t len)
+void	mns_copy_line_process(const char *input, char *output)
 {
-	size_t	j;
-	size_t	i;
+	unsigned char in_quote;
 
-	j = 0;
-	i = 0;
-	while (i < len)
+	in_quote = 0;
+	while (*input)
 	{
-		if (input[i] == '|')
+		mns_util_in_quote(&in_quote, *input);
+		if (!in_quote && *input == '|')
 		{
-			output[j++] = ' ';
-			output[j++] = input[i++];
-			output[j++] = ' ';
+			*(output++) = ' ';
+			*(output++) = *(input++);
+			*(output++) = ' ';
 		}
-		else if (input[i] == '<' || input[i] == '>')
+		else if (!in_quote && (*input == '<' || *input == '>'))
 		{
-			output[j++] = ' ';
-			output[j++] = input[i];
-			if (input[i + 1] == input[i])
-				output[j++] = input[++i];
-			output[j++] = ' ';
-			i++;
+			*(output++) = ' ';
+			*(output++) = *input;
+			if (*(input + 1) == *input)
+				*(output++) = *(++input);
+			*(output++) = ' ';
+			input++;
 		}
 		else
-			output[j++] = input[i++];
+			*(output++) = *(input++);
 	}
 }
 
@@ -99,7 +98,7 @@ int	mns_split_util_copy_line(char **input)
 	output = (char *)ft_calloc(new_len + 1, sizeof(char));
 	if (output == NULL)
 		return (perror("malloc"), MNS_ERROR);
-	mns_copy_line_process(*input, output, len);
+	mns_copy_line_process(*input, output);
 	free(*input);
 	*input = output;
 	return (ALL_FINE);
