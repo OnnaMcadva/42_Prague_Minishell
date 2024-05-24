@@ -1,12 +1,5 @@
 TODO:
 
-cat | cat | ls
-should output ls and wait for cat (tweak signals and change wait to waitpid)
-
-work on signals
-
-parse special symbols without spaces (like <infile or command|command)
-
 ?? work on exit redirections
 
 ?? Parse \" as a DOUBLE_QUOTE symbol
