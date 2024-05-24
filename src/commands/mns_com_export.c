@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:49:02 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 19:35:18 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/24 06:54:15 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,26 @@ void	print_and_free_sorted_env(char **env)
 int	mns_com_export(t_data *data, char **argv)
 {
 	int	i;
+	int	ret;
 
 	i = 1;
 	if (!argv[i])
-		return (print_and_free_sorted_env(data->env_copy), ALL_FINE);
+		return (print_and_free_sorted_env(data->env_copy), EXIT_SUCCESS);
 	else
 	{
 		while (argv[i])
 		{
 			if (is_look_like_key(argv[i], data))
-				data->exit_status = 0;
+				ret = EXIT_SUCCESS;
 			else
 			{
 				ft_putstr_fd("export: ", STDERR_FILENO);
 				ft_putstr_fd(argv[i], STDERR_FILENO);
 				ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
+				ret = EXIT_FAILURE;
 			}
 			i++;
 		}
 	}
-	return (ALL_FINE);
+	return (ret);
 }

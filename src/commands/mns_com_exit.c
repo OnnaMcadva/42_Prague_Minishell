@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_com_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:48:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/17 14:54:04 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/24 07:02:28 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	mns_com_exit_numeric_check(char *arg_one, int *code)
 	if (arg_one)
 	{
 		i = 0;
+		if (arg_one[0] == '-' || arg_one[0] == '+')
+			i++;
 		while (arg_one[i])
 		{
 			if (!ft_isdigit(arg_one[i]))
@@ -26,7 +28,7 @@ int	mns_com_exit_numeric_check(char *arg_one, int *code)
 				ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 				ft_putstr_fd(arg_one, STDERR_FILENO);
 				ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-				*code = 2;
+				*code = 255;
 				return (MNS_ERROR);
 			}
 			i++;
