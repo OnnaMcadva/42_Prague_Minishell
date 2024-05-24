@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:45:09 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/24 01:20:20 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/24 10:12:50 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		mns_check_redirs(t_data *data);
 int		mns_split(t_data *data, char *line);
 int		mns_split_util_type(char *line);
 void	mns_split_util_read_env(t_data *data, char **splitted_i);
-int		mns_split_util_copy_line(char **line);
+char	*mns_split_util_copy_line(char *input);
 
 int		mns_env_add(t_data *data, char *to_add);
 int		mns_env_delete(t_data *data, char *to_delete);

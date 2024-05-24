@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:56:17 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/24 01:21:19 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/24 10:15:19 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,18 @@ int	mns_parse_process(t_data *data, t_parsed *parsed)
 	or if there's an unclosed quote. */
 int	mns_parse(t_data *data)
 {
-	mns_split_util_copy_line(&data->line);
-	data->tkn_count = mns_split(data, data->line);
+	char	*line_copy;
+
+	line_copy = mns_split_util_copy_line(data->line);
+	if (!line_copy)
+		return (MNS_ERROR);
+	data->tkn_count = mns_split(data, line_copy);
 	if (mns_check_quotes(data->line) == MNS_ERROR
 		|| !data->tkn_count
 		|| mns_check_redirs(data) == MNS_ERROR)
 		return (MNS_ERROR);
 	if (mns_parse_init(data) == MNS_ERROR)
 		return (MNS_ERROR);
+	free(line_copy);
 	return (mns_parse_process(data, data->parsed));
 }

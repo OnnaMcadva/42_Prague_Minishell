@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:14:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/24 06:30:41 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/24 10:16:31 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,17 @@ void	mns_copy_line_process(const char *input, char *output)
 	}
 }
 
-int	mns_split_util_copy_line(char **input)
+char	*mns_split_util_copy_line(char *input)
 {
 	char	*output;
 	size_t	len;
 	size_t	new_len;
 
-	len = ft_strlen(*input);
-	new_len = len * 2;
+	len = ft_strlen(input);
+	new_len = len * 3;
 	output = (char *)ft_calloc(new_len + 1, sizeof(char));
 	if (output == NULL)
-		return (perror("malloc"), MNS_ERROR);
-	mns_copy_line_process(*input, output);
-	free(*input);
-	*input = output;
-	return (ALL_FINE);
+		return (perror("malloc"), NULL);
+	mns_copy_line_process(input, output);
+	return (output);
 }
