@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mns_incs_defs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:53:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/21 14:55:15 by mmakagon         ###   ########.fr       */
+/*   Updated: 2024/05/24 01:25:54 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 # include <sys/ioctl.h>
 # include <sys/param.h>
 
-# define PROMPT_FULL "\x1B[36m[minishell] \x1B[35m[ =) ] \x1B[36m~> \x1B[0m"
-# define PROMPT_START "\x1B[36m[minishell] \x1B[35m"
-# define PROMPT_END " \x1B[36m~> \x1B[0m"
+# define PROMPT_SIMPLE "\001\e[36m\002[minishell] [ =) ] ~>\001\e[0m\002 "
+# define PROMPT_START "\001\e[36m\002[minishell] \001\e[35m\002"
+# define PROMPT_END " \001\e[36m\002~>\001\e[0m\002 "
 
 # define MNS_ERROR          -1
 # define CHILD              0
@@ -57,7 +57,7 @@
 # define PIPE               0x08000
 # define ENV                0x10000
 
-# define META_CHARACTERS "$|<>"
+# define META_CHARACTERS "|<>"
 # define HEREDOC_FILENAME ".mns_temp_heredoc"
 
 #endif

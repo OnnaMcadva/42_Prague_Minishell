@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:14:05 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/20 10:59:35 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/24 02:23:06 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,50 @@ void	mns_split_util_read_env(t_data *data, char **splitted_i)
 		else
 			*splitted_i = ft_strdup("\0");
 	}
+}
+
+void	mns_copy_line_process(const char *input, char *output, size_t len)
+{
+	size_t	j;
+	size_t	i;
+
+	j = 0;
+	i = 0;
+	while (i < len)
+	{
+		if (input[i] == '|')
+		{
+			output[j++] = ' ';
+			output[j++] = input[i++];
+			output[j++] = ' ';
+		}
+		else if (input[i] == '<' || input[i] == '>')
+		{
+			output[j++] = ' ';
+			output[j++] = input[i];
+			if (input[i + 1] == input[i])
+				output[j++] = input[++i];
+			output[j++] = ' ';
+			i++;
+		}
+		else
+			output[j++] = input[i++];
+	}
+}
+
+int	mns_split_util_copy_line(char **input)
+{
+	char	*output;
+	size_t	len;
+	size_t	new_len;
+
+	len = ft_strlen(*input);
+	new_len = len * 2;
+	output = (char *)ft_calloc(new_len + 1, sizeof(char));
+	if (output == NULL)
+		return (perror("malloc"), MNS_ERROR);
+	mns_copy_line_process(*input, output, len);
+	free(*input);
+	*input = output;
+	return (ALL_FINE);
 }

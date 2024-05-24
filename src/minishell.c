@@ -6,7 +6,7 @@
 /*   By: maxmakagonov <maxmakagonov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 13:44:58 by mmakagon          #+#    #+#             */
-/*   Updated: 2024/05/22 23:20:34 by maxmakagono      ###   ########.fr       */
+/*   Updated: 2024/05/23 23:52:47 by maxmakagono      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	mns_main_loop(t_data *data)
 		if (data->prompt)
 			data->line = readline(data->prompt);
 		else
-			data->line = readline(PROMPT_FULL);
+			data->line = readline(PROMPT_SIMPLE);
 		if (!data->line)
 			mns_com_exit(data, NULL);
 		if (*data->line)
